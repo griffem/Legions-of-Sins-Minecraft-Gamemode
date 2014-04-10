@@ -23,7 +23,7 @@ abstract class WorldLib {
 		}
 	}
 
-	public static void CreateAsh(Block center, Random r, MainWorldListener lwl) {
+	public static void CreateAsh(Block center, Random r) {
 		World world = center.getWorld();
 
 		for (int y = center.getY(); y < center.getY() + 6; y++) {
@@ -31,26 +31,26 @@ abstract class WorldLib {
 			if ((b.getBiome() == Biome.OCEAN) || (b.getBiome() == Biome.DEEP_OCEAN))
 				if ((y == center.getY()) || (y == center.getY() + 5)) {
 					if (r.nextInt(3) == 0)
-						lwl.gen.AddToQueue(b.getLocation(), Material.COAL_BLOCK);
+						b.setType(Material.COAL_BLOCK);
 				} else if ((y == center.getY() + 1) || (y == center.getY() + 4)) {
-					if (r.nextInt(2) == 0)
-						lwl.gen.AddToQueue(b.getLocation(), Material.COAL_BLOCK);
+					if (r.nextBoolean())
+                        b.setType(Material.COAL_BLOCK);
 				} else
-					lwl.gen.AddToQueue(b.getLocation(), Material.COAL_BLOCK);
+                    b.setType(Material.COAL_BLOCK);
 		}
 	}
 
-	public static void createTower(Location centerBot, double radius, double height, Random r, WorldGeneration gen, ArrayList<Material> walls, ArrayList<Material> floors, ArrayList<Material> afterfloors, ArrayList<Integer> levels) {
+	public static void createTower(Location centerBot, double radius, double height, Random r, ArrayList<Material> walls, ArrayList<Material> floors, ArrayList<Material> afterfloors, ArrayList<Integer> levels) {
 		Location main = centerBot.clone();
 		for (int y = centerBot.getBlockY(); y < centerBot.getBlockY() + height; y++) {
 			main.setY(y);
 			for (Location l : getCylHorizontal(main, radius))
 				if (Math.pow(l.getX() - main.getX(), 2.0D) + Math.pow(l.getZ() - main.getZ(), 2.0D) >= Math.pow(radius, 2.0D) - radius) {
-					gen.AddToQueue(l.clone(), walls.get(r.nextInt(walls.size())));
+                    l.getBlock().setType(walls.get(r.nextInt(walls.size())));
 				} else if (isFloor(l, centerBot, levels)) {
-					gen.AddToQueue(l.clone(), floors.get(r.nextInt(floors.size())));
+                    l.getBlock().setType(floors.get(r.nextInt(floors.size())));
 				} else if (isAfterFloor(l, centerBot, levels))
-					gen.AddToQueue(l.clone(), afterfloors.get(r.nextInt(afterfloors.size())));
+                    l.getBlock().setType(afterfloors.get(r.nextInt(afterfloors.size())));
 		}
 	}
 
@@ -72,7 +72,7 @@ abstract class WorldLib {
 		return false;
 	}
 
-	public static void createCyl(Location centerBot, double radius, Random r, WorldGeneration gen) {
+	public static void createCyl(Location centerBot, double radius, Random r) {
 		Location main = centerBot.clone();
 
 		for (int y = centerBot.getBlockY(); y < centerBot.getBlockY() + 150.0D; y++) {
@@ -82,9 +82,9 @@ abstract class WorldLib {
 				if (b.getType() != Material.AIR)
 					if (Math.pow(l.getX() - main.getX(), 2.0D) + Math.pow(l.getZ() - main.getZ(), 2.0D) == Math.pow(radius, 2.0D)) {
 						if (r.nextBoolean())
-							gen.AddToQueue(l.clone(), Material.LAVA);
+                            l.getBlock().setType(Material.LAVA);
 					} else
-						gen.AddToQueue(l.clone(), Material.AIR);
+                        l.getBlock().setType(Material.AIR);
 			}
 		}
 	}
