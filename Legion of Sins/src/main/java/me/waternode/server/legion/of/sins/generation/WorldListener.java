@@ -1,5 +1,6 @@
 package me.waternode.server.legion.of.sins.generation;
 
+import me.waternode.server.legion.of.sins.generation.deathworld.DeathWorldPopulator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
@@ -17,6 +18,8 @@ public class WorldListener implements Listener {
 	public void onInit(WorldInitEvent e) {
         if(e.getWorld().getName().equalsIgnoreCase("main")) {
             e.getWorld().getPopulators().add(new MainPopulator());
+        } else if(e.getWorld().getName().equalsIgnoreCase("deathworld")) {
+            e.getWorld().getPopulators().add(new DeathWorldPopulator());
         }
 
 	}
