@@ -1,4 +1,4 @@
-package me.waternode.server.legion.of.sins.mechanics.events;
+package me.waternode.server.legion.of.sins.mechanics;
 
 import me.waternode.server.legion.of.sins.LOSMain;
 import org.bukkit.Bukkit;
