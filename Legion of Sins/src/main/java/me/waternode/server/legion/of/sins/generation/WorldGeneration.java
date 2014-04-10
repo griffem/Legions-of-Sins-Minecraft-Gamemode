@@ -120,6 +120,7 @@ abstract class WorldGeneration {
                 } else if (j <= 8) {
                     b.setType(Material.NETHER_BRICK);
                 }
+                break;
 
             default:
                 b.setType(Material.OBSIDIAN);
