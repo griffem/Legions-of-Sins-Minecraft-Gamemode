@@ -8,7 +8,7 @@ import org.bukkit.block.Block;
 import java.util.ArrayList;
 import java.util.Random;
 
-abstract class WorldGeneration {
+public class WorldGeneration {
 
 	public static void DirtReplace(Block b, Random r) {
         switch (b.getBiome()) {

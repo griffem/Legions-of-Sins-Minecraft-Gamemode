@@ -10,6 +10,7 @@ import java.util.Random;
  * on 4/10/2014
  */
 public class DeathWorldGeneration {
+
     public static void DirtReplace(Block b, Random r) {
         switch (b.getBiome()) {
             case BIRCH_FOREST:
