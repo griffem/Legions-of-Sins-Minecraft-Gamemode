@@ -60,10 +60,10 @@ public class MobHandler implements Listener {
 			e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(2)));
 			if (r.nextBoolean()) {
 				LivingEntity atk = (LivingEntity) e.getLocation().getWorld().spawnEntity(e.getLocation(), e.getEntityType());
-				atk.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1000000, 1));
-				atk.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1000000, r.nextInt(2)));
-				atk.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, r.nextInt(2)));
-				atk.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, r.nextInt(2)));
+				atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.FIRE_RESISTANCE, 1));
+				atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(2)));
+				atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(2)));
+				atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(2)));
 			}
 		} else if (e.getEntityType() == EntityType.ENDERMAN) {
 			e.setCancelled(true);
@@ -82,11 +82,11 @@ public class MobHandler implements Listener {
 			if (r.nextBoolean()) {
 				Zombie i = (Zombie) mob.getWorld().spawnEntity(mob.getLocation(), EntityType.ZOMBIE);
 				ArrayList<PotionEffect> ps = new ArrayList<PotionEffect>();
-				ps.add(new PotionEffect(PotionEffectType.SPEED, 36000, r.nextInt(2)));
-				ps.add(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 36000, r.nextInt(3)));
-				ps.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 36000, r.nextInt(3)));
-				ps.add(new PotionEffect(PotionEffectType.REGENERATION, 36000, r.nextInt(1)));
-				ps.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 36000, 1));
+				ps.add(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(2)));
+				ps.add(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(3)));
+				ps.add(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(3)));
+				ps.add(new InfinitePotionEffect(PotionEffectType.REGENERATION, r.nextInt(1)));
+				ps.add(new InfinitePotionEffect(PotionEffectType.FIRE_RESISTANCE, 1));
 				i.addPotionEffects(ps);
 				mob.getWorld().playSound(mob.getLocation(), Sound.ZOMBIE_DEATH, 2, 1);
 				mob.setHealth(0);

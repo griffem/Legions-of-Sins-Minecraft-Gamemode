@@ -23,15 +23,14 @@ public class DustStorm extends CatastrophicEvent {
 		Location pLoc = p.getLocation();
 		int pX = (int) pLoc.getBlockX();
 		int pZ = (int) pLoc.getBlockZ();
-		if (w.getHighestBlockYAt(pX, pZ) - 5 <= pLoc.getY()) {
-			p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 120, 1));
-			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 1));
-			p.getWorld().playEffect(p.getLocation(), Effect.SMOKE, 0);
-			p.getWorld().playSound(p.getLocation(), Sound.FIZZ, 0.5f, 1f);
-			p.getWorld().playEffect(p.getLocation().add(0, 0, 1), Effect.SMOKE, 0);
-			p.getWorld().playEffect(p.getLocation().add(0, 0, -1), Effect.SMOKE, 0);
-			p.getWorld().playEffect(p.getLocation().add(1, 0, 0), Effect.SMOKE, 0);
-			p.getWorld().playEffect(p.getLocation().add(-1, 0, 0), Effect.SMOKE, 0);
-		}
+		if (w.getHighestBlockYAt(pX, pZ) - 5 > pLoc.getY()) return;
+		p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 120, 1));
+		p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 1));
+		p.getWorld().playEffect(p.getLocation(), Effect.SMOKE, 0);
+		p.getWorld().playSound(p.getLocation(), Sound.FIZZ, 0.5f, 1f);
+		p.getWorld().playEffect(p.getLocation().add(0, 0, 1), Effect.SMOKE, 0);
+		p.getWorld().playEffect(p.getLocation().add(0, 0, -1), Effect.SMOKE, 0);
+		p.getWorld().playEffect(p.getLocation().add(1, 0, 0), Effect.SMOKE, 0);
+		p.getWorld().playEffect(p.getLocation().add(-1, 0, 0), Effect.SMOKE, 0);
 	}
 }
