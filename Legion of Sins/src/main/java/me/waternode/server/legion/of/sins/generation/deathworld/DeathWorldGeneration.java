@@ -18,7 +18,7 @@ public class DeathWorldGeneration {
             case BIRCH_FOREST_HILLS_MOUNTAINS:
             case BIRCH_FOREST_MOUNTAINS:
                 int i = r.nextInt(3);
-
+                
                 if (i == 0) {
                     b.setType(Material.STONE);
                 } else if (i == 1) {

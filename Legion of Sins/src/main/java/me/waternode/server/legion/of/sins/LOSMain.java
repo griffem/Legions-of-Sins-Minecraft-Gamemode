@@ -4,8 +4,6 @@ import lombok.Getter;
 import me.waternode.server.legion.of.sins.mechanics.MobHandler;
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
