@@ -220,3 +220,7 @@ pip-log.txt
 target/
 out/
 atlassian-ide-plugin.xml
+
+
+.metadata/
+RemoteSystemsTempFiles/
