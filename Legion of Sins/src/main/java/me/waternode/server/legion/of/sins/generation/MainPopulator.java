@@ -31,27 +31,19 @@ public class MainPopulator extends BlockPopulator {
                             break;
                         case GRASS:
                             WorldGeneration.GrassReplace(b, r);
-                        case SAND
-                    }
-
-                    if (type == Material.DIRT) {
-                        WorldGeneration.DirtReplace(b, r);
-                    } else if (type == Material.GRASS) {
-                        WorldGeneration.GrassReplace(b, r);
-                    } else if ((type == Material.SAND) || (type == Material.STAINED_CLAY) || (type == Material.HARD_CLAY) || (type == Material.CLAY)) {
-                        WorldGeneration.SandLikeReplace(b, r);
-                    } else if ((type == Material.LOG) || (type == Material.LOG_2)) {
-                        WorldGeneration.LogsReplace(b);
-                    } else if ((type == Material.LEAVES) || (type == Material.LEAVES_2)) {
-                        WorldGeneration.LeavesReplace(b, r);
-                    } else if ((type == Material.LONG_GRASS) ||
-                            (type == Material.RED_ROSE) ||
-                            (type == Material.YELLOW_FLOWER) ||
-                            (type == Material.DOUBLE_PLANT) ||
-                            (type == Material.COCOA) ||
-                            (type == Material.SUGAR_CANE_BLOCK) ||
-                            (type == Material.CACTUS)) {
-                        b.setType(Material.AIR);
+                            break;
+                        case SAND: case STAINED_CLAY: case HARD_CLAY: case CLAY:
+                            WorldGeneration.SandLikeReplace(b, r);
+                            break;
+                        case LOG: case LOG_2:
+                            WorldGeneration.LogsReplace(b);
+                            break;
+                        case LEAVES: case LEAVES_2:
+                            WorldGeneration.LogsReplace(b);
+                            break;
+                        case LONG_GRASS: case RED_ROSE: case YELLOW_FLOWER: case DOUBLE_PLANT: case COCOA: case SUGAR_CANE_BLOCK: case CACTUS:
+                            b.setType(Material.AIR);
+                            break;
                     }
                 }
 
@@ -63,9 +55,9 @@ public class MainPopulator extends BlockPopulator {
             }
         }
 
-        this.gen.CylinderGeneration(r, c);
+        WorldGeneration.CylinderGeneration(r, c);
 
-        this.gen.RuinsGeneration(r, c);
+        WorldGeneration.RuinsGeneration(r, c);
 
         WorldLib.CreateChests(c, r);
     }
