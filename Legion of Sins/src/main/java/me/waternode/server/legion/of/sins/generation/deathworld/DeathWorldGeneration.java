@@ -11,7 +11,15 @@ import java.util.Random;
  */
 public class DeathWorldGeneration {
 
+    public static void WaterReplace(Block b, Random r) {
+        if(b.getType() == Material.STATIONARY_WATER) {
+            b.setType(Material.AIR);
+        } else if(b.getType() == Material.WATER) {
+            b.setType(Material.AIR);
+        }
+    }
     public static void DirtReplace(Block b, Random r) {
+        // netherrack, soul sand, web, coal ore, obsidian, nether brick, cobble, gravel, or smooth brick
         switch (b.getBiome()) {
             case BIRCH_FOREST:
             case BIRCH_FOREST_HILLS:
@@ -20,11 +28,11 @@ public class DeathWorldGeneration {
                 int i = r.nextInt(3);
                 
                 if (i == 0) {
-                    b.setType(Material.STONE);
+                    b.setType(Material.NETHERRACK);
                 } else if (i == 1) {
-                    b.setType(Material.COBBLESTONE);
+                    b.setType(Material.SOUL_SAND);
                 } else if (i == 2) {
-                    b.setType(Material.SMOOTH_STAIRS);
+                    b.setType(Material.OBSIDIAN);
                 }
                 break;
 
@@ -42,7 +50,7 @@ public class DeathWorldGeneration {
                 break;
 
             default:
-                b.setType(Material.STONE);
+                b.setType(Material.NETHERRACK);
                 break;
         }
     }
@@ -80,9 +88,9 @@ public class DeathWorldGeneration {
                 int i = r.nextInt(3);
 
                 if (i == 0) {
-                    b.setType(Material.STONE);
+                    b.setType(Material.NETHERRACK);
                 } else if (i == 1) {
-                    b.setType(Material.COBBLESTONE);
+                    b.setType(Material.SOUL_SAND);
                 } else if (i == 2) {
                     b.setType(Material.SMOOTH_BRICK);
                 }
@@ -113,7 +121,7 @@ public class DeathWorldGeneration {
                 int j = r.nextInt(9);
 
                 if (j == 0) {
-                    b.setType(Material.QUARTZ_ORE);
+                    b.setType(Material.COAL_ORE);
                 } else if (j <= 1) {
                     b.setType(Material.SOUL_SAND);
                 } else if (j <= 3) {
@@ -141,7 +149,7 @@ public class DeathWorldGeneration {
             case BIRCH_FOREST_HILLS:
             case BIRCH_FOREST_HILLS_MOUNTAINS:
             case BIRCH_FOREST_MOUNTAINS:
-                b.setType(Material.QUARTZ_BLOCK);
+                b.setType(Material.COAL_ORE);
                 break;
 
             case SAVANNA:

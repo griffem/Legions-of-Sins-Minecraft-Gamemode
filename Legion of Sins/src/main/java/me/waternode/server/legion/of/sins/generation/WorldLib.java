@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class WorldLib {
+
 	public static void CreateChests(Chunk c, Random r) {
 		for (int i = 0; i < r.nextInt(4) + 1; i++) {
 			Block b = c.getBlock(r.nextInt(16), r.nextInt(55), r.nextInt(16));

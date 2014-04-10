@@ -25,6 +25,8 @@ public class DeathWorldPopulator extends BlockPopulator {
                     Material type = b.getType();
 
                     switch (type) {
+                        case WATER:
+                            DeathWorldGeneration.WaterReplace(b, r);
                         case DIRT:
                             DeathWorldGeneration.DirtReplace(b, r);
                             break;
