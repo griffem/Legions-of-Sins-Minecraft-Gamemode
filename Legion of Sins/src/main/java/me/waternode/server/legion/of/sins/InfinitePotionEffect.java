@@ -12,13 +12,13 @@ import org.bukkit.potion.PotionEffectType;
  * @since 10/04/14
  */
 public class InfinitePotionEffect extends PotionEffect {
+	public InfinitePotionEffect(PotionEffectType type) {
+		super(type, Integer.MAX_VALUE, 0, false);
+	}
 	public InfinitePotionEffect(PotionEffectType type, int amplifier) {
 		super(type, Integer.MAX_VALUE, amplifier, false);
 	}
-	/*public InfinitePotionEffect(PotionEffectType type, int amplifier, boolean ambient) {
-		super(type, Integer.MAX_VALUE, amplifier, ambient);
-	}
 	public InfinitePotionEffect(PotionEffectType type, int amplifier, boolean ambient) {
 		super(type, Integer.MAX_VALUE, amplifier, ambient);
-	}*/
+	}
 }

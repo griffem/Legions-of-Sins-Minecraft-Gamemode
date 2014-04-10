@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 public class LOSMain extends JavaPlugin implements Listener {
-	public final Logger logger = Bukkit.getLogger();
+	public static final Logger logger = Bukkit.getLogger();
 	public MainWorldListener WorldListener;
 	public MobHandler MS;
 	public EventManager Events;

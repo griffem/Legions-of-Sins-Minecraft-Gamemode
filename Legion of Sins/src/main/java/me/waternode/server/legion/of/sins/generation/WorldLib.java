@@ -18,7 +18,7 @@ public abstract class WorldLib {
 			Block b = c.getBlock(r.nextInt(16), r.nextInt(55), r.nextInt(16));
 			b.setType(Material.CHEST);
 			Chest ch = (Chest) b.getState();
-			ch.getInventory().addItem(new ItemStack[]{new ItemStack(Material.GOLD_NUGGET, r.nextInt(256) + 16)});
+			ch.getInventory().addItem(new ItemStack(Material.GOLD_NUGGET, r.nextInt(256) + 16));
 			ch.update();
 		}
 	}
@@ -55,8 +55,8 @@ public abstract class WorldLib {
 	}
 
 	public static boolean isFloor(Location a, Location b, ArrayList<Integer> s) {
-		for (int i = 0; i < s.size(); i++) {
-			if (a.getBlockY() == b.getBlockY() + ((Integer) s.get(i)).intValue()) {
+		for (Integer value : s) {
+			if (a.getBlockY() == b.getBlockY() + value) {
 				return true;
 			}
 		}
@@ -64,8 +64,8 @@ public abstract class WorldLib {
 	}
 
 	public static boolean isAfterFloor(Location a, Location b, ArrayList<Integer> s) {
-		for (int i = 0; i < s.size(); i++) {
-			if (a.getBlockY() == b.getBlockY() + ((Integer) s.get(i)).intValue() + 1) {
+		for (Integer value : s) {
+			if (a.getBlockY() == b.getBlockY() + value + 1) {
 				return true;
 			}
 		}

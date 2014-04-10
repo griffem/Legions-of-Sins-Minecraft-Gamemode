@@ -107,12 +107,11 @@ public class MobHandler implements Listener {
 		} else if (e.getEntity() instanceof Chicken && e.getDamager() instanceof Player) {
 			Chicken mob = (Chicken) e.getEntity();
 			if (r.nextInt(3) == 0) {
-				e.getDamager().getWorld().spawnEntity(e.getDamager().getLocation(), EntityType.PRIMED_TNT);
-				e.getDamager().getWorld().spawnEntity(e.getDamager().getLocation(), EntityType.PRIMED_TNT);
-				e.getDamager().getWorld().spawnEntity(e.getDamager().getLocation(), EntityType.PRIMED_TNT);
-				e.getDamager().getWorld().spawnEntity(e.getDamager().getLocation(), EntityType.PRIMED_TNT);
-				e.getDamager().getWorld().spawnEntity(e.getDamager().getLocation(), EntityType.PRIMED_TNT);
-				e.getDamager().getWorld().spawnEntity(e.getDamager().getLocation(), EntityType.PRIMED_TNT);
+				// l = Amounts of times to repeat primed tnt
+				for(Integer i = 0, l = 6; i < l; i++) {
+					e.getDamager().getWorld().spawnEntity(e.getDamager().getLocation(), EntityType.PRIMED_TNT);
+				}
+
 				mob.getWorld().playSound(mob.getLocation(), Sound.BURP, 2, 1);
 				mob.setHealth(0);
 			}

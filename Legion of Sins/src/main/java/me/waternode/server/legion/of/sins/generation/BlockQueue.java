@@ -6,7 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class BlockQueue extends BukkitRunnable {
 
-	WorldGeneration gen;
+	private WorldGeneration gen;
 
 	public BlockQueue(WorldGeneration gener) {
 		gen = gener;
