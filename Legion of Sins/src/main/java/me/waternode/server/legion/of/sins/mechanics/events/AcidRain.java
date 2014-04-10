@@ -12,8 +12,8 @@ import org.bukkit.util.Vector;
 
 public class AcidRain extends CatastrophicEvent {
 
-	public AcidRain(Location c, double r, double s, LOSMain m, World w, Vector d) {
-		super(c, r, s, 100, w, d);
+	public AcidRain(Location c, double r, double s, World w, Vector d) {
+		super(c, r, s, w, d);
 	}
 
 	@Override

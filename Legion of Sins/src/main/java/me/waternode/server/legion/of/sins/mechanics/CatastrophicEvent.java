@@ -21,7 +21,7 @@ public class CatastrophicEvent extends BukkitRunnable {
 	protected final Random rand;
 	protected final World world;
 
-	protected CatastrophicEvent(Location c, double r, double s, int l, World w, Vector d) {
+	protected CatastrophicEvent(Location c, double r, double s, World w, Vector d) {
 		rand = new Random();
 		center = c;
 		range = r;

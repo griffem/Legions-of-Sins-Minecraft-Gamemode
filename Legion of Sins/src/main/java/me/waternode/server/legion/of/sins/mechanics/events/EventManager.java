@@ -32,31 +32,31 @@ public class EventManager extends BukkitRunnable {
 			case 0:
 				new AcidRain(p.getLocation(),
 						r.nextInt(101) + 50, r.nextInt(3) + 1,
-						this.main, p.getWorld(),
+						p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			case 1:
 				new DustStorm(p.getLocation(),
 						r.nextInt(101) + 50, r.nextInt(3) + 1,
-						this.main, p.getWorld(),
+						p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			case 2:
 				new ElectricalStorms(p.getLocation(),
 						r.nextInt(101) + 50, r.nextInt(3) + 1,
-						this.main, p.getWorld(),
+						p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			case 3:
 				new MeteorShowers(p.getLocation(),
 						r.nextInt(101) + 50, r.nextInt(3) + 1,
-						this.main, p.getWorld(),
+						p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			case 4:
 				new MonsterRaid(p.getLocation(),
 						r.nextInt(101) + 50, r.nextInt(3) + 1,
-						this.main, p.getWorld(),
+						p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			default:
