@@ -13,16 +13,16 @@ import org.bukkit.util.Vector;
 
 public class DustStorm extends CatastrophicEvent {
 
-	public DustStorm(Location c, double r, double s, int l, LOSMain m, boolean D3, World w, Vector d) {
-		super(c, r, s, l, m, D3, w, d);
+	public DustStorm(Location c, double r, double s, LOSMain m, World w, Vector d) {
+		super(c, r, s, 100, w, d);
 	}
 
 	@Override
 	public void OnPlayerNear(Player p) {
 		World w = p.getWorld();
 		Location pLoc = p.getLocation();
-		int pX = (int) pLoc.getBlockX();
-		int pZ = (int) pLoc.getBlockZ();
+		int pX = pLoc.getBlockX();
+		int pZ = pLoc.getBlockZ();
 		if (w.getHighestBlockYAt(pX, pZ) - 5 > pLoc.getY()) return;
 		p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 120, 1));
 		p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 1));

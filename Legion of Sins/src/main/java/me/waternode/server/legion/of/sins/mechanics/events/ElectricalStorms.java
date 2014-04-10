@@ -9,8 +9,8 @@ import org.bukkit.util.Vector;
 
 public class ElectricalStorms extends CatastrophicEvent {
 
-	public ElectricalStorms(Location c, double r, double s, int l, LOSMain m, boolean D3, World w, Vector d) {
-		super(c, r, s, l, m, D3, w, d);
+	public ElectricalStorms(Location c, double r, double s, LOSMain m, World w, Vector d) {
+		super(c, r, s, 100, w, d);
 	}
 
 	@Override
@@ -18,8 +18,8 @@ public class ElectricalStorms extends CatastrophicEvent {
 		// 4 times a second / 2 = ~2 times per second
 		World w = p.getWorld();
 		Location pLoc = p.getLocation();
-		int pX = (int) pLoc.getBlockX();
-		int pZ = (int) pLoc.getBlockZ();
+		int pX = pLoc.getBlockX();
+		int pZ = pLoc.getBlockZ();
 		if (w.getHighestBlockYAt(pX, pZ) - 5 <= pLoc.getY()) {
 			if (rand.nextInt(4) == 0) {
 				Location loc = new Location(world, range, range, range);

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 public class EventManager extends BukkitRunnable {
-	LOSMain main;
+	private final LOSMain main;
 
 	public EventManager(LOSMain p) {
 		this.main = p;
@@ -25,38 +25,38 @@ public class EventManager extends BukkitRunnable {
 
 		if (ps.size() <= 0) return;
 
-		Player p = (Player) ps.get(r.nextInt(ps.size()));
+		Player p = ps.get(r.nextInt(ps.size()));
 		int i = r.nextInt(5);
 		
 		switch (i) {
 			case 0:
 				new AcidRain(p.getLocation(),
-						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-						this.main, false, p.getWorld(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1,
+						this.main, p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			case 1:
 				new DustStorm(p.getLocation(),
-						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-						this.main, false, p.getWorld(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1,
+						this.main, p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			case 2:
 				new ElectricalStorms(p.getLocation(),
-						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-						this.main, false, p.getWorld(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1,
+						this.main, p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			case 3:
 				new MeteorShowers(p.getLocation(),
-						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-						this.main, false, p.getWorld(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1,
+						this.main, p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			case 4:
 				new MonsterRaid(p.getLocation(),
-						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-						this.main, false, p.getWorld(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1,
+						this.main, p.getWorld(),
 						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
 				break;
 			default:

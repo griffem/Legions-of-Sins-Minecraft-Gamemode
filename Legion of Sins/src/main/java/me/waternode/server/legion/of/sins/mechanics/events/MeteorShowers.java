@@ -11,8 +11,8 @@ import org.bukkit.util.Vector;
 
 public class MeteorShowers extends CatastrophicEvent {
 
-	public MeteorShowers(Location c, double r, double s, int l, LOSMain m, boolean D3, World w, Vector d) {
-		super(c, r, s, l, m, D3, w, d);
+	public MeteorShowers(Location c, double r, double s, LOSMain m, World w, Vector d) {
+		super(c, r, s, 100, w, d);
 	}
 
 	@Override

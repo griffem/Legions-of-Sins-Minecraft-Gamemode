@@ -13,10 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 public class LOSMain extends JavaPlugin implements Listener {
-	public static final Logger logger = Bukkit.getLogger();
-	public MainWorldListener WorldListener;
-	public MobHandler MS;
-	public EventManager Events;
+	private static final Logger logger = Bukkit.getLogger();
+	private MainWorldListener WorldListener;
 
 	public void onDisable() {
 		PluginDescriptionFile pluginFile = this.getDescription();
@@ -25,11 +23,11 @@ public class LOSMain extends JavaPlugin implements Listener {
 	}
 
 	public void onEnable() {
-		Events = new EventManager(this);
-		Events.runTaskTimer(this, 20L, 600L);
+		EventManager events = new EventManager(this);
+		events.runTaskTimer(this, 20L, 600L);
 
 		WorldListener = new MainWorldListener(this);
-		MS = new MobHandler();
+		MobHandler MS = new MobHandler();
 
 		getServer().getPluginManager().registerEvents(WorldListener, this);
 		getServer().getPluginManager().registerEvents(MS, this);

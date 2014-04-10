@@ -4,9 +4,9 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class BlockQueue extends BukkitRunnable {
+class BlockQueue extends BukkitRunnable {
 
-	private WorldGeneration gen;
+	private final WorldGeneration gen;
 
 	public BlockQueue(WorldGeneration gener) {
 		gen = gener;

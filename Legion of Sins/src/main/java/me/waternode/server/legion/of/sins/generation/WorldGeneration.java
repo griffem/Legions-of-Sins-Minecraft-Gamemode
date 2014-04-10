@@ -15,15 +15,14 @@ public class WorldGeneration {
 	public int loop = 500;
 	public final ArrayList<Queued> ToChange = new ArrayList<Queued>();
 	public final HashMap<Queued, Material> ChangeTo = new HashMap<Queued, Material>();
-	public LOSMain main;
 
 	public WorldGeneration(LOSMain plugin) {
-		this.main = plugin;
-		new BlockQueue(this).runTaskTimer(this.main, 10L, 1L);
+		LOSMain main = plugin;
+		new BlockQueue(this).runTaskTimer(main, 10L, 1L);
 	}
 
 	public void AddToQueue(Location location, Material m) {
-		Queued q = new Queued(location, 1);
+		Queued q = new Queued(location);
 		this.ToChange.add(q);
 		this.ChangeTo.put(q, m);
 	}
@@ -137,7 +136,7 @@ public class WorldGeneration {
 			AddToQueue(b.getLocation(), Material.COBBLESTONE);
 	}
 
-	public void LogsReplace(Block b, Random r) {
+	public void LogsReplace(Block b) {
 		if ((b.getBiome() == Biome.BIRCH_FOREST) ||
 				(b.getBiome() == Biome.BIRCH_FOREST_HILLS) ||
 				(b.getBiome() == Biome.BIRCH_FOREST_HILLS_MOUNTAINS) ||
@@ -179,13 +178,13 @@ public class WorldGeneration {
 		if (a == 9) {
 			Block b = c.getBlock(r.nextInt(16), r.nextInt(55), r.nextInt(16));
 			if ((b.getBiome() != Biome.RIVER) && (b.getBiome() != Biome.OCEAN) && (b.getBiome() != Biome.DEEP_OCEAN))
-				WorldLib.createCyl(b.getLocation(), r.nextInt(10) + 1, 150.0D, r, this);
+				WorldLib.createCyl(b.getLocation(), r.nextInt(10) + 1, r, this);
 		} else if (a <= 4) {
 			Block b = c.getBlock(r.nextInt(16), r.nextInt(55), r.nextInt(16));
 			if ((b.getBiome() != Biome.RIVER) && (b.getBiome() != Biome.OCEAN) && (b.getBiome() != Biome.DEEP_OCEAN) && (
 					(b.getBiome() == Biome.PLAINS) ||
 							(b.getBiome() == Biome.SUNFLOWER_PLAINS)))
-				WorldLib.createCyl(b.getLocation(), r.nextInt(10) + 1, 150.0D, r, this);
+				WorldLib.createCyl(b.getLocation(), r.nextInt(10) + 1, r, this);
 		}
 	}
 
@@ -310,9 +309,9 @@ public class WorldGeneration {
 
 			int h = r.nextInt(4) * 10 + 10;
 			ArrayList<Integer> levels = new ArrayList<Integer>();
-			levels.add(Integer.valueOf(0));
+			levels.add(0);
 			for (int i = 1; i <= h / 5; i++) {
-				levels.add(Integer.valueOf(i * 5));
+				levels.add(i * 5);
 			}
 			h += 1 + r.nextInt(3);
 			WorldLib.createTower(b.getLocation(), r.nextInt(11) + 5, h, r, this, walls, floors, afterfloors, levels);

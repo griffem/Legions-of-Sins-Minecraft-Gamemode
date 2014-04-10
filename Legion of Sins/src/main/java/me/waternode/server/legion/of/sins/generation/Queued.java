@@ -2,13 +2,11 @@ package me.waternode.server.legion.of.sins.generation;
 
 import org.bukkit.Location;
 
-public class Queued {
-	Location loc;
-	int in;
+class Queued {
+	private final Location loc;
 
-	public Queued(Location l, int i) {
+	public Queued(Location l) {
 		loc = l;
-		i = in;
 	}
 
 	public Location getLocation() {

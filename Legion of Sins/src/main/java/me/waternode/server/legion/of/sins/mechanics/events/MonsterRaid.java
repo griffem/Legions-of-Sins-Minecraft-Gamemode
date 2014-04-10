@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 public class MonsterRaid extends CatastrophicEvent {
-	public MonsterRaid(Location c, double r, double s, int l, LOSMain m, boolean D3, World w, Vector d) {
-		super(c, r, s, l, m, D3, w, d);
+	public MonsterRaid(Location c, double r, double s, LOSMain m, World w, Vector d) {
+		super(c, r, s, 100, w, d);
 	}
 
 	public void OnPlayerNear(Player p) {

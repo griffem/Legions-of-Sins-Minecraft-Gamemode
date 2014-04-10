@@ -18,8 +18,8 @@ import java.util.Random;
 
 public class MainWorldListener
 		implements Listener {
-	public WorldGeneration gen;
-	LOSMain main;
+	public final WorldGeneration gen;
+	private final LOSMain main;
 
 	public MainWorldListener(LOSMain plugin) {
 		this.main = plugin;
@@ -47,7 +47,7 @@ public class MainWorldListener
 					} else if ((type == Material.SAND) || (type == Material.STAINED_CLAY) || (type == Material.HARD_CLAY) || (type == Material.CLAY)) {
 						this.gen.SandLikeReplace(b, r);
 					} else if ((type == Material.LOG) || (type == Material.LOG_2)) {
-						this.gen.LogsReplace(b, r);
+						this.gen.LogsReplace(b);
 					} else if ((type == Material.LEAVES) || (type == Material.LEAVES_2)) {
 						this.gen.LeavesReplace(b, r);
 					} else if ((type == Material.LONG_GRASS) ||

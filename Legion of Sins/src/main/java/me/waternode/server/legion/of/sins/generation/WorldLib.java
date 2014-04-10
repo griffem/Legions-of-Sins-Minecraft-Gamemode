@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class WorldLib {
+abstract class WorldLib {
 	public static void CreateChests(Chunk c, Random r) {
 		for (int i = 0; i < r.nextInt(4) + 1; i++) {
 			Block b = c.getBlock(r.nextInt(16), r.nextInt(55), r.nextInt(16));
@@ -44,17 +44,17 @@ public abstract class WorldLib {
 		Location main = centerBot.clone();
 		for (int y = centerBot.getBlockY(); y < centerBot.getBlockY() + height; y++) {
 			main.setY(y);
-			for (Location l : getCylHorizontal(main, radius, r))
+			for (Location l : getCylHorizontal(main, radius))
 				if (Math.pow(l.getX() - main.getX(), 2.0D) + Math.pow(l.getZ() - main.getZ(), 2.0D) >= Math.pow(radius, 2.0D) - radius) {
-					gen.AddToQueue(l.clone(), (Material) walls.get(r.nextInt(walls.size())));
+					gen.AddToQueue(l.clone(), walls.get(r.nextInt(walls.size())));
 				} else if (isFloor(l, centerBot, levels)) {
-					gen.AddToQueue(l.clone(), (Material) floors.get(r.nextInt(floors.size())));
+					gen.AddToQueue(l.clone(), floors.get(r.nextInt(floors.size())));
 				} else if (isAfterFloor(l, centerBot, levels))
-					gen.AddToQueue(l.clone(), (Material) afterfloors.get(r.nextInt(afterfloors.size())));
+					gen.AddToQueue(l.clone(), afterfloors.get(r.nextInt(afterfloors.size())));
 		}
 	}
 
-	public static boolean isFloor(Location a, Location b, ArrayList<Integer> s) {
+	private static boolean isFloor(Location a, Location b, ArrayList<Integer> s) {
 		for (Integer value : s) {
 			if (a.getBlockY() == b.getBlockY() + value) {
 				return true;
@@ -63,7 +63,7 @@ public abstract class WorldLib {
 		return false;
 	}
 
-	public static boolean isAfterFloor(Location a, Location b, ArrayList<Integer> s) {
+	private static boolean isAfterFloor(Location a, Location b, ArrayList<Integer> s) {
 		for (Integer value : s) {
 			if (a.getBlockY() == b.getBlockY() + value + 1) {
 				return true;
@@ -72,12 +72,12 @@ public abstract class WorldLib {
 		return false;
 	}
 
-	public static void createCyl(Location centerBot, double radius, double height, Random r, WorldGeneration gen) {
+	public static void createCyl(Location centerBot, double radius, Random r, WorldGeneration gen) {
 		Location main = centerBot.clone();
 
-		for (int y = centerBot.getBlockY(); y < centerBot.getBlockY() + height; y++) {
+		for (int y = centerBot.getBlockY(); y < centerBot.getBlockY() + 150.0D; y++) {
 			main.setY(y);
-			for (Location l : getCylHorizontal(main, radius, r)) {
+			for (Location l : getCylHorizontal(main, radius)) {
 				Block b = l.getBlock();
 				if (b.getType() != Material.AIR)
 					if (Math.pow(l.getX() - main.getX(), 2.0D) + Math.pow(l.getZ() - main.getZ(), 2.0D) == Math.pow(radius, 2.0D)) {
@@ -89,7 +89,7 @@ public abstract class WorldLib {
 		}
 	}
 
-	public static ArrayList<Location> getCylHorizontal(Location center, double radius, Random r) {
+	private static ArrayList<Location> getCylHorizontal(Location center, double radius) {
 		Location point1 = center.clone();
 		Location point2 = center.clone();
 		Location official = center.clone();
