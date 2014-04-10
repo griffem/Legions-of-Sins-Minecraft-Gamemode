@@ -12,11 +12,7 @@ import java.util.Random;
 public class DeathWorldGeneration {
 
     public static void WaterReplace(Block b, Random r) {
-        if(b.getType() == Material.STATIONARY_WATER) {
-            b.setType(Material.AIR);
-        } else if(b.getType() == Material.WATER) {
-            b.setType(Material.AIR);
-        }
+        b.setType(Material.AIR);
     }
     public static void DirtReplace(Block b, Random r) {
         // netherrack, soul sand, web, coal ore, obsidian, nether brick, cobble, gravel, or smooth brick
@@ -36,21 +32,8 @@ public class DeathWorldGeneration {
                 }
                 break;
 
-            case MEGA_SPRUCE_TAIGA:
-            case MEGA_SPRUCE_TAIGA_HILLS:
-            case MEGA_TAIGA:
-            case MEGA_TAIGA_HILLS:
-                if (r.nextBoolean()) {
-                    b.setType(Material.MYCEL);
-                } else if (r.nextInt(3) == 0) {
-                    b.setType(Material.GRAVEL);
-                } else {
-                    b.setType(Material.COBBLESTONE);
-                }
-                break;
-
             default:
-                b.setType(Material.NETHERRACK);
+                b.setType(Material.SMOOTH_BRICK);
                 break;
         }
     }
@@ -78,7 +61,7 @@ public class DeathWorldGeneration {
             case MESA_PLATEAU_FOREST:
             case MESA_PLATEAU_FOREST_MOUNTAINS:
             case MESA_PLATEAU_MOUNTAINS:
-                b.setType(Material.MYCEL);
+                b.setType(Material.NETHERRACK);
                 break;
 
             case BIRCH_FOREST:
@@ -104,7 +87,7 @@ public class DeathWorldGeneration {
                 int k = r.nextInt(6);
 
                 if (k == 0) {
-                    b.setType(Material.MYCEL);
+                    b.setType(Material.SMOOTH_BRICK);
                 } else if (k <= 1) {
                     b.setType(Material.SOUL_SAND);
                 } else if (k <= 2) {
@@ -144,53 +127,10 @@ public class DeathWorldGeneration {
     }
 
     public static void LogsReplace(Block b) {
-        switch (b.getBiome()) {
-            case BIRCH_FOREST:
-            case BIRCH_FOREST_HILLS:
-            case BIRCH_FOREST_HILLS_MOUNTAINS:
-            case BIRCH_FOREST_MOUNTAINS:
-                b.setType(Material.COAL_ORE);
-                break;
-
-            case SAVANNA:
-            case SAVANNA_MOUNTAINS:
-            case SAVANNA_PLATEAU:
-            case SAVANNA_PLATEAU_MOUNTAINS:
-                break;
-
-            default:
-                b.setType(Material.COAL_BLOCK);
-                break;
-        }
+        b.setType(Material.COAL_BLOCK);
     }
 
     public static void LeavesReplace(Block b, Random r) {
-        switch (b.getBiome()) {
-            case BIRCH_FOREST:
-            case BIRCH_FOREST_HILLS:
-            case BIRCH_FOREST_HILLS_MOUNTAINS:
-            case BIRCH_FOREST_MOUNTAINS:
-                b.setType(Material.COAL_BLOCK);
-                break;
-
-            case SAVANNA:
-            case SAVANNA_MOUNTAINS:
-            case SAVANNA_PLATEAU:
-            case SAVANNA_PLATEAU_MOUNTAINS:
-                break;
-
-            default:
-                int i = r.nextInt(12);
-                if (i == 0) {
-                    b.setType(Material.EMERALD_ORE);
-                } else if (i <= 1) {
-                    b.setType(Material.AIR);
-                } else if (i <= 4) {
-                    b.setType(Material.WEB);
-                } else if (i <= 11) {
-                    b.setType(Material.COAL_BLOCK);
-                }
-                break;
-        }
+        b.setType(Material.AIR);
     }
 }
