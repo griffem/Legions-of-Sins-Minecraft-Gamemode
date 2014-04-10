@@ -42,7 +42,7 @@ public class DeathWorldPopulator extends BlockPopulator {
                         case LEAVES: case LEAVES_2:
                             DeathWorldGeneration.LeavesReplace(b, r);
                             break;
-                        case LONG_GRASS: case RED_ROSE: case YELLOW_FLOWER: case DOUBLE_PLANT: case COCOA: case SUGAR_CANE_BLOCK: case CACTUS:
+                        case LONG_GRASS: case RED_ROSE: case YELLOW_FLOWER: case DOUBLE_PLANT: case COCOA: case SUGAR_CANE_BLOCK:case CACTUS: case VINE:
                             b.setType(Material.AIR);
                             break;
                     }
