@@ -1,6 +1,5 @@
 package me.waternode.server.legion.of.sins.mechanics.events;
 
-import me.waternode.server.legion.of.sins.LOSMain;
 import me.waternode.server.legion.of.sins.mechanics.CatastrophicEvent;
 import org.bukkit.Effect;
 import org.bukkit.Location;
