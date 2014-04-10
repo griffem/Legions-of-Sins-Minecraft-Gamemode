@@ -1,9 +1,6 @@
 name: LegionOfSins
 main: me.waternode.server.legion.of.sins.LOSMain
-version: 1.4
+version: 2.0
 author: WaterNode
 description: The Legion of Sins plugin!
-
-commands:
-  gener:
-    description: Information for your game.
+load: STARTUP

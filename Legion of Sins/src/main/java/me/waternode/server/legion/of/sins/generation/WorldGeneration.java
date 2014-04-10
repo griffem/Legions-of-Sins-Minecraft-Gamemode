@@ -163,7 +163,7 @@ public class WorldGeneration {
                 if (i == 0) {
                     b.setType(Material.EMERALD_ORE);
                 } else if (i <= 1) {
-                    b.setType(Material.SOUL_SAND);
+                    b.setType(Material.AIR);
                 } else if (i <= 4) {
                     b.setType(Material.WEB);
                 } else if (i <= 11) {

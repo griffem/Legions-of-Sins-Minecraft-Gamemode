@@ -39,7 +39,7 @@ public class MainPopulator extends BlockPopulator {
                             WorldGeneration.LogsReplace(b);
                             break;
                         case LEAVES: case LEAVES_2:
-                            WorldGeneration.LogsReplace(b);
+                            WorldGeneration.LeavesReplace(b, r);
                             break;
                         case LONG_GRASS: case RED_ROSE: case YELLOW_FLOWER: case DOUBLE_PLANT: case COCOA: case SUGAR_CANE_BLOCK: case CACTUS:
                             b.setType(Material.AIR);
