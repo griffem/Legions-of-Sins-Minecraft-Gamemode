@@ -1,6 +1,7 @@
 package me.waternode.server.legion.of.sins.mechanics.events;
 
 import me.waternode.server.legion.of.sins.LOSMain;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -11,15 +12,16 @@ import org.bukkit.util.Vector;
 import java.util.Random;
 
 public class CatastrophicEvent extends BukkitRunnable {
-	Location center;
-	double range;
-	double speed;
-	int lifetime;
-	Vector direction;
-	LOSMain main;
-	boolean D3Dist;
-	Random rand;
-	World world;
+
+	protected Location center;
+	protected double range;
+	protected double speed;
+	protected int lifetime;
+	protected Vector direction;
+	protected LOSMain main;
+	protected boolean D3Dist;
+	protected Random rand;
+	protected World world;
 
 	public CatastrophicEvent(Location c, double r, double s, int l, LOSMain m, boolean D3, World w, Vector d) {
 		rand = new Random();
@@ -35,7 +37,7 @@ public class CatastrophicEvent extends BukkitRunnable {
 
 	@Override
 	public void run() {
-		for (Player p : main.getServer().getOnlinePlayers()) {
+		for (Player p : Bukkit.getOnlinePlayers()) {
 			Location playerLocation = p.getLocation();
 			if (playerLocation.getWorld() == world) {
 				if (D3Dist) {

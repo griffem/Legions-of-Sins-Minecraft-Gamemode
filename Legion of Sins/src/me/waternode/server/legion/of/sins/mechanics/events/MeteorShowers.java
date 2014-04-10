@@ -17,15 +17,14 @@ public class MeteorShowers extends CatastrophicEvent {
 	@Override
 	public void OnPlayerNear(Player p) {
 		// 4 times a second / 4 = ~1 time per second
-		if (rand.nextInt(4) == 0) {
-			Location l = new Location(world, range, range, range);
+		if (rand.nextInt(4) != 0) return;
+		Location l = new Location(world, range, range, range);
 
-			l.setX(p.getLocation().getX() + (rand.nextInt(7) - 3));
-			l.setY(250);
-			l.setZ(p.getLocation().getZ() + (rand.nextInt(7) - 3));
+		l.setX(p.getLocation().getX() + (rand.nextInt(7) - 3));
+		l.setY(250);
+		l.setZ(p.getLocation().getZ() + (rand.nextInt(7) - 3));
 
-			Fireball fb = (Fireball) p.getWorld().spawnEntity(l, EntityType.FIREBALL);
-			fb.setDirection(new Vector(0, -2, 0));
-		}
+		Fireball fb = (Fireball) p.getWorld().spawnEntity(l, EntityType.FIREBALL);
+		fb.setDirection(new Vector(0, -2, 0));
 	}
 }

@@ -6,6 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class EventManager extends BukkitRunnable {
@@ -17,15 +18,16 @@ public class EventManager extends BukkitRunnable {
 
 	public void run() {
 		Random r = new Random();
-		ArrayList<Player> ps = new ArrayList<Player>();
-		for (Player p : this.main.getServer().getOnlinePlayers()) {
-			if (p.getWorld().getName().contains("main")) {
-				ps.add(p);
-			}
-		}
+		// Use lowest interface possible
+		List<Player> ps = new ArrayList<Player>();
+		for (Player p : main.getServer().getOnlinePlayers())
+			if (p.getWorld().getName().toLowerCase().contains("main")) ps.add(p);
+
 		if (ps.size() <= 0) return;
+
 		Player p = (Player) ps.get(r.nextInt(ps.size()));
 		int i = r.nextInt(5);
+		
 		switch (i) {
 			case 0:
 				new AcidRain(p.getLocation(),
