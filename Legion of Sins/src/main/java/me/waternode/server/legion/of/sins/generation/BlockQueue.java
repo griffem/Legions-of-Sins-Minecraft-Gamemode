@@ -15,13 +15,12 @@ public class BlockQueue extends BukkitRunnable {
 	@Override
 	public void run() {
 		for (int i = gen.loop; i >= 0; i--) {
-			if (gen.ToChange.size() > 0) {
-				Block b = gen.ToChange.get(0).getLocation().getBlock();
-				Material m = gen.ChangeTo.get(gen.ToChange.get(0));
-				b.setType(m);
-				gen.ChangeTo.remove(gen.ToChange.get(0));
-				gen.ToChange.remove(0);
-			}
+			if (gen.ToChange.size() <= 0) continue;
+			Block b = gen.ToChange.get(0).getLocation().getBlock();
+			Material m = gen.ChangeTo.get(gen.ToChange.get(0));
+			b.setType(m);
+			gen.ChangeTo.remove(gen.ToChange.get(0));
+			gen.ToChange.remove(0);
 		}
 	}
 
