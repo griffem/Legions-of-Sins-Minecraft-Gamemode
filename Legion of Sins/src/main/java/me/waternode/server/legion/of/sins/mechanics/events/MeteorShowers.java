@@ -8,6 +8,8 @@ import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import java.util.Random;
+
 public class MeteorShowers extends CatastrophicEvent {
 
 	public MeteorShowers(Location c, double r, double s, World w, Vector d) {
@@ -15,14 +17,14 @@ public class MeteorShowers extends CatastrophicEvent {
 	}
 
 	@Override
-	public void OnPlayerNear(Player p) {
+	public void OnPlayerNear(Player p, Random random) {
 		// 4 times a second / 4 = ~1 time per second
-		if (rand.nextInt(4) != 0) return;
+		if (random.nextInt(4) != 0) return;
 		Location l = new Location(world, range, range, range);
 
-		l.setX(p.getLocation().getX() + (rand.nextInt(7) - 3));
+		l.setX(p.getLocation().getX() + (random.nextInt(7) - 3));
 		l.setY(250);
-		l.setZ(p.getLocation().getZ() + (rand.nextInt(7) - 3));
+		l.setZ(p.getLocation().getZ() + (random.nextInt(7) - 3));
 
 		Fireball fb = (Fireball) p.getWorld().spawnEntity(l, EntityType.FIREBALL);
 		fb.setDirection(new Vector(0, -2, 0));

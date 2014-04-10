@@ -1,5 +1,6 @@
 package me.waternode.server.legion.of.sins.mechanics;
 
+import me.waternode.server.legion.of.sins.LOSMain;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -18,11 +19,9 @@ public class CatastrophicEvent extends BukkitRunnable {
 	private int lifetime;
 	private final Vector direction;
 	private final boolean D3Dist;
-	protected final Random rand;
 	protected final World world;
 
 	protected CatastrophicEvent(Location c, double r, double s, World w, Vector d) {
-		rand = new Random();
 		center = c;
 		range = r;
 		speed = s;
@@ -40,14 +39,14 @@ public class CatastrophicEvent extends BukkitRunnable {
 				if (D3Dist) {
 					if (center.distance(playerLocation) <= range) {
 						if (p.getGameMode() != GameMode.CREATIVE) {
-							OnPlayerNear(p);
+							OnPlayerNear(p, LOSMain.getRandom());
 						}
 
 					}
 				} else {
 					if (Math.pow(playerLocation.getX() - center.getX(), 2) + Math.pow(playerLocation.getZ() - center.getZ(), 2) <= Math.pow(range, 2)) {
 						if (p.getGameMode() != GameMode.CREATIVE) {
-							OnPlayerNear(p);
+							OnPlayerNear(p, LOSMain.getRandom());
 						}
 					}
 				}
@@ -61,6 +60,6 @@ public class CatastrophicEvent extends BukkitRunnable {
 		center.add(direction.getX() * speed, direction.getY() * speed, direction.getZ() * speed);
 	}
 
-	protected void OnPlayerNear(Player p) {
+	protected void OnPlayerNear(Player p, Random random) {
 	}
 }

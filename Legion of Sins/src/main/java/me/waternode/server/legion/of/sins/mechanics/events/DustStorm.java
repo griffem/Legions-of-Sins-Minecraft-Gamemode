@@ -10,6 +10,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import java.util.Random;
+
 public class DustStorm extends CatastrophicEvent {
 
 	public DustStorm(Location c, double r, double s, World w, Vector d) {
@@ -17,7 +19,7 @@ public class DustStorm extends CatastrophicEvent {
 	}
 
 	@Override
-	public void OnPlayerNear(Player p) {
+	public void OnPlayerNear(Player p, Random random) {
 		World w = p.getWorld();
 		Location pLoc = p.getLocation();
 		int pX = pLoc.getBlockX();

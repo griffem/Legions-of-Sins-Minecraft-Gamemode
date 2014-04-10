@@ -1,5 +1,6 @@
 package me.waternode.server.legion.of.sins;
 
+import lombok.Getter;
 import me.waternode.server.legion.of.sins.generation.MainWorldListener;
 import me.waternode.server.legion.of.sins.mechanics.MobHandler;
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
@@ -10,11 +11,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Random;
 import java.util.logging.Logger;
 
 public class LOSMain extends JavaPlugin implements Listener {
 	private static final Logger logger = Bukkit.getLogger();
 	private MainWorldListener WorldListener;
+
+	@Getter
+	private static Random random;
 
 	public void onDisable() {
 		PluginDescriptionFile pluginFile = this.getDescription();
@@ -23,6 +28,7 @@ public class LOSMain extends JavaPlugin implements Listener {
 	}
 
 	public void onEnable() {
+		random = new Random();
 		EventManager events = new EventManager(this);
 		events.runTaskTimer(this, 20L, 600L);
 
