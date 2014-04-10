@@ -5,7 +5,7 @@ import org.bukkit.Location;
 public class Queued {
 	Location loc;
 	int in;
-	
+
 	public Queued(Location l, int i) {
 		loc = l;
 		i = in;
