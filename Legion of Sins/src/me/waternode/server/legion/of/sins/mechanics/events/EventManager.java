@@ -26,30 +26,40 @@ public class EventManager extends BukkitRunnable {
 		if (ps.size() <= 0) return;
 		Player p = (Player) ps.get(r.nextInt(ps.size()));
 		int i = r.nextInt(5);
-		if (i == 0)
-			new AcidRain(p.getLocation(),
-					r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-					this.main, false, p.getWorld(),
-					new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
-		else if (i == 1)
-			new DustStorm(p.getLocation(),
-					r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-					this.main, false, p.getWorld(),
-					new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
-		else if (i == 2)
-			new ElectricalStorms(p.getLocation(),
-					r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-					this.main, false, p.getWorld(),
-					new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
-		else if (i == 3)
-			new MeteorShowers(p.getLocation(),
-					r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-					this.main, false, p.getWorld(),
-					new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
-		else if (i == 4)
-			new MonsterRaid(p.getLocation(),
-					r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
-					this.main, false, p.getWorld(),
-					new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
+		switch (i) {
+			case 0:
+				new AcidRain(p.getLocation(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
+						this.main, false, p.getWorld(),
+						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
+				break;
+			case 1:
+				new DustStorm(p.getLocation(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
+						this.main, false, p.getWorld(),
+						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
+				break;
+			case 2:
+				new ElectricalStorms(p.getLocation(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
+						this.main, false, p.getWorld(),
+						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
+				break;
+			case 3:
+				new MeteorShowers(p.getLocation(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
+						this.main, false, p.getWorld(),
+						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
+				break;
+			case 4:
+				new MonsterRaid(p.getLocation(),
+						r.nextInt(101) + 50, r.nextInt(3) + 1, 100,
+						this.main, false, p.getWorld(),
+						new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
+				break;
+			default:
+				break;
+
+		}
 	}
 }
