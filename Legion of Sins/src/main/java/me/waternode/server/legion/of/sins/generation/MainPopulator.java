@@ -47,7 +47,7 @@ public class MainPopulator extends BlockPopulator {
                     }
                 }
 
-                Block b = world.getBlockAt(x, 100, z);
+                Block b = c.getBlock(x, 100, z);
 
                 if ((b.getBiome() == Biome.OCEAN) || (b.getBiome() == Biome.DEEP_OCEAN)) {
                     WorldLib.CreateAsh(b, r);

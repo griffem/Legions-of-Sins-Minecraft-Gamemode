@@ -8,7 +8,7 @@ import org.bukkit.block.Block;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class WorldGeneration {
+abstract class WorldGeneration {
 
 	public static void DirtReplace(Block b, Random r) {
         switch (b.getBiome()) {
@@ -26,6 +26,7 @@ public class WorldGeneration {
                     b.setType(Material.SMOOTH_STAIRS);
                 }
                 break;
+
             case MEGA_SPRUCE_TAIGA:
             case MEGA_SPRUCE_TAIGA_HILLS:
             case MEGA_TAIGA:
@@ -38,6 +39,7 @@ public class WorldGeneration {
                     b.setType(Material.COBBLESTONE);
                 }
                 break;
+
             default:
                 b.setType(Material.STONE);
                 break;
@@ -69,6 +71,7 @@ public class WorldGeneration {
             case MESA_PLATEAU_MOUNTAINS:
                 b.setType(Material.MYCEL);
                 break;
+
             case BIRCH_FOREST:
             case BIRCH_FOREST_HILLS:
             case BIRCH_FOREST_HILLS_MOUNTAINS:
@@ -101,8 +104,11 @@ public class WorldGeneration {
                      b.setType(Material.NETHER_BRICK);
 			    }
                 break;
+
             case PLAINS:
             case SUNFLOWER_PLAINS:
+            case ICE_PLAINS:
+            case ICE_PLAINS_SPIKES:
                 int j = r.nextInt(9);
 
                 if (j == 0) {
@@ -114,6 +120,7 @@ public class WorldGeneration {
                 } else if (j <= 8) {
                     b.setType(Material.NETHER_BRICK);
                 }
+
             default:
                 b.setType(Material.OBSIDIAN);
         }
@@ -134,11 +141,13 @@ public class WorldGeneration {
             case BIRCH_FOREST_MOUNTAINS:
                 b.setType(Material.QUARTZ_BLOCK);
                 break;
+
             case SAVANNA:
             case SAVANNA_MOUNTAINS:
             case SAVANNA_PLATEAU:
             case SAVANNA_PLATEAU_MOUNTAINS:
                 break;
+
             default:
                 b.setType(Material.COAL_BLOCK);
                 break;
@@ -153,11 +162,13 @@ public class WorldGeneration {
             case BIRCH_FOREST_MOUNTAINS:
                 b.setType(Material.COAL_BLOCK);
                 break;
+
             case SAVANNA:
             case SAVANNA_MOUNTAINS:
             case SAVANNA_PLATEAU:
             case SAVANNA_PLATEAU_MOUNTAINS:
                 break;
+
             default:
                 int i = r.nextInt(12);
                 if (i == 0) {
