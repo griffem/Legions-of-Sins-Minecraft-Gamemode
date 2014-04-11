@@ -25,7 +25,6 @@ public class MeteorShowers extends CatastrophicEvent {
 		l.setY(250);
 		l.setZ(p.getLocation().getZ() + (random.nextInt(7) - 3));
 
-		Fireball fb = (Fireball) p.getWorld().spawnEntity(l, EntityType.PRIMED_TNT);
-		fb.setDirection(new Vector(0, -1.5, 0));
+		p.getWorld().spawnEntity(l, EntityType.PRIMED_TNT);
 	}
 }

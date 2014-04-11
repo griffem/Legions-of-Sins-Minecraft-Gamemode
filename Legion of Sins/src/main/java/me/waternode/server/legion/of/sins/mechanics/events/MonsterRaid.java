@@ -16,7 +16,7 @@ public class MonsterRaid extends CatastrophicEvent {
 
 	@Override
 	public void OnPlayerNear(Player p, Random random) {
-		if (LOSMain.getRandom().nextInt(10) == 0) {
+		if (LOSMain.getRandom().nextInt(20) == 0) {
 			Location l = new Location(this.world, this.range, this.range, this.range);
 
 			l.setX(p.getLocation().getX() + (random.nextInt(21) - 10));
