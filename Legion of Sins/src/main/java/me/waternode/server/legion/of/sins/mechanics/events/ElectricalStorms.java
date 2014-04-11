@@ -10,7 +10,7 @@ import java.util.Random;
 public class ElectricalStorms extends CatastrophicEvent {
 
 	public ElectricalStorms(Location c, double r, double s, World w, Vector d) {
-		super(c, r, s, w, d);
+		super(c, r, s, w, d, "The lightning goes boom, I would take cover.");
 	}
 
 	@Override

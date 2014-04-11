@@ -13,7 +13,7 @@ import java.util.Random;
 public class AcidRain extends CatastrophicEvent {
 
 	public AcidRain(Location c, double r, double s, World w, Vector d) {
-		super(c, r, s, w, d);
+		super(c, r, s, w, d, "The rain will burn your skin, better find a leaf or two to cover it...");
 	}
 
 	@Override

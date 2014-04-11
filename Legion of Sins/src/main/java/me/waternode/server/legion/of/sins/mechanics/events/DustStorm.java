@@ -14,7 +14,7 @@ import java.util.Random;
 public class DustStorm extends CatastrophicEvent {
 
 	public DustStorm(Location c, double r, double s, World w, Vector d) {
-		super(c, r, s, w, d);
+		super(c, r, s, w, d, "A dust storm is coming, better take cover...");
 	}
 
 	@Override

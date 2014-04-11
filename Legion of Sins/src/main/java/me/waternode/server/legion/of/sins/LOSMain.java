@@ -28,7 +28,7 @@ public class LOSMain extends JavaPlugin implements Listener {
 	public void onEnable() {
 		random = new Random();
 		EventManager events = new EventManager(this);
-		events.runTaskTimer(this, 20L, 600L);
+		events.runTaskTimer(this, 20L, 1000L);
 
 		worldListener = new WorldListener();
 		MobHandler MS = new MobHandler();

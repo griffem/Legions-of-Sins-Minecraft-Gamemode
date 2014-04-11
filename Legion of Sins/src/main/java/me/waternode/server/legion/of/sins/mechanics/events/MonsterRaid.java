@@ -12,21 +12,23 @@ import java.util.Random;
 
 public class MonsterRaid extends CatastrophicEvent {
 	public MonsterRaid(Location c, double r, double s, World w, Vector d) {
-		super(c, r, s, w, d);
+		super(c, r, s, w, d, "Brace the sneak, the zombie army sieges.");
 	}
 
 	@Override
 	public void OnPlayerNear(Player p, Random random) {
-		if (LOSMain.getRandom().nextInt(20) == 0) {
-			Location l = new Location(this.world, this.range, this.range, this.range);
+        if(!p.isSneaking()) {
+            if (LOSMain.getRandom().nextInt(20) == 0) {
+                Location l = new Location(this.world, this.range, this.range, this.range);
 
-			l.setX(p.getLocation().getX() + (random.nextInt(21) - 10));
-			l.setY(p.getLocation().getY());
-			l.setZ(p.getLocation().getZ() + (random.nextInt(21) - 10));
+                l.setX(p.getLocation().getX() + (random.nextInt(21) - 10));
+                l.setY(p.getLocation().getY());
+                l.setZ(p.getLocation().getZ() + (random.nextInt(21) - 10));
 
-            //Making mob spawn to the side? Add potion effects like weakness or slowness?
-            LivingEntity a = (LivingEntity) p.getLocation().getWorld().spawnEntity(l, EntityType.ZOMBIE);
-            a.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 1));
-		}
+                //Making mob spawn to the side? Add potion effects like weakness or slowness?
+                LivingEntity a = (LivingEntity) p.getLocation().getWorld().spawnEntity(l, EntityType.ZOMBIE);
+                a.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 1));
+            }
+        }
 	}
 }

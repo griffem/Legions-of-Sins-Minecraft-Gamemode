@@ -12,7 +12,7 @@ import org.bukkit.entity.Entity;
 public class MeteorShowers extends CatastrophicEvent {
 
 	public MeteorShowers(Location c, double r, double s, World w, Vector d) {
-		super(c, r, s, w, d);
+		super(c, r, s, w, d, "Run, the meteors arrive.");
 	}
 
 	@Override
