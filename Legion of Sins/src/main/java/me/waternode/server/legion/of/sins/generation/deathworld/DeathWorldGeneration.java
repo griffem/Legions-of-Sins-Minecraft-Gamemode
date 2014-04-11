@@ -11,6 +11,7 @@ import java.util.Random;
  */
 public class DeathWorldGeneration {
 
+    public static void MelonReplace(Block b, Random r) { b.setType(Material.AIR); }
     public static void WaterReplace(Block b, Random r) {
         b.setType(Material.AIR);
     }
@@ -33,7 +34,7 @@ public class DeathWorldGeneration {
                 break;
 
             default:
-                b.setType(Material.SMOOTH_BRICK);
+                b.setType(Material.COAL_BLOCK);
                 break;
         }
     }
@@ -75,7 +76,7 @@ public class DeathWorldGeneration {
                 } else if (i == 1) {
                     b.setType(Material.SOUL_SAND);
                 } else if (i == 2) {
-                    b.setType(Material.SMOOTH_BRICK);
+                    b.setType(Material.COAL_BLOCK);
                 }
                 break;
 
@@ -87,7 +88,7 @@ public class DeathWorldGeneration {
                 int k = r.nextInt(6);
 
                 if (k == 0) {
-                    b.setType(Material.SMOOTH_BRICK);
+                    b.setType(Material.COAL_BLOCK);
                 } else if (k <= 1) {
                     b.setType(Material.SOUL_SAND);
                 } else if (k <= 2) {
