@@ -25,9 +25,6 @@ public class DeathWorldPopulator extends BlockPopulator {
                     Material type = b.getType();
 
                     switch (type) {
-                        case MELON_BLOCK:
-                            DeathWorldGeneration.MelonReplace(b, r);
-                            break;
                         case WATER: case STATIONARY_WATER:
                             DeathWorldGeneration.WaterReplace(b, r);
                             break;
@@ -46,7 +43,10 @@ public class DeathWorldPopulator extends BlockPopulator {
                         case LEAVES: case LEAVES_2:
                             DeathWorldGeneration.LeavesReplace(b, r);
                             break;
-                        case LONG_GRASS: case RED_ROSE: case YELLOW_FLOWER: case DOUBLE_PLANT: case COCOA: case SUGAR_CANE_BLOCK:case CACTUS: case VINE:
+                        case LONG_GRASS: case RED_ROSE:
+                        case YELLOW_FLOWER: case DOUBLE_PLANT:
+                        case COCOA: case SUGAR_CANE_BLOCK:
+                        case CACTUS: case MELON_BLOCK:
                             b.setType(Material.AIR);
                             break;
                     }

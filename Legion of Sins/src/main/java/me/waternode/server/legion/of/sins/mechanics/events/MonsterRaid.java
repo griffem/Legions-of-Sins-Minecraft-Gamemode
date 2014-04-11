@@ -16,12 +16,12 @@ public class MonsterRaid extends CatastrophicEvent {
 
 	@Override
 	public void OnPlayerNear(Player p, Random random) {
-		if (LOSMain.getRandom().nextInt(4) == 0) {
+		if (LOSMain.getRandom().nextInt(10) == 0) {
 			Location l = new Location(this.world, this.range, this.range, this.range);
 
-			l.setX(p.getLocation().getX() + (random.nextInt(11) - 5));
+			l.setX(p.getLocation().getX() + (random.nextInt(21) - 10));
 			l.setY(p.getLocation().getY());
-			l.setZ(p.getLocation().getZ() + (random.nextInt(11) - 5));
+			l.setZ(p.getLocation().getZ() + (random.nextInt(21) - 10));
 
 			p.getLocation().getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
 		}

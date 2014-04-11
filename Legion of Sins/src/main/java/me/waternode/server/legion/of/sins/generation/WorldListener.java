@@ -31,7 +31,7 @@ public class WorldListener implements Listener {
 			e.getPlayer().teleport(new Location(Bukkit.getWorld("main"), r.nextInt(1000), 260.0D, r.nextInt(1000)));
 			e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 5));
 		} else if (e.getFrom().getWorld().getName().equalsIgnoreCase("main")) {
-			e.getPlayer().teleport(new Location(Bukkit.getWorld("main2"), r.nextInt(1000), 260.0D, r.nextInt(1000)));
+			e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), r.nextInt(1000), 260.0D, r.nextInt(1000)));
 			e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 5));
 		}
 

@@ -10,8 +10,6 @@ import java.util.Random;
  * on 4/10/2014
  */
 public class DeathWorldGeneration {
-
-    public static void MelonReplace(Block b, Random r) { b.setType(Material.AIR); }
     public static void WaterReplace(Block b, Random r) {
         b.setType(Material.AIR);
     }
@@ -97,7 +95,7 @@ public class DeathWorldGeneration {
                     b.setType(Material.SOUL_SAND);
                 } else if (d == 2) {
                     b.setType(Material.COAL_BLOCK);
-                } else if (d == 2) {
+                } else if (d == 3) {
                     b.setType(Material.SMOOTH_BRICK);
                 }
                 break;
