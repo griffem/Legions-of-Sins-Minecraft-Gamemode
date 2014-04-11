@@ -1,5 +1,6 @@
 package me.waternode.server.legion.of.sins.generation;
 
+import me.waternode.server.legion.of.sins.InfinitePotionEffect;
 import me.waternode.server.legion.of.sins.generation.deathworld.DeathWorldPopulator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -33,6 +34,7 @@ public class WorldListener implements Listener {
 		} else if (e.getFrom().getWorld().getName().equalsIgnoreCase("main")) {
 			e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), r.nextInt(1000), 260.0D, r.nextInt(1000)));
 			e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 5));
+            e.getPlayer().addPotionEffect(new InfinitePotionEffect(PotionEffectType.BLINDNESS, 1));
 		}
 
 		e.setCancelled(true);
