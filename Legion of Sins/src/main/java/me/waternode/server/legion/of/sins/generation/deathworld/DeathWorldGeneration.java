@@ -34,7 +34,20 @@ public class DeathWorldGeneration {
                 break;
 
             default:
+<<<<<<< HEAD
                 b.setType(Material.COAL_BLOCK);
+=======
+                int a = r.nextInt(4);
+                if (a == 0) {
+                    b.setType(Material.COAL_BLOCK);
+                } else if (a == 1) {
+                    b.setType(Material.COBBLESTONE);
+                } else if (a == 2) {
+                    b.setType(Material.GRAVEL);
+                } else if (a == 3) {
+                    b.setType(Material.COAL_ORE);
+                }
+>>>>>>> 9bf9650843b2af12dda6f7c4eb6f638e71a90c9e
                 break;
         }
     }
@@ -62,21 +75,36 @@ public class DeathWorldGeneration {
             case MESA_PLATEAU_FOREST:
             case MESA_PLATEAU_FOREST_MOUNTAINS:
             case MESA_PLATEAU_MOUNTAINS:
-                b.setType(Material.NETHERRACK);
+                int i = r.nextInt(4);
+
+                if (i == 0) {
+                    b.setType(Material.COAL_ORE);
+                } else if (i == 1) {
+                    b.setType(Material.COBBLESTONE);
+                } else if (i == 2) {
+                    b.setType(Material.SMOOTH_BRICK);
+                } else if (i == 3) {
+                    b.setType(Material.NETHERRACK);
+                }
                 break;
 
             case BIRCH_FOREST:
             case BIRCH_FOREST_HILLS:
             case BIRCH_FOREST_HILLS_MOUNTAINS:
             case BIRCH_FOREST_MOUNTAINS:
-                int i = r.nextInt(3);
+                int d = r.nextInt(3);
 
-                if (i == 0) {
+                if (d == 0) {
                     b.setType(Material.NETHERRACK);
-                } else if (i == 1) {
+                } else if (d == 1) {
                     b.setType(Material.SOUL_SAND);
+<<<<<<< HEAD
                 } else if (i == 2) {
                     b.setType(Material.COAL_BLOCK);
+=======
+                } else if (d == 2) {
+                    b.setType(Material.SMOOTH_BRICK);
+>>>>>>> 9bf9650843b2af12dda6f7c4eb6f638e71a90c9e
                 }
                 break;
 
