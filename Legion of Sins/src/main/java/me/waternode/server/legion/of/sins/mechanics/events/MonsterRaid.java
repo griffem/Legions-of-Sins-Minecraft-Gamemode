@@ -1,10 +1,11 @@
 package me.waternode.server.legion.of.sins.mechanics.events;
 
+import me.waternode.server.legion.of.sins.InfinitePotionEffect;
 import me.waternode.server.legion.of.sins.LOSMain;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
@@ -23,7 +24,8 @@ public class MonsterRaid extends CatastrophicEvent {
 			l.setY(p.getLocation().getY());
 			l.setZ(p.getLocation().getZ() + (random.nextInt(21) - 10));
 
-			p.getLocation().getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
+            //Making mob spawn to the side? Add potion effects like weakness or slowness?
+            p.getLocation().getWorld().spawnEntity(p.getLocation().getX() + random.nextInt(3), EntityType.ZOMBIE.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 1)));
 		}
 	}
 }
