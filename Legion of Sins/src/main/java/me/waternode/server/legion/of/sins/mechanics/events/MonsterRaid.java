@@ -25,7 +25,8 @@ public class MonsterRaid extends CatastrophicEvent {
 			l.setZ(p.getLocation().getZ() + (random.nextInt(21) - 10));
 
             //Making mob spawn to the side? Add potion effects like weakness or slowness?
-            p.getLocation().getWorld().spawnEntity(p.getLocation().getX() + random.nextInt(3), EntityType.ZOMBIE.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 1)));
+            LivingEntity a = (LivingEntity) p.getLocation().getWorld().spawnEntity(l, EntityType.ZOMBIE);
+            a.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 1));
 		}
 	}
 }
