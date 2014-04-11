@@ -3,11 +3,11 @@ package me.waternode.server.legion.of.sins.mechanics.events;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
+import org.bukkit.entity.Entity;
 
 public class MeteorShowers extends CatastrophicEvent {
 
@@ -25,6 +25,7 @@ public class MeteorShowers extends CatastrophicEvent {
 		l.setY(250);
 		l.setZ(p.getLocation().getZ() + (random.nextInt(7) - 3));
 
-		p.getWorld().spawnEntity(l, EntityType.PRIMED_TNT);
+		Entity a = (Entity) p.getWorld().spawnEntity(l, EntityType.PRIMED_TNT);
+        a.setVelocity(new Vector(0, -4, 0));
 	}
 }
