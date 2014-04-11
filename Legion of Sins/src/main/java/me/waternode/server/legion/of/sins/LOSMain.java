@@ -1,6 +1,7 @@
 package me.waternode.server.legion.of.sins;
 
 import lombok.Getter;
+import me.waternode.server.legion.of.sins.generation.WorldListener;
 import me.waternode.server.legion.of.sins.mechanics.MobHandler;
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
 import org.bukkit.Bukkit;
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
 
 public class LOSMain extends JavaPlugin implements Listener {
 	private static final Logger logger = Bukkit.getLogger();
-	private me.waternode.server.legion.of.sins.generation.WorldListener WorldListener;
+	private WorldListener worldListener;
 
 	@Getter
 	private static Random random;
@@ -29,10 +30,10 @@ public class LOSMain extends JavaPlugin implements Listener {
 		EventManager events = new EventManager(this);
 		events.runTaskTimer(this, 20L, 600L);
 
-		WorldListener = new me.waternode.server.legion.of.sins.generation.WorldListener();
+		worldListener = new WorldListener();
 		MobHandler MS = new MobHandler();
 
-		getServer().getPluginManager().registerEvents(WorldListener, this);
+		getServer().getPluginManager().registerEvents(worldListener, this);
 		getServer().getPluginManager().registerEvents(MS, this);
 		logger.info("Listeners hooked!");
 

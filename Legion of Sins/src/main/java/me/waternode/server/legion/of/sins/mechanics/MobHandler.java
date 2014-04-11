@@ -1,6 +1,8 @@
 package me.waternode.server.legion.of.sins.mechanics;
 
 import me.waternode.server.legion.of.sins.InfinitePotionEffect;
+import me.waternode.server.legion.of.sins.LOSMain;
+import me.waternode.server.legion.of.sins.chance.Fraction;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
@@ -12,9 +14,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MobHandler implements Listener {
 
@@ -71,63 +71,94 @@ public class MobHandler implements Listener {
 
 	@EventHandler
 	public void onEntityDamage(EntityDamageByEntityEvent e) {
-		Random r = new Random();
 		if (!e.getDamager().getLocation().getWorld().getName().equalsIgnoreCase("main") ||
 				!(e.getDamager() instanceof Player) ||
 				!(e.getEntity() instanceof Animals)) return;
 
-		Animals mob = (Animals) e.getEntity();
+		Animals hitEntity = (Animals) e.getEntity();
 		if (e.getEntity() instanceof Pig) {
-			if (r.nextBoolean()) {
-				Zombie i = (Zombie) mob.getWorld().spawnEntity(mob.getLocation(), EntityType.ZOMBIE);
-				ArrayList<PotionEffect> ps = new ArrayList<PotionEffect>();
-				ps.add(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(2)));
-				ps.add(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(3)));
-				ps.add(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(3)));
-				ps.add(new InfinitePotionEffect(PotionEffectType.REGENERATION, r.nextInt(1)));
-				ps.add(new InfinitePotionEffect(PotionEffectType.FIRE_RESISTANCE, 1));
-				i.addPotionEffects(ps);
-				mob.getWorld().playSound(mob.getLocation(), Sound.ZOMBIE_DEATH, 2, 1);
-				mob.setHealth(0);
+			if (Fraction.getChance(new Fraction(1, 2))) {
+				Zombie zombie = (Zombie) hitEntity.getWorld().spawnEntity(hitEntity.getLocation(), EntityType.ZOMBIE);
+
+				// Potion effect type, 0 - (Integer - 1) levels of that potion you can get
+				Map<PotionEffectType, Integer> potionEffectTypeIntegerMap = new HashMap<PotionEffectType, Integer>() {
+					{
+						// Put all potions and the range for the random integer in hashmap
+						put(PotionEffectType.SPEED, 2);
+						put(PotionEffectType.INCREASE_DAMAGE, 3);
+						put(PotionEffectType.DAMAGE_RESISTANCE, 3);
+						put(PotionEffectType.REGENERATION, 1);
+						put(PotionEffectType.FIRE_RESISTANCE, 1);
+					}
+				};
+
+				// Turns into potion effect
+				List<PotionEffect> ps = new ArrayList<PotionEffect>();
+				for(PotionEffectType potionEffectType : potionEffectTypeIntegerMap.keySet()) ps.add(new InfinitePotionEffect(potionEffectType, LOSMain.getRandom().nextInt(potionEffectTypeIntegerMap.get(potionEffectType))));
+
+				// Add Potion effects to Zombie
+				zombie.addPotionEffects(ps);
+
+				playSoundAt(hitEntity, Sound.ZOMBIE_DEATH);
+				hitEntity.setHealth(0);
 			}
 		}
 		if (e.getEntity() instanceof Sheep) {
-			if (r.nextBoolean()) {
-				CaveSpider i = (CaveSpider) mob.getWorld().spawnEntity(mob.getLocation(), EntityType.CAVE_SPIDER);
-				ArrayList<PotionEffect> ps = new ArrayList<PotionEffect>();
-				ps.add(new PotionEffect(PotionEffectType.SPEED, 36000, r.nextInt(3)));
-				ps.add(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 36000, r.nextInt(2)));
-				ps.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 36000, r.nextInt(2)));
-				ps.add(new PotionEffect(PotionEffectType.REGENERATION, 36000, r.nextInt(3)));
-				i.addPotionEffects(ps);
-				mob.getWorld().playSound(mob.getLocation(), Sound.SPIDER_DEATH, 2, 1);
-				mob.setHealth(0);
+			if (Fraction.getChance(new Fraction(1, 2))) {
+				CaveSpider caveSpider = (CaveSpider) hitEntity.getWorld().spawnEntity(hitEntity.getLocation(), EntityType.CAVE_SPIDER);
+
+                // Potion effect type, 0 - (Integer - 1) levels of that potion you can get
+				Map<PotionEffectType, Integer> potionEffectTypeIntegerMap = new HashMap<PotionEffectType, Integer>() {
+					{
+						// Put all potions and the range for the random integer in hashmap
+						put(PotionEffectType.SPEED, 3);
+						put(PotionEffectType.INCREASE_DAMAGE, 2);
+						put(PotionEffectType.DAMAGE_RESISTANCE, 2);
+						put(PotionEffectType.REGENERATION, 3);
+
+					}
+				};
+
+				// Turns into potion effect
+				List<PotionEffect> ps = new ArrayList<PotionEffect>();
+				for(PotionEffectType potionEffectType : potionEffectTypeIntegerMap.keySet()) ps.add(new InfinitePotionEffect(potionEffectType, LOSMain.getRandom().nextInt(potionEffectTypeIntegerMap.get(potionEffectType))));
+
+				// Add Potion Effect
+				caveSpider.addPotionEffects(ps);
+
+				playSoundAt(hitEntity, Sound.SPIDER_DEATH);
+				hitEntity.setHealth(0);
 			}
+			// Return as if the Entity is an instance of a sheep it's not also going to be an instance of a chicken :P
+			return;
 		}
 		if (e.getEntity() instanceof Chicken) {
-			if (r.nextInt(3) == 0) {
+			if (Fraction.getChance(new Fraction(1, 4))) {
 				// l = Amounts of times to repeat primed tnt
 				for(Integer i = 0, l = 6; i < l; i++) {
 					e.getDamager().getWorld().spawnEntity(e.getDamager().getLocation(), EntityType.PRIMED_TNT);
 				}
 
-				mob.getWorld().playSound(mob.getLocation(), Sound.BURP, 2, 1);
-				mob.setHealth(0);
+				playSoundAt(hitEntity, Sound.BURP);
+				hitEntity.setHealth(0);
 			}
+			// Return as if the Entity is an instance of a Chicken it's not also going to be an instance of a Cow :P
+			return;
 		}
 		if (e.getEntity() instanceof Cow) {
-			if (r.nextBoolean()) {
-				if (r.nextBoolean()) {
-					CaveSpider i = (CaveSpider) mob.getWorld().spawnEntity(mob.getLocation(), EntityType.CAVE_SPIDER);
+			if (Fraction.getChance(new Fraction(1, 2))) {
+				Random r = LOSMain.getRandom();
+				if (Fraction.getChance(new Fraction(1, 2))) {
+					CaveSpider i = (CaveSpider) hitEntity.getWorld().spawnEntity(hitEntity.getLocation(), EntityType.CAVE_SPIDER);
 					List<PotionEffect> ps = new ArrayList<PotionEffect>();
 					ps.add(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(3)));
 					ps.add(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(2)));
 					ps.add(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(2)));
 					ps.add(new InfinitePotionEffect(PotionEffectType.REGENERATION, r.nextInt(3)));
 					i.addPotionEffects(ps);
-					mob.getWorld().playSound(mob.getLocation(), Sound.SPIDER_DEATH, 2, 1);
+					playSoundAt(hitEntity, Sound.SPIDER_DEATH);
 				} else {
-					Zombie i = (Zombie) mob.getWorld().spawnEntity(mob.getLocation(), EntityType.ZOMBIE);
+					Zombie i = (Zombie) hitEntity.getWorld().spawnEntity(hitEntity.getLocation(), EntityType.ZOMBIE);
 					List<PotionEffect> ps = new ArrayList<PotionEffect>();
 					ps.add(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(2)));
 					ps.add(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(3)));
@@ -135,10 +166,20 @@ public class MobHandler implements Listener {
 					ps.add(new InfinitePotionEffect(PotionEffectType.REGENERATION, r.nextInt(1)));
 					ps.add(new InfinitePotionEffect(PotionEffectType.FIRE_RESISTANCE, 1));
 					i.addPotionEffects(ps);
-					mob.getWorld().playSound(mob.getLocation(), Sound.ZOMBIE_DEATH, 2, 1);
+					playSoundAt(hitEntity, Sound.ZOMBIE_DEATH);
 				}
-				mob.setHealth(0);
+				hitEntity.setHealth(0);
 			}
+			// No Return this time as it is last statement in the method ;)
 		}
+	}
+
+	/**
+	 * Convenience Method for the hitEntity in the events used in this class
+	 * @param entity ~ The entity to play the sound at the location of
+	 * @param sound ~ The sound to play
+	 */
+	private static void playSoundAt(Entity entity, Sound sound) {
+		entity.getWorld().playSound(entity.getLocation(), sound, 2, 1);
 	}
 }
