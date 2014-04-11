@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffectType;
  * Created by Ervin
  * on 4/11/2014
  */
-public class Bilndness implements Listener {
+public class Blindness implements Listener {
 
     //better way to tell if player is in a world?
     public void onPJE(PlayerJoinEvent event) {
