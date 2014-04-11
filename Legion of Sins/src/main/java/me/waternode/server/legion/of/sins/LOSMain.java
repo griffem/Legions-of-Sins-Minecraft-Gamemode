@@ -10,22 +10,25 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;
-import java.util.logging.Logger;
 
 public class LOSMain extends JavaPlugin implements Listener {
-	private static final Logger logger = Bukkit.getLogger();
+	@Getter
+	private static LOSMain instance;
 	private WorldListener worldListener;
+	@Getter
+	private static final Boolean debug = false;
 
 	@Getter
 	private static Random random;
 
 	public void onDisable() {
 		PluginDescriptionFile pluginFile = this.getDescription();
-		logger.info(pluginFile.getName() + " is now disabled.");
+		getLogger().info(pluginFile.getName() + " is now disabled.");
 		Bukkit.getScheduler().cancelTasks(this);
 	}
 
 	public void onEnable() {
+		instance = this;
 		random = new Random();
 		EventManager events = new EventManager(this);
 		events.runTaskTimer(this, 20L, 1000L);
@@ -35,11 +38,11 @@ public class LOSMain extends JavaPlugin implements Listener {
 
 		getServer().getPluginManager().registerEvents(worldListener, this);
 		getServer().getPluginManager().registerEvents(MS, this);
-		logger.info("Listeners hooked!");
+		getLogger().info("Listeners hooked!");
 
 		PluginDescriptionFile pluginFile = this.getDescription();
-		logger.info(pluginFile.getName() + " is written by " + pluginFile.getAuthors() + " is now enabled.");
-		logger.info(pluginFile.getName() + " version " + pluginFile.getVersion() + " is now enabled.");
+		getLogger().info(pluginFile.getName() + " is written by " + pluginFile.getAuthors() + " is now enabled.");
+		getLogger().info(pluginFile.getName() + " version " + pluginFile.getVersion() + " is now enabled.");
 
 	}
 }

@@ -78,29 +78,7 @@ public class MobHandler implements Listener {
 		Animals hitEntity = (Animals) e.getEntity();
 		if (e.getEntity() instanceof Pig) {
 			if (Fraction.getChance(new Fraction(1, 2))) {
-				Zombie zombie = (Zombie) hitEntity.getWorld().spawnEntity(hitEntity.getLocation(), EntityType.ZOMBIE);
-
-				// Potion effect type, 0 - (Integer - 1) levels of that potion you can get
-				Map<PotionEffectType, Integer> potionEffectTypeIntegerMap = new HashMap<PotionEffectType, Integer>() {
-					{
-						// Put all potions and the range for the random integer in hashmap
-						put(PotionEffectType.SPEED, 2);
-						put(PotionEffectType.INCREASE_DAMAGE, 3);
-						put(PotionEffectType.DAMAGE_RESISTANCE, 3);
-						put(PotionEffectType.REGENERATION, 1);
-						put(PotionEffectType.FIRE_RESISTANCE, 1);
-					}
-				};
-
-				// Turns into potion effect
-				List<PotionEffect> ps = new ArrayList<PotionEffect>();
-				for(PotionEffectType potionEffectType : potionEffectTypeIntegerMap.keySet()) ps.add(new InfinitePotionEffect(potionEffectType, LOSMain.getRandom().nextInt(potionEffectTypeIntegerMap.get(potionEffectType))));
-
-				// Add Potion effects to Zombie
-				zombie.addPotionEffects(ps);
-
-				playSoundAt(hitEntity, Sound.ZOMBIE_DEATH);
-				hitEntity.setHealth(0);
+				pig2Zombie((Pig)hitEntity);
 			}
 		}
 		if (e.getEntity() instanceof Sheep) {
@@ -181,5 +159,35 @@ public class MobHandler implements Listener {
 	 */
 	private static void playSoundAt(Entity entity, Sound sound) {
 		entity.getWorld().playSound(entity.getLocation(), sound, 2, 1);
+	}
+
+	/**
+	 * Convenience Method for turning the pig into a zombie and playing other, "cool", effects
+	 * @param entity The pig to turn into a zombie
+	 */
+	private static void pig2Zombie(Pig entity) {
+		Zombie zombie = (Zombie) entity.getWorld().spawnEntity( entity.getLocation(), EntityType.ZOMBIE);
+
+		// Potion effect type, 0 - (Integer - 1) levels of that potion you can get
+		Map<PotionEffectType, Integer> potionEffectTypeIntegerMap = new HashMap<PotionEffectType, Integer>() {
+			{
+				// Put all potions and the range for the random integer in hashmap
+				put(PotionEffectType.SPEED, 2);
+				put(PotionEffectType.INCREASE_DAMAGE, 3);
+				put(PotionEffectType.DAMAGE_RESISTANCE, 3);
+				put(PotionEffectType.REGENERATION, 1);
+				put(PotionEffectType.FIRE_RESISTANCE, 1);
+			}
+		};
+
+		// Turns into potion effect
+		List<PotionEffect> ps = new ArrayList<PotionEffect>();
+		for(PotionEffectType potionEffectType : potionEffectTypeIntegerMap.keySet()) ps.add(new InfinitePotionEffect(potionEffectType, LOSMain.getRandom().nextInt(potionEffectTypeIntegerMap.get(potionEffectType))));
+
+		// Add Potion effects to Zombie
+		zombie.addPotionEffects(ps);
+
+		playSoundAt( entity, Sound.ZOMBIE_DEATH);
+	    entity.setHealth(0);
 	}
 }
