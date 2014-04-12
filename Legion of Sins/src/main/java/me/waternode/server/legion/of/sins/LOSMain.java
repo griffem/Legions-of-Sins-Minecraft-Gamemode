@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.waternode.server.legion.of.sins.generation.WorldListener;
 import me.waternode.server.legion.of.sins.mechanics.MobHandler;
 import me.waternode.server.legion.of.sins.mechanics.deathworld.Blindness;
+import me.waternode.server.legion.of.sins.mechanics.deathworld.DeathWorldMobHandler;
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -35,12 +36,14 @@ public class LOSMain extends JavaPlugin implements Listener {
 		events.runTaskTimer(this, 20L, 1000L);
 
 		worldListener = new WorldListener();
-		MobHandler MS = new MobHandler();
+		MobHandler MH = new MobHandler();
         Blindness blind = new Blindness();
+        DeathWorldMobHandler dwMH = new DeathWorldMobHandler();
 
 		getServer().getPluginManager().registerEvents(worldListener, this);
-		getServer().getPluginManager().registerEvents(MS, this);
+		getServer().getPluginManager().registerEvents(MH, this);
         getServer().getPluginManager().registerEvents(blind, this);
+        getServer().getPluginManager().registerEvents(dwMH, this);
 		getLogger().info("Listeners hooked!");
 
 		PluginDescriptionFile pluginFile = this.getDescription();
