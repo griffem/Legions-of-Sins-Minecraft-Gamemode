@@ -2,6 +2,7 @@ package me.waternode.server.legion.of.sins.generation.deathworld;
 
 import me.waternode.server.legion.of.sins.generation.WorldLib;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
@@ -51,11 +52,11 @@ public class DeathWorldPopulator extends BlockPopulator {
                             break;
                     }
                 }
-
-                Block b = c.getBlock(x, 100, z);
-
-                if ((b.getBiome() == Biome.OCEAN) || (b.getBiome() == Biome.DEEP_OCEAN)) {
-                    WorldLib.CreateAsh(b, r);
+                Block b = c.getBlock(x, 200, z);
+                Location l = b.getLocation();
+                if((l.getX() > -10 && l.getX() < 10)
+                        ||(l.getZ() > -10 && l.getZ() < 10)) {
+                    b.setType(Material.SAND);
                 }
             }
         }
