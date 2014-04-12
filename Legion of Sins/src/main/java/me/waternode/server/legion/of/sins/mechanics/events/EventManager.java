@@ -28,7 +28,7 @@ public class EventManager extends BukkitRunnable {
 
 		Player p = ps.get(r.nextInt(ps.size()));
 		int i = r.nextInt(5);
-		while(true) {
+
             if(!p.getWorld().getName().contains("deathworld")) {
             } else {
                 switch (i) {
@@ -66,7 +66,5 @@ public class EventManager extends BukkitRunnable {
                         break;
             }
             }
-        }
-
 	}
 }
