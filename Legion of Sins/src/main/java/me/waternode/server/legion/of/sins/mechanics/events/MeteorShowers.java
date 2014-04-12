@@ -18,7 +18,8 @@ public class MeteorShowers extends CatastrophicEvent {
 	@Override
 	public void OnPlayerNear(Player p, Random random) {
 		// 4 times a second / 4 = ~1 time per second
-		if (random.nextInt(4) != 0) return;
+		if (random.nextInt(6) != 0) return;
+        if (p.getWorld().getHighestBlockYAt(p.getLocation()) - 5 <= p.getLocation().getY()) return;
 		Location l = new Location(world, range, range, range);
 
 		l.setX(p.getLocation().getX() + (random.nextInt(7) - 3));

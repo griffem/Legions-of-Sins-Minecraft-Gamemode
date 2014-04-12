@@ -55,13 +55,11 @@ public class MobHandler implements Listener {
 				|| e.getEntityType() == EntityType.SKELETON) {
 			e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.FIRE_RESISTANCE, 1));
 			e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(2)));
-			e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(2)));
 			e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(2)));
 			if (r.nextBoolean()) {
 				LivingEntity atk = (LivingEntity) e.getLocation().getWorld().spawnEntity(e.getLocation(), e.getEntityType());
 				atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.FIRE_RESISTANCE, 1));
 				atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(2)));
-				atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(2)));
 				atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(2)));
 			}
 		} else if (e.getEntityType() == EntityType.ENDERMAN) {
