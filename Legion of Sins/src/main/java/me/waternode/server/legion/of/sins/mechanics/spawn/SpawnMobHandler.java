@@ -1,6 +1,7 @@
 package me.waternode.server.legion.of.sins.mechanics.spawn;
 
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -27,9 +28,9 @@ public class SpawnMobHandler implements Listener {
         if(e.getEntity().getWorld().getName().contains("spawn")) {
             if(e.getEntity().getType() == EntityType.PLAYER) {
                 e.setCancelled(true);
+                ((Player) e.getEntity()).setHealth(20);
             }
         }
-
     }
 
     public void PLH(FoodLevelChangeEvent e) {
@@ -37,6 +38,7 @@ public class SpawnMobHandler implements Listener {
             if(e.getEntity().getType() == EntityType.PLAYER) {
                 if(e.getFoodLevel() > 20) {
                     e.setFoodLevel(20);
+                    e.getEntity().setHealth(20);
                 }
             }
         }
