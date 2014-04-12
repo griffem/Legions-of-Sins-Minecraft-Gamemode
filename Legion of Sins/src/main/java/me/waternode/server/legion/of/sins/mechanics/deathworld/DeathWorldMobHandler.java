@@ -56,15 +56,18 @@ public class DeathWorldMobHandler implements Listener {
                 || e.getEntityType() == EntityType.SPIDER
                 || e.getEntityType() == EntityType.SKELETON) {
             e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.FIRE_RESISTANCE, 1));
-            e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(3)));
-            e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(3)));
-            e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(3)));
+            e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(2)));
+            e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(2)));
+            e.getEntity().addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(2)));
             if (r.nextBoolean()) {
                 LivingEntity atk = (LivingEntity) e.getLocation().getWorld().spawnEntity(e.getLocation(), e.getEntityType());
                 atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.FIRE_RESISTANCE, 1));
-                atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(3)));
-                atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(3)));
-                atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(3)));
+                atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, r.nextInt(2)));
+                atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INCREASE_DAMAGE, r.nextInt(2)));
+                atk.addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(2)));
+                if(atk instanceof Skeleton) {
+                    equipSkeleton((Skeleton) atk);
+                }
             }
         } else if (e.getEntityType() == EntityType.ENDERMAN) {
             e.setCancelled(true);
@@ -79,7 +82,7 @@ public class DeathWorldMobHandler implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent e) {
-        if (!e.getDamager().getLocation().getWorld().getName().equalsIgnoreCase("main") ||
+        if (!e.getDamager().getLocation().getWorld().getName().equalsIgnoreCase("deathworld") ||
                 !(e.getDamager() instanceof Player) ||
                 !(e.getEntity() instanceof Animals)) return;
 

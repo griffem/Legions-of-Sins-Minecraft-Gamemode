@@ -21,7 +21,8 @@ public class EventManager extends BukkitRunnable {
 		// Use lowest interface possible
 		List<Player> ps = new ArrayList<Player>();
 		for (Player p : main.getServer().getOnlinePlayers())
-			if (p.getWorld().getName().toLowerCase().contains("main")) ps.add(p);
+			if (p.getWorld().getName().toLowerCase().contains("main")
+                    || p.getWorld().getName().toLowerCase().contains("deathworld")) ps.add(p);
 
 		if (ps.size() <= 0) return;
 

@@ -6,8 +6,10 @@ import me.waternode.server.legion.of.sins.generation.deathworld.DeathWorldPopula
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.potion.PotionEffect;
@@ -28,8 +30,8 @@ public class WorldListener implements Listener {
 	}
 
 	@EventHandler
-	public void onPortal(PlayerPortalEvent e) {
-		if (e.getFrom().getWorld().getName().equalsIgnoreCase("spawn")) {
+         public void onPortal(PlayerPortalEvent e) {
+        if (e.getFrom().getWorld().getName().equalsIgnoreCase("spawn")) {
             Location l = new Location(Bukkit.getWorld("main"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
 
             while(true) {
@@ -40,13 +42,13 @@ public class WorldListener implements Listener {
                 }
             }
             e.getPlayer().teleport(l);
-            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 5));
-		} else if (e.getFrom().getWorld().getName().equalsIgnoreCase("main")) {
-			e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000)));
-			e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 5));
-            e.getPlayer().addPotionEffect(new InfinitePotionEffect(PotionEffectType.BLINDNESS, 1));
-		}
+            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
+        } else if (e.getFrom().getWorld().getName().equalsIgnoreCase("main")) {
+            e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000)));
+            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
+            e.getPlayer().addPotionEffect(new InfinitePotionEffect(PotionEffectType.BLINDNESS, 0));
+        }
 
-		e.setCancelled(true);
-	}
+        e.setCancelled(true);
+    }
 }
