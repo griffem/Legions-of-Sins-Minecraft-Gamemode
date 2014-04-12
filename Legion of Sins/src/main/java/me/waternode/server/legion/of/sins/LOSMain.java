@@ -3,6 +3,7 @@ package me.waternode.server.legion.of.sins;
 import lombok.Getter;
 import me.waternode.server.legion.of.sins.generation.WorldListener;
 import me.waternode.server.legion.of.sins.mechanics.MobHandler;
+import me.waternode.server.legion.of.sins.mechanics.deathworld.Blindness;
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -35,9 +36,11 @@ public class LOSMain extends JavaPlugin implements Listener {
 
 		worldListener = new WorldListener();
 		MobHandler MS = new MobHandler();
+        Blindness blind = new Blindness();
 
 		getServer().getPluginManager().registerEvents(worldListener, this);
 		getServer().getPluginManager().registerEvents(MS, this);
+        getServer().getPluginManager().registerEvents(blind, this);
 		getLogger().info("Listeners hooked!");
 
 		PluginDescriptionFile pluginFile = this.getDescription();
