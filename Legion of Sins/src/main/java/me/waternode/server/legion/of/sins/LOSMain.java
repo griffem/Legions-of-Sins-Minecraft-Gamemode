@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Random;
 
 public class LOSMain extends JavaPlugin implements Listener {
+
 	@Getter
 	private static LOSMain instance;
 	private WorldListener worldListener;
