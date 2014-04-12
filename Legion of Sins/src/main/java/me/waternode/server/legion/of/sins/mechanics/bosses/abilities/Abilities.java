@@ -15,17 +15,32 @@ import java.util.List;
  */
 public class Abilities extends BukkitRunnable {
 
-    private ArrayList<Player> p = new ArrayList<Player>();
+    private ArrayList<Player> players;
     private boolean constant;
-    private int warning = 35;
+
+    protected Abilities(ArrayList<Player> ps, boolean c) {
+        players = ps;
+        constant = c;
+    }
 
     @Override
     public void run() {
-
-        if(warning > 0 && warning != 25 ) {
-            warning--;
-            return;
+        if(Cancelled()) {
+            this.cancel();
         }
+        for(Player p : players) {
+            PlayerCast(p);
+        }
+        if(constant) {
+            this.cancel();
+        }
+    }
 
+    protected void PlayerCast(Player p) {
+
+    }
+
+    protected boolean Cancelled() {
+        return true;
     }
 }
