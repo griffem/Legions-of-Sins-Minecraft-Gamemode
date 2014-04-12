@@ -1,6 +1,7 @@
 package me.waternode.server.legion.of.sins.generation;
 
 import me.waternode.server.legion.of.sins.InfinitePotionEffect;
+import me.waternode.server.legion.of.sins.LOSMain;
 import me.waternode.server.legion.of.sins.generation.deathworld.DeathWorldPopulator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -28,20 +29,20 @@ public class WorldListener implements Listener {
 
 	@EventHandler
 	public void onPortal(PlayerPortalEvent e) {
-		Random r = new Random();
-        Location locBelow = e.getPlayer().getLocation().subtract(0, 1, 0);
-
 		if (e.getFrom().getWorld().getName().equalsIgnoreCase("spawn")) {
-            if(locBelow.getBlock().getType() == Material.COAL_BLOCK) {
-                e.getPlayer().teleport(new Location(Bukkit.getWorld("main"), r.nextInt(1000), 260.0D, r.nextInt(1000)));
-                e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 5));
-            } else {
-                e.getPlayer().teleport(new Location(Bukkit.getWorld("main"), r.nextInt(1000), 260.0D, r.nextInt(1000)));
-                e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 5));
-            }
+            Location l = new Location(Bukkit.getWorld("main"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
 
+            while(true) {
+                if(l.getWorld().getHighestBlockAt(l).getType() != Material.COAL_BLOCK) {
+                    break;
+                } else {
+                    l = new Location(Bukkit.getWorld("main"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
+                }
+            }
+            e.getPlayer().teleport(l);
+            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 5));
 		} else if (e.getFrom().getWorld().getName().equalsIgnoreCase("main")) {
-			e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), r.nextInt(1000), 260.0D, r.nextInt(1000)));
+			e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000)));
 			e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 5));
             e.getPlayer().addPotionEffect(new InfinitePotionEffect(PotionEffectType.BLINDNESS, 1));
 		}
