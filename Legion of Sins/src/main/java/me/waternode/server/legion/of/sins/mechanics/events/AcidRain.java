@@ -22,8 +22,8 @@ public class AcidRain extends CatastrophicEvent {
 		Location pLoc = p.getLocation();
 		Integer pX = pLoc.getBlockX();
 		Integer pZ = pLoc.getBlockZ();
-		if (w.getHighestBlockYAt(pX, pZ) - 5 <= pLoc.getY())
-			p.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 120, 1));
-		p.getWorld().playSound(p.getLocation(), Sound.AMBIENCE_RAIN, 0.5f, 1f);
+        if (w.getHighestBlockYAt(pX, pZ) - 5 <= pLoc.getY())
+            p.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 120, 1));
+        p.getWorld().playSound(p.getLocation(), Sound.AMBIENCE_RAIN, 0.5f, 1f);
 	}
 }
