@@ -6,6 +6,7 @@ import me.waternode.server.legion.of.sins.mechanics.MobHandler;
 import me.waternode.server.legion.of.sins.mechanics.deathworld.Blindness;
 import me.waternode.server.legion.of.sins.mechanics.deathworld.DeathWorldMobHandler;
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
+import me.waternode.server.legion.of.sins.mechanics.spawn.SpawnMobHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -40,11 +41,13 @@ public class LOSMain extends JavaPlugin implements Listener {
 		MobHandler MH = new MobHandler();
         Blindness blind = new Blindness();
         DeathWorldMobHandler dwMH = new DeathWorldMobHandler();
+        SpawnMobHandler sMH = new SpawnMobHandler();
 
 		getServer().getPluginManager().registerEvents(worldListener, this);
 		getServer().getPluginManager().registerEvents(MH, this);
         getServer().getPluginManager().registerEvents(blind, this);
         getServer().getPluginManager().registerEvents(dwMH, this);
+        getServer().getPluginManager().registerEvents(sMH, this);
 		getLogger().info("Listeners hooked!");
 
 		PluginDescriptionFile pluginFile = this.getDescription();
