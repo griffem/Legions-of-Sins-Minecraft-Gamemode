@@ -48,6 +48,7 @@ public class DeathWorldPopulator extends BlockPopulator {
                         case YELLOW_FLOWER: case DOUBLE_PLANT:
                         case COCOA: case SUGAR_CANE_BLOCK:
                         case CACTUS: case MELON_BLOCK:
+                        case WATER_LILY:
                             b.setType(Material.AIR);
                             break;
                     }
