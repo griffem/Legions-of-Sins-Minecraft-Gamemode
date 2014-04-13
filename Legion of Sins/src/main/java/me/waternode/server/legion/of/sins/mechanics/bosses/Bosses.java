@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 public class Bosses extends BukkitRunnable implements Listener {
     private ArrayList<Ability> abilities;
-    private Chicken bat;
+    private LivingEntity bat;
     private LivingEntity boss;
     private int AbilityUse;
     private int AbilityUseCD = 0;
@@ -34,7 +34,7 @@ public class Bosses extends BukkitRunnable implements Listener {
     private boolean floating;
 
 
-    protected Bosses(Chicken b, LivingEntity bo, ArrayList<Ability> abs, int au, int r, LOSMain p, boolean fl, int health) {
+    protected Bosses(LivingEntity b, LivingEntity bo, ArrayList<Ability> abs, int au, int r, LOSMain p, boolean fl, int health) {
         bat = b;
         boss = bo;
         abilities = abs;
@@ -46,6 +46,8 @@ public class Bosses extends BukkitRunnable implements Listener {
         boss.setMaxHealth(health);
         boss.setHealth(health);
         bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INVISIBILITY, 0));
+        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, 5));
+        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 5));
         bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5));
         for(Ability ab : abilities) {
             ab.runTaskTimer(main, 0L, 20L);
@@ -137,28 +139,28 @@ public class Bosses extends BukkitRunnable implements Listener {
     private void MovementAINearest(Player p) {
         Location l = bat.getLocation();
         if(p.getLocation().getX() < bat.getLocation().getX()) {
-            l.add(-0.25, 0, 0);
+            l.add(-0.5, 0, 0);
         } else {
-            l.add(0.25, 0, 0);
+            l.add(0.5, 0, 0);
         }
 
         if(p.getLocation().getZ() < bat.getLocation().getZ()) {
-            l.add(0, 0, -0.25);
+            l.add(0, 0, -0.5);
         } else {
-            l.add(0, 0, 0.25);
+            l.add(0, 0, 0.5);
         }
 
         if(floating) {
             if(p.getLocation().getY()+3 < bat.getLocation().getY()) {
-                l.add(0, -0.25, 0);
+                l.add(0, -0.5, 0);
             } else {
-                l.add(0, 0.25, 0);
+                l.add(0, 0.5, 0);
             }
         } else {
             if(p.getLocation().getY() < bat.getLocation().getY()) {
-                l.add(0, -0.25, 0);
+                l.add(0, -0.5, 0);
             } else {
-                l.add(0, 0.25, 0);
+                l.add(0, 0.5, 0);
             }
         }
         bat.teleport(l);

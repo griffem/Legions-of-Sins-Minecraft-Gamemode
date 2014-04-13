@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * on 4/13/2014
  */
 public class MagmaCube extends Bosses {
-    public MagmaCube(Chicken b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
+    public MagmaCube(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
         super(b, // the bat
                 boss, // The boss mob
                 abs, // The list of abiltiies

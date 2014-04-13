@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * on 4/13/2014
  */
 public class Skeleton extends Bosses {
-    public Skeleton(Chicken b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
+    public Skeleton(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
         super(b, // the bat
                 boss, // The boss mob
                 abs, // The list of abiltiies

@@ -62,7 +62,7 @@ public class BossManager extends BukkitRunnable {
     }
 
     public void FinalBoss(Player p) {
-        Chicken b = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
+        LivingEntity b = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
         LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.MAGMA_CUBE);
         ArrayList<Ability> abs = new ArrayList<Ability>();
         abs.add(new Ability(AbilityType.CULTOFTHEFEATHER, 20, main, b, b.getWorld(), 30));
@@ -75,7 +75,7 @@ public class BossManager extends BukkitRunnable {
     }
 
     public void GeneralBoss(Player p) {
-        Chicken b = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
+        LivingEntity b = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
         LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.SKELETON);
         ArrayList<Ability> abs = new ArrayList<Ability>();
         abs.add(new Ability(AbilityType.SEWERSWARM, 30, main, b, b.getWorld(), 30));
@@ -88,7 +88,7 @@ public class BossManager extends BukkitRunnable {
     }
 
     public void CommanderBoss(Player p) {
-        Chicken b = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
+        LivingEntity b = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
         LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.MUSHROOM_COW);
         ArrayList<Ability> abs = new ArrayList<Ability>();
         abs.add(new Ability(AbilityType.CULTOFTHEFEATHER, 20, main, b, b.getWorld(), 30));
@@ -103,7 +103,7 @@ public class BossManager extends BukkitRunnable {
         int i = LOSMain.getRandom().nextInt(3);
         switch(i) {
             case 0:
-                Chicken b = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
+                LivingEntity b = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
                 LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.PIG);
                 ArrayList<Ability> abs = new ArrayList<Ability>();
                 abs.add(new Ability(AbilityType.CULTOFTHEFEATHER, 20, main, b, b.getWorld(), 30));
@@ -112,7 +112,7 @@ public class BossManager extends BukkitRunnable {
                 new Pig(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
                 break;
             case 1:
-                Chicken b1 = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
+                LivingEntity b1 = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
                 LivingEntity boss1 = (LivingEntity) b1.getWorld().spawnEntity(b1.getLocation(), EntityType.PIG_ZOMBIE);
                 ArrayList<Ability> abs1 = new ArrayList<Ability>();
                 abs1.add(new Ability(AbilityType.SMITE, 10, main, b1, b1.getWorld(), 30));
@@ -121,7 +121,7 @@ public class BossManager extends BukkitRunnable {
                 new PigZombie(b1, boss1, abs1, main).runTaskTimer(main, 0L, 1L);
                 break;
             case 2:
-                Chicken b2 = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
+                LivingEntity b2 = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
                 LivingEntity boss2 = (LivingEntity) b2.getWorld().spawnEntity(b2.getLocation(), EntityType.WITCH);
                 ArrayList<Ability> abs2 = new ArrayList<Ability>();
                 abs2.add(new Ability(AbilityType.SMITE, 5, main, b2, b2.getWorld(), 30));
