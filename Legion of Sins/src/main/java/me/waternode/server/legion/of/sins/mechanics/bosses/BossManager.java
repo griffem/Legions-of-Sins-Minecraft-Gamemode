@@ -2,10 +2,7 @@ package me.waternode.server.legion.of.sins.mechanics.bosses;
 
 import me.waternode.server.legion.of.sins.LOSMain;
 import me.waternode.server.legion.of.sins.mechanics.bosses.abilities.AbilityType;
-import org.bukkit.entity.Bat;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -20,6 +17,10 @@ import java.util.ArrayList;
 public class BossManager extends BukkitRunnable {
     private final LOSMain main;
 
+    private int mainCD = 0;
+    private int skeleCD = 0;
+    private int cowCD = 0;
+
     public BossManager(LOSMain p) {
         this.main = p;
     }
@@ -30,6 +31,9 @@ public class BossManager extends BukkitRunnable {
         for (Player p : main.getServer().getOnlinePlayers())
             if (p.getWorld().getName().toLowerCase().contains("deathworld")) ps.add(p);
 
+        if(mainCD > 0) mainCD--;
+        if(skeleCD > 0) skeleCD--;
+        if(cowCD > 0) cowCD--;
         if (ps.size() <= 0) return;
 
         ArrayList<Player> center = new ArrayList<Player>();
@@ -38,40 +42,40 @@ public class BossManager extends BukkitRunnable {
         ArrayList<Player> third = new ArrayList<Player>();
 
         for (Player p : ps) {
-            if((p.getLocation().getX() < 10 || p.getLocation().getX() > -10)
-                    && (p.getLocation().getZ() < 10 || p.getLocation().getZ() > -10)) {
+            if(p.getLocation().getX() < 10 && p.getLocation().getX() > -10 && p.getLocation().getZ() < 10 && p.getLocation().getZ() > -10) {
                 center.add(p);
-            } else if((p.getLocation().getX() < 200 || p.getLocation().getX() > -200)
-                    && (p.getLocation().getZ() < 200 || p.getLocation().getZ() > -200)) {
+            } else if(p.getLocation().getX() < 200 && p.getLocation().getX() > -200
+                    && p.getLocation().getZ() < 200 && p.getLocation().getZ() > -200) {
                 first.add(p);
-            } else if((p.getLocation().getX() < 500 || p.getLocation().getX() > -500)
-                    && (p.getLocation().getZ() < 500 || p.getLocation().getZ() > -500)) {
+            } else if(p.getLocation().getX() < 500 && p.getLocation().getX() > -500
+                    && p.getLocation().getZ() < 500 && p.getLocation().getZ() > -500) {
                 second.add(p);
-            } else if((p.getLocation().getX() < 750 || p.getLocation().getX() > -750)
-                    && (p.getLocation().getZ() < 750 || p.getLocation().getZ() > -750)) {
+            } else if(p.getLocation().getX() < 750 && p.getLocation().getX() > -750
+                    && p.getLocation().getZ() < 750 && p.getLocation().getZ() > -750) {
                 third.add(p);
             }
         }
-        if (center.size() > 0) FinalBoss(center.get(LOSMain.getRandom().nextInt(center.size())));
-        if (first.size() > 0) FinalBoss(first.get(LOSMain.getRandom().nextInt(first.size())));
-        if (second.size() > 0) FinalBoss(second.get(LOSMain.getRandom().nextInt(second.size())));
-        if (third.size() > 0) FinalBoss(third.get(LOSMain.getRandom().nextInt(third.size())));
+        if (center.size() > 0 && mainCD == 0) FinalBoss(center.get(LOSMain.getRandom().nextInt(center.size())));
+        if (first.size() > 0 && skeleCD == 0) GeneralBoss(first.get(LOSMain.getRandom().nextInt(first.size())));
+        if (second.size() > 0 && cowCD == 0) CommanderBoss(second.get(LOSMain.getRandom().nextInt(second.size())));
+        if (third.size() > 0) RegularBoss(third.get(LOSMain.getRandom().nextInt(third.size())));
     }
 
     public void FinalBoss(Player p) {
-        Bat b = (Bat) p.getWorld().spawnEntity(p.getLocation(), EntityType.BAT);
-        LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.CHICKEN);
+        Chicken b = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
+        LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.MAGMA_CUBE);
         ArrayList<Ability> abs = new ArrayList<Ability>();
         abs.add(new Ability(AbilityType.CULTOFTHEFEATHER, 20, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.SEWERSWARM, 20, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.SMITE, 10, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.WITHER, 10, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.ZOMBIESIEGE, 20, main, b, b.getWorld(), 30));
-        new Chicken(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        new MagmaCube(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        mainCD += 8;
     }
 
     public void GeneralBoss(Player p) {
-        Bat b = (Bat) p.getWorld().spawnEntity(p.getLocation(), EntityType.BAT);
+        Chicken b = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
         LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.SKELETON);
         ArrayList<Ability> abs = new ArrayList<Ability>();
         abs.add(new Ability(AbilityType.SEWERSWARM, 30, main, b, b.getWorld(), 30));
@@ -80,10 +84,11 @@ public class BossManager extends BukkitRunnable {
         abs.add(new Ability(AbilityType.ZOMBIESIEGE, 30, main, b, b.getWorld(), 30));
         abs.add(new AbilityClone(20, boss));
         new Skeleton(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        skeleCD += 4;
     }
 
     public void CommanderBoss(Player p) {
-        Bat b = (Bat) p.getWorld().spawnEntity(p.getLocation(), EntityType.BAT);
+        Chicken b = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
         LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.MUSHROOM_COW);
         ArrayList<Ability> abs = new ArrayList<Ability>();
         abs.add(new Ability(AbilityType.CULTOFTHEFEATHER, 20, main, b, b.getWorld(), 30));
@@ -91,13 +96,14 @@ public class BossManager extends BukkitRunnable {
         abs.add(new Ability(AbilityType.SMITE, 10, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.WITHER, 15, main, b, b.getWorld(), 30));
         new MooshroomCow(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        cowCD += 2;
     }
 
     public void RegularBoss(Player p) {
         int i = LOSMain.getRandom().nextInt(3);
         switch(i) {
             case 0:
-                Bat b = (Bat) p.getWorld().spawnEntity(p.getLocation(), EntityType.BAT);
+                Chicken b = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
                 LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.PIG);
                 ArrayList<Ability> abs = new ArrayList<Ability>();
                 abs.add(new Ability(AbilityType.CULTOFTHEFEATHER, 20, main, b, b.getWorld(), 30));
@@ -106,7 +112,7 @@ public class BossManager extends BukkitRunnable {
                 new Pig(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
                 break;
             case 1:
-                Bat b1 = (Bat) p.getWorld().spawnEntity(p.getLocation(), EntityType.BAT);
+                Chicken b1 = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
                 LivingEntity boss1 = (LivingEntity) b1.getWorld().spawnEntity(b1.getLocation(), EntityType.PIG_ZOMBIE);
                 ArrayList<Ability> abs1 = new ArrayList<Ability>();
                 abs1.add(new Ability(AbilityType.SMITE, 10, main, b1, b1.getWorld(), 30));
@@ -115,7 +121,7 @@ public class BossManager extends BukkitRunnable {
                 new PigZombie(b1, boss1, abs1, main).runTaskTimer(main, 0L, 1L);
                 break;
             case 2:
-                Bat b2 = (Bat) p.getWorld().spawnEntity(p.getLocation(), EntityType.BAT);
+                Chicken b2 = (Chicken) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
                 LivingEntity boss2 = (LivingEntity) b2.getWorld().spawnEntity(b2.getLocation(), EntityType.WITCH);
                 ArrayList<Ability> abs2 = new ArrayList<Ability>();
                 abs2.add(new Ability(AbilityType.SMITE, 5, main, b2, b2.getWorld(), 30));

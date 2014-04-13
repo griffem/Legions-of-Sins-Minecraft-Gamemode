@@ -3,7 +3,7 @@ package me.waternode.server.legion.of.sins.mechanics.bosses;
 import me.waternode.server.legion.of.sins.InfinitePotionEffect;
 import me.waternode.server.legion.of.sins.LOSMain;
 import org.bukkit.Location;
-import org.bukkit.entity.Bat;
+import org.bukkit.entity.Chicken;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,7 +11,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -26,7 +25,7 @@ import java.util.ArrayList;
  */
 public class Bosses extends BukkitRunnable implements Listener {
     private ArrayList<Ability> abilities;
-    private Bat bat;
+    private Chicken bat;
     private LivingEntity boss;
     private int AbilityUse;
     private int AbilityUseCD = 0;
@@ -35,7 +34,7 @@ public class Bosses extends BukkitRunnable implements Listener {
     private boolean floating;
 
 
-    protected Bosses(Bat b, LivingEntity bo, ArrayList<Ability> abs, int au, int r, LOSMain p, boolean fl, int health) {
+    protected Bosses(Chicken b, LivingEntity bo, ArrayList<Ability> abs, int au, int r, LOSMain p, boolean fl, int health) {
         bat = b;
         boss = bo;
         abilities = abs;
@@ -44,6 +43,7 @@ public class Bosses extends BukkitRunnable implements Listener {
         main = p;
         floating = fl;
         bat.setPassenger(boss);
+        boss.setMaxHealth(health);
         boss.setHealth(health);
         bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INVISIBILITY, 0));
         bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5));
@@ -56,6 +56,14 @@ public class Bosses extends BukkitRunnable implements Listener {
     public void run() {
         UseAbility();
         Movement();
+        if(boss.isDead()) {
+            for(Ability ab : abilities) {
+                ab.cancel();
+            }
+            HandlerList.unregisterAll(this);
+            this.cancel();
+            bat.setHealth(0);
+        }
     }
 
     private void UseAbility() {
@@ -89,7 +97,7 @@ public class Bosses extends BukkitRunnable implements Listener {
             Player nearest = ps.get(0);
 
             for(Player p : ps) {
-                if(Math.pow(boss.getLocation().getX() - p.getLocation().getX(), 2.0D) + Math.pow(boss.getLocation().getZ() - p.getLocation().getZ(), 2.0D) > Math.pow(boss.getLocation().getX() - nearest.getLocation().getX(), 2.0D) + Math.pow(boss.getLocation().getZ() - nearest.getLocation().getZ(), 2.0D)) {
+                if(Math.pow(bat.getLocation().getX() - p.getLocation().getX(), 2.0D) + Math.pow(bat.getLocation().getZ() - p.getLocation().getZ(), 2.0D) > Math.pow(bat.getLocation().getX() - nearest.getLocation().getX(), 2.0D) + Math.pow(bat.getLocation().getZ() - nearest.getLocation().getZ(), 2.0D)) {
                     nearest = p;
                 }
             }
@@ -101,6 +109,7 @@ public class Bosses extends BukkitRunnable implements Listener {
             HandlerList.unregisterAll(this);
             this.cancel();
             bat.setHealth(0);
+            boss.setHealth(0);
         }
     }
 
@@ -152,5 +161,6 @@ public class Bosses extends BukkitRunnable implements Listener {
                 l.add(0, 0.25, 0);
             }
         }
+        bat.teleport(l);
     }
 }

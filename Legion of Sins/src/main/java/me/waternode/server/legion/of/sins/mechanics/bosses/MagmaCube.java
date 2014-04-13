@@ -2,6 +2,7 @@ package me.waternode.server.legion.of.sins.mechanics.bosses;
 
 import me.waternode.server.legion.of.sins.LOSMain;
 import org.bukkit.entity.Bat;
+import org.bukkit.entity.Chicken;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 
@@ -11,8 +12,8 @@ import java.util.ArrayList;
  * Created by Ervin
  * on 4/13/2014
  */
-public class Chicken extends Bosses {
-    public Chicken(Bat b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
+public class MagmaCube extends Bosses {
+    public MagmaCube(Chicken b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
         super(b, // the bat
                 boss, // The boss mob
                 abs, // The list of abiltiies
