@@ -1,5 +1,6 @@
 package me.waternode.server.legion.of.sins.mechanics.bosses.abilities;
 
+import me.waternode.server.legion.of.sins.mechanics.bosses.abilities.Abilities;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;

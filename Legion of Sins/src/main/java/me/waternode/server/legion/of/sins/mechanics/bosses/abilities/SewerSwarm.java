@@ -1,6 +1,7 @@
 package me.waternode.server.legion.of.sins.mechanics.bosses.abilities;
 
 import me.waternode.server.legion.of.sins.LOSMain;
+import me.waternode.server.legion.of.sins.mechanics.bosses.abilities.Abilities;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
