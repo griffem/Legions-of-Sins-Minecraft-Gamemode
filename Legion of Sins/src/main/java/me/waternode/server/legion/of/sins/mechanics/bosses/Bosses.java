@@ -1,6 +1,8 @@
 package me.waternode.server.legion.of.sins.mechanics.bosses;
 
+import me.waternode.server.legion.of.sins.InfinitePotionEffect;
 import me.waternode.server.legion.of.sins.LOSMain;
+import org.bukkit.Location;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -8,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -27,14 +31,20 @@ public class Bosses extends BukkitRunnable implements Listener {
     private int AbilityUseCD;
     private int range;
     private LOSMain main;
+    private boolean floating;
 
-    protected Bosses(Bat b, LivingEntity bo, ArrayList<Ability> abs, int au, int r, LOSMain p) {
+
+    protected Bosses(Bat b, LivingEntity bo, ArrayList<Ability> abs, int au, int r, LOSMain p, boolean fl) {
         bat = b;
         boss = bo;
         abilities = abs;
         AbilityUse = au;
         range = r;
         main = p;
+        floating = fl;
+        bat.setPassenger(boss);
+        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INVISIBILITY, 0));
+        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 0));
         for(Ability ab : abilities) {
             ab.runTaskTimer(main, 0L, 20L);
         }
@@ -83,6 +93,9 @@ public class Bosses extends BukkitRunnable implements Listener {
             }
             MovementAINearest(nearest);
         } else {
+            for(Ability ab : abilities) {
+                ab.cancel();
+            }
             HandlerList.unregisterAll(this);
             this.cancel();
         }
@@ -96,5 +109,32 @@ public class Bosses extends BukkitRunnable implements Listener {
             }
         }
     }
-    protected void MovementAINearest(Player p) { }
+    private void MovementAINearest(Player p) {
+        Location l = bat.getLocation();
+        if(p.getLocation().getX() < bat.getLocation().getX()) {
+            l.add(-0.25, 0,0);
+        } else {
+            l.add(0.25, 0, 0);
+        }
+
+        if(p.getLocation().getZ() < bat.getLocation().getZ()) {
+            l.add(0, 0, -0.25);
+        } else {
+            l.add(0, 0, 0.25);
+        }
+
+        if(floating) {
+            if(p.getLocation().getY()+3 < bat.getLocation().getY()) {
+                l.add(0, -0.25, 0);
+            } else {
+                l.add(0, 0.25, 0);
+            }
+        } else {
+            if(p.getLocation().getY() < bat.getLocation().getY()) {
+                l.add(0, -0.25, 0);
+            } else {
+                l.add(0, 0.25, 0);
+            }
+        }
+    }
 }
