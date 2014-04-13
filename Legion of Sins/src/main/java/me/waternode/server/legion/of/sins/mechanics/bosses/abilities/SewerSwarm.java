@@ -29,8 +29,8 @@ public class SewerSwarm extends Abilities implements Listener {
     private int duration;
     private World world;
 
-    public SewerSwarm(ArrayList<Player> ps, boolean c, int d) {
-        super(ps, c);
+    public SewerSwarm(ArrayList<Player> ps, int d) {
+        super(ps, true);
         duration = d;
         world = ps.get(0).getWorld();
 

@@ -31,7 +31,7 @@ public class Abilities extends BukkitRunnable {
         for(Player p : players) {
             PlayerCast(p);
         }
-        if(constant) {
+        if(!constant) {
             this.cancel();
         }
     }
