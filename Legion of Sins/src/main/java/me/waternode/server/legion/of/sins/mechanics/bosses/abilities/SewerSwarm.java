@@ -1,8 +1,6 @@
 package me.waternode.server.legion.of.sins.mechanics.bosses.abilities;
 
-import me.waternode.server.legion.of.sins.InfinitePotionEffect;
 import me.waternode.server.legion.of.sins.LOSMain;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
@@ -33,7 +31,6 @@ public class SewerSwarm extends Abilities implements Listener {
         super(ps, true);
         duration = d;
         world = ps.get(0).getWorld();
-
     }
 
     @Override

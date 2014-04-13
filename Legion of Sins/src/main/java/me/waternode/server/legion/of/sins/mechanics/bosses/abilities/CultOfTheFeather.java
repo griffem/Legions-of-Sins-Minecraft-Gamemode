@@ -1,18 +1,7 @@
 package me.waternode.server.legion.of.sins.mechanics.bosses.abilities;
 
-import me.waternode.server.legion.of.sins.LOSMain;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 
@@ -25,9 +14,7 @@ import java.util.ArrayList;
  */
 public class CultOfTheFeather extends Abilities {
 
-    public CultOfTheFeather(ArrayList<Player> ps) {
-        super(ps, false);
-    }
+    public CultOfTheFeather(ArrayList<Player> ps) {super(ps, false);}
 
     @Override
     public void PlayerCast(Player p) {
