@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class Witch extends Bosses {
-    protected Witch(Bat b, ArrayList<Ability> abs, LOSMain p) {
+    public Witch(Bat b, ArrayList<Ability> abs, LOSMain p) {
         super(b, // the bat
                 (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.WITCH), // The boss mob
                 abs, // The list of abiltiies
