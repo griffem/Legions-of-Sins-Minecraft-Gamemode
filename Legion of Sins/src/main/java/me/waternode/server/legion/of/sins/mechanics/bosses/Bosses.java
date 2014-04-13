@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -28,7 +29,7 @@ public class Bosses extends BukkitRunnable implements Listener {
     private Bat bat;
     private LivingEntity boss;
     private int AbilityUse;
-    private int AbilityUseCD;
+    private int AbilityUseCD = 0;
     private int range;
     private LOSMain main;
     private boolean floating;
@@ -38,14 +39,14 @@ public class Bosses extends BukkitRunnable implements Listener {
         bat = b;
         boss = bo;
         abilities = abs;
-        AbilityUse = au;
+        AbilityUse = au*20;
         range = r;
         main = p;
         floating = fl;
         bat.setPassenger(boss);
         boss.setHealth(health);
         bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INVISIBILITY, 0));
-        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 0));
+        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5));
         for(Ability ab : abilities) {
             ab.runTaskTimer(main, 0L, 20L);
         }
@@ -62,7 +63,7 @@ public class Bosses extends BukkitRunnable implements Listener {
              ArrayList<Ability> abs = Abilities();
              if(abs.size() > 0) {
                  abs.get(LOSMain.getRandom().nextInt(abs.size())).Cast();
-                 AbilityUseCD = AbilityUse;
+                 AbilityUseCD += AbilityUse;
              }
          } else {
              AbilityUseCD--;
@@ -99,21 +100,35 @@ public class Bosses extends BukkitRunnable implements Listener {
             }
             HandlerList.unregisterAll(this);
             this.cancel();
+            bat.setHealth(0);
         }
     }
 
     @EventHandler
-    public void onDMG(EntityDamageEvent e) {
+     public void onDMG(EntityDamageEvent e) {
         if(e.getCause() == EntityDamageEvent.DamageCause.SUFFOCATION) {
             if(e.getEntity().equals(boss)) {
                 e.setCancelled(true);
             }
         }
     }
+
+    @EventHandler
+    public void onDMG(EntityDeathEvent e) {
+        if(e.getEntity().equals(boss)) {
+            for(Ability ab : abilities) {
+                ab.cancel();
+            }
+            HandlerList.unregisterAll(this);
+            this.cancel();
+            bat.setHealth(0);
+        }
+    }
+
     private void MovementAINearest(Player p) {
         Location l = bat.getLocation();
         if(p.getLocation().getX() < bat.getLocation().getX()) {
-            l.add(-0.25, 0,0);
+            l.add(-0.25, 0, 0);
         } else {
             l.add(0.25, 0, 0);
         }

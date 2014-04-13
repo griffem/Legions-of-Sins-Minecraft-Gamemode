@@ -44,7 +44,20 @@ public class WorldListener implements Listener {
             e.getPlayer().teleport(l);
             e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
         } else if (e.getFrom().getWorld().getName().equalsIgnoreCase("main")) {
-            e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000)));
+            if(LOSMain.getRandom().nextBoolean()) {
+                if(LOSMain.getRandom().nextBoolean()) {
+                    e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), -10+LOSMain.getRandom().nextInt(21), 260.0D, 500+LOSMain.getRandom().nextInt(1000)));
+                } else {
+                    e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), -10+LOSMain.getRandom().nextInt(21), 260.0D, -1*(500+LOSMain.getRandom().nextInt(1000))));
+                }
+            } else {
+                if(LOSMain.getRandom().nextBoolean()) {
+                    e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), -1*(500+LOSMain.getRandom().nextInt(1000)), 260.0D, -10+LOSMain.getRandom().nextInt(21)));
+                } else {
+                    e.getPlayer().teleport(new Location(Bukkit.getWorld("deathworld"), 500+LOSMain.getRandom().nextInt(1000), 260.0D, -10+LOSMain.getRandom().nextInt(21)));
+                }
+            }
+
             e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
             e.getPlayer().addPotionEffect(new InfinitePotionEffect(PotionEffectType.BLINDNESS, 0));
         }
