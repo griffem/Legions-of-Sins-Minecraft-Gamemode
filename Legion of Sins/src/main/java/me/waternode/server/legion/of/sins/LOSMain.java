@@ -3,6 +3,7 @@ package me.waternode.server.legion.of.sins;
 import lombok.Getter;
 import me.waternode.server.legion.of.sins.generation.WorldListener;
 import me.waternode.server.legion.of.sins.mechanics.MobHandler;
+import me.waternode.server.legion.of.sins.mechanics.bosses.BossManager;
 import me.waternode.server.legion.of.sins.mechanics.deathworld.Blindness;
 import me.waternode.server.legion.of.sins.mechanics.deathworld.DeathWorldMobHandler;
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
@@ -35,7 +36,9 @@ public class LOSMain extends JavaPlugin implements Listener {
 		instance = this;
 		random = new Random();
 		EventManager events = new EventManager(this);
+        BossManager bosses = new BossManager(this);
 		events.runTaskTimer(this, 20L, 1000L);
+        bosses.runTaskTimer(this, 20L, 500L);
 
 		worldListener = new WorldListener();
 		MobHandler MH = new MobHandler();

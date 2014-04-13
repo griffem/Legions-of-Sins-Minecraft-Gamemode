@@ -2,17 +2,13 @@ package me.waternode.server.legion.of.sins.mechanics.bosses;
 
 import me.waternode.server.legion.of.sins.LOSMain;
 import me.waternode.server.legion.of.sins.mechanics.bosses.abilities.AbilityType;
-import me.waternode.server.legion.of.sins.mechanics.events.*;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
