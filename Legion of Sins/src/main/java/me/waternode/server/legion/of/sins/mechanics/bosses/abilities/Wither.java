@@ -1,7 +1,7 @@
 package me.waternode.server.legion.of.sins.mechanics.bosses.abilities;
 
-import me.waternode.server.legion.of.sins.InfinitePotionEffect;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ public class Wither extends Abilities {
 
     @Override
     public void PlayerCast(Player p) {
-        p.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WITHER, 1));
-        p.addPotionEffect(new InfinitePotionEffect(PotionEffectType.SLOW, 0));
-        p.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 0));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 120, 1));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, 0));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 120, 0));
     }
 
     @Override
