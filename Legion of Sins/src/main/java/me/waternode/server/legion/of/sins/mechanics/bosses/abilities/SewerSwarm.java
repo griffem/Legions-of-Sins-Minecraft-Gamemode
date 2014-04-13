@@ -46,7 +46,7 @@ public class SewerSwarm extends Abilities implements Listener {
                 l.setY(p.getLocation().getY());
                 l.setZ(p.getLocation().getZ() + (LOSMain.getRandom().nextInt(11) - 5));
 
-                LivingEntity a = (LivingEntity) p.getLocation().getWorld().spawnEntity(l, EntityType.SILVERFISH);
+                p.getLocation().getWorld().spawnEntity(l, EntityType.SILVERFISH);
             }
         }
     }
