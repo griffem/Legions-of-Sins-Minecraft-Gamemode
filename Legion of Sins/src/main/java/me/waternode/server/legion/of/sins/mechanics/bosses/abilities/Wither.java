@@ -16,9 +16,9 @@ public class Wither extends Abilities {
 
     @Override
     public void PlayerCast(Player p) {
-        p.add(new InfinitePotionEffect(PotionEffectType.WITHER, 1));
-        p.add(new InfinitePotionEffect(PotionEffectType.SLOW, 0));
-        p.add(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 0));
+        p.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WITHER, 1));
+        p.addPotionEffect(new InfinitePotionEffect(PotionEffectType.SLOW, 0));
+        p.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 0));
     }
 
     @Override
