@@ -1,6 +1,7 @@
 package me.waternode.server.legion.of.sins.mechanics.bosses.abilities;
 
 import me.waternode.server.legion.of.sins.LOSMain;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -19,6 +20,17 @@ public enum AbilityType {
     SMITE,
     WITHER,
     ZOMBIESIEGE;
+
+    public ArrayList<Player> getPlayers(Location loc, int r, ArrayList<Player> ps) {
+        ArrayList<Player> players = new ArrayList<Player>();
+        for(Player p : ps) {
+            Location player = p.getLocation();
+            if(Math.pow(loc.getX() - player.getX(), 2.0D) + Math.pow(loc.getZ() - player.getZ(), 2.0D) <= Math.pow(r, 2.0D)) {
+                 players.add(p);
+            }
+        }
+        return players;
+    }
 
     public Abilities getValue(ArrayList<Player> ps) {
         switch(this) {

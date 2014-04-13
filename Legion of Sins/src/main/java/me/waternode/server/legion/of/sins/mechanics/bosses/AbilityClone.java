@@ -15,35 +15,24 @@ import java.util.ArrayList;
  * Time: 9:56 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AbilityClone extends BukkitRunnable {
-    AbilityType ability;
+public class AbilityClone extends Ability {
     LivingEntity boss;
     int cooldownAmt;
     int cooldown = 0;
     boolean active = true;
 
-    public AbilityClone(AbilityType a, int cd, LivingEntity b) {
-        ability = a;
-        cooldownAmt = cd;
-        boss = b;
+    public AbilityClone(int cd, LivingEntity b) {
+        super(cd, b);
     }
 
     @Override
-    public void run() {
-        if(cooldown > 0) {
-            cooldown--;
-        } else {
-            active = true;
-        }
-    }
-
-    public void Cast() {
+    public boolean Cast() {
         if(active) {
             boss.getWorld().spawnEntity(boss.getLocation(), boss.getType());
+            active = false;
+            cooldown += cooldownAmt;
+            return true;
         }
-    }
-
-    public boolean GetState() {
-        return active;
+        return false;
     }
 }
