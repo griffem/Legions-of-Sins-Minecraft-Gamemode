@@ -31,6 +31,7 @@ public class Witch extends Bosses {
                 5, // The cooldown between abiliity casting
                 30, // the range
                 p, // The main class
-                true); // Floating is true
+                true,
+                50); // Floating is true
     }
 }

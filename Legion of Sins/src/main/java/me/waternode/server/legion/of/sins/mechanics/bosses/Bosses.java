@@ -34,7 +34,7 @@ public class Bosses extends BukkitRunnable implements Listener {
     private boolean floating;
 
 
-    protected Bosses(Bat b, LivingEntity bo, ArrayList<Ability> abs, int au, int r, LOSMain p, boolean fl) {
+    protected Bosses(Bat b, LivingEntity bo, ArrayList<Ability> abs, int au, int r, LOSMain p, boolean fl, int health) {
         bat = b;
         boss = bo;
         abilities = abs;
@@ -43,6 +43,7 @@ public class Bosses extends BukkitRunnable implements Listener {
         main = p;
         floating = fl;
         bat.setPassenger(boss);
+        boss.setHealth(health);
         bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INVISIBILITY, 0));
         bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 0));
         for(Ability ab : abilities) {
