@@ -1,5 +1,6 @@
 package me.waternode.server.legion.of.sins.mechanics.spawn;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,7 +27,8 @@ public class SpawnMobHandler implements Listener {
 
     public void PDE(EntityDamageEvent e) {
         if(e.getEntity().getWorld().getName().contains("spawn")) {
-            if(e.getEntity().getType() == EntityType.PLAYER) {
+            Entity ee = e.getEntity();
+            if(ee instanceof Player) {
                 e.setCancelled(true);
                 ((Player) e.getEntity()).setHealth(20);
             }
