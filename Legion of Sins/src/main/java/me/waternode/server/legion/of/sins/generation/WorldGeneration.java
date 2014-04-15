@@ -227,10 +227,11 @@ public class WorldGeneration {
 				walls.add(Material.COAL_BLOCK);
 				walls.add(Material.QUARTZ_BLOCK);
 
-				for (int i = 0; i < 7; i++) {
+				for (int i = 0; i < 14; i++) {
 					floors.add(Material.NETHER_BRICK);
 				}
 				floors.add(Material.AIR);
+                afterfloors.add(Material.CHEST);
 
 				for (int i = 0; i < 9; i++) {
 					afterfloors.add(Material.AIR);
@@ -245,10 +246,11 @@ public class WorldGeneration {
 
 				floors.add(Material.STAINED_GLASS);
 
-				for (int i = 0; i < 9; i++) {
+				for (int i = 0; i < 18; i++) {
 					afterfloors.add(Material.AIR);
 				}
 				afterfloors.add(Material.WEB);
+                afterfloors.add(Material.CHEST);
 			} else {
 				for (int i = 0; i < 4; i++) {
 					walls.add(Material.LEAVES);
@@ -266,13 +268,14 @@ public class WorldGeneration {
 				}
 				floors.add(Material.WEB);
 
-				for (int i = 0; i < 4; i++) {
+				for (int i = 0; i < 8; i++) {
 					afterfloors.add(Material.LEAVES);
 				}
-				for (int i = 0; i < 2; i++) {
+				for (int i = 0; i < 4; i++) {
 					afterfloors.add(Material.LOG);
 				}
 				afterfloors.add(Material.WEB);
+                afterfloors.add(Material.CHEST);
 			}
 
 			int h = r.nextInt(4) * 10 + 10;
