@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * Created by Ervin
  * on 4/13/2014
  */
-public class MooshroomCow extends Bosses {
-    public MooshroomCow(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
+public class Captain extends Bosses {
+    public Captain(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
         super(b, // the bat
                 boss, // The boss mob
                 abs, // The list of abiltiies
@@ -21,6 +21,6 @@ public class MooshroomCow extends Bosses {
                 30, // the range
                 p, // The main class
                 true,
-                200); // Floating is true
+                100); // Floating is true
     }
 }

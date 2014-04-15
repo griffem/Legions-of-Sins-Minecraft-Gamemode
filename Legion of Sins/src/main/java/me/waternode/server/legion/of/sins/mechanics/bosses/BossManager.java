@@ -63,14 +63,15 @@ public class BossManager extends BukkitRunnable {
 
     public void FinalBoss(Player p) {
         LivingEntity b = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
-        LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.MAGMA_CUBE);
+        MagmaCube boss = (MagmaCube) b.getWorld().spawnEntity(b.getLocation(), EntityType.MAGMA_CUBE);
+        boss.setSize(2);
         ArrayList<Ability> abs = new ArrayList<Ability>();
         abs.add(new Ability(AbilityType.CULTOFTHEFEATHER, 20, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.SEWERSWARM, 20, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.SMITE, 10, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.WITHER, 10, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.ZOMBIESIEGE, 20, main, b, b.getWorld(), 30));
-        new MagmaCube(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        new FinalBoss(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
         mainCD += 8;
     }
 
@@ -83,7 +84,7 @@ public class BossManager extends BukkitRunnable {
         abs.add(new Ability(AbilityType.WITHER, 15, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.ZOMBIESIEGE, 30, main, b, b.getWorld(), 30));
         abs.add(new AbilityClone(20, boss));
-        new Skeleton(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        new General(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
         skeleCD += 4;
     }
 
@@ -95,7 +96,7 @@ public class BossManager extends BukkitRunnable {
         abs.add(new Ability(AbilityType.SEWERSWARM, 30, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.SMITE, 10, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.WITHER, 15, main, b, b.getWorld(), 30));
-        new MooshroomCow(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        new Commander(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
         cowCD += 2;
     }
 
@@ -109,7 +110,7 @@ public class BossManager extends BukkitRunnable {
                 abs.add(new Ability(AbilityType.CULTOFTHEFEATHER, 20, main, b, b.getWorld(), 30));
                 abs.add(new Ability(AbilityType.SMITE, 5, main, b, b.getWorld(), 30));
                 abs.add(new Ability(AbilityType.WITHER, 10, main, b, b.getWorld(), 30));
-                new Pig(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+                new Captain(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
                 break;
             case 1:
                 LivingEntity b1 = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
@@ -118,7 +119,7 @@ public class BossManager extends BukkitRunnable {
                 abs1.add(new Ability(AbilityType.SMITE, 10, main, b1, b1.getWorld(), 30));
                 abs1.add(new Ability(AbilityType.WITHER, 10, main, b1, b1.getWorld(), 30));
                 abs1.add(new AbilityClone(15, boss1));
-                new PigZombie(b1, boss1, abs1, main).runTaskTimer(main, 0L, 1L);
+                new Lieutenant(b1, boss1, abs1, main).runTaskTimer(main, 0L, 1L);
                 break;
             case 2:
                 LivingEntity b2 = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
@@ -127,7 +128,7 @@ public class BossManager extends BukkitRunnable {
                 abs2.add(new Ability(AbilityType.SMITE, 5, main, b2, b2.getWorld(), 30));
                 abs2.add(new Ability(AbilityType.WITHER, 10, main, b2, b2.getWorld(), 30));
                 abs2.add(new AbilityClone(10, boss2));
-                new Witch(b2, boss2, abs2, main).runTaskTimer(main, 0L, 1L);
+                new Officer(b2, boss2, abs2, main).runTaskTimer(main, 0L, 1L);
                 break;
         }
     }
