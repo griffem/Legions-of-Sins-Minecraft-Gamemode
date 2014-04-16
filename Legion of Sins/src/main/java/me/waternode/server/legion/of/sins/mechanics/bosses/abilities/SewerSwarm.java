@@ -1,7 +1,7 @@
 package me.waternode.server.legion.of.sins.mechanics.bosses.abilities;
 
 import me.waternode.server.legion.of.sins.LOSMain;
-import me.waternode.server.legion.of.sins.mechanics.bosses.abilities.Abilities;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
@@ -28,10 +28,11 @@ public class SewerSwarm extends Abilities implements Listener {
     private int duration;
     private World world;
 
-    public SewerSwarm(ArrayList<Player> ps, int d) {
+    public SewerSwarm(ArrayList<Player> ps, int d, LOSMain p) {
         super(ps, true);
         duration = d;
         world = ps.get(0).getWorld();
+        Bukkit.getServer().getPluginManager().registerEvents(this, p);
     }
 
     @Override

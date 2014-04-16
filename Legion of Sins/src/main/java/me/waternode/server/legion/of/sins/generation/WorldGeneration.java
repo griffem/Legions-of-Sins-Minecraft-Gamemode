@@ -188,7 +188,7 @@ public class WorldGeneration {
 	public static void CylinderGeneration(Random r, Chunk c) {
 		int a = r.nextInt(10);
 		if (a == 9) {
-			Block b = c.getBlock(r.nextInt(16), r.nextInt(55), r.nextInt(16));
+			Block b = c.getBlock(r.nextInt(16), r.nextInt(55)+10, r.nextInt(16));
 			if ((b.getBiome() != Biome.RIVER) && (b.getBiome() != Biome.OCEAN) && (b.getBiome() != Biome.DEEP_OCEAN))
 				WorldLib.createCyl(b.getLocation(), r.nextInt(10) + 1, r);
 		} else if (a <= 4) {
@@ -201,8 +201,8 @@ public class WorldGeneration {
 	}
 
 	public static void RuinsGeneration(Random r, Chunk c) {
-		int a = r.nextInt(200);
-		if (a == 0) {
+		int a = r.nextInt(800);
+		if (a < 2) {
 			Block b = c.getBlock(r.nextInt(16), 1, r.nextInt(16));
 			b = c.getWorld().getHighestBlockAt(b.getLocation());
 			Location l = b.getLocation();
@@ -233,12 +233,12 @@ public class WorldGeneration {
 				floors.add(Material.AIR);
 
 
-				for (int i = 0; i < 36; i++) {
+				for (int i = 0; i < 72; i++) {
 					afterfloors.add(Material.AIR);
 				}
-				afterfloors.add(Material.WEB);
-                afterfloors.add(Material.WEB);
-                afterfloors.add(Material.WEB);
+                for (int i = 0; i < 7; i++) {
+                    afterfloors.add(Material.WEB);
+                }
                 afterfloors.add(Material.CHEST);
 			} else if (a < 20) {
 				for (int i = 0; i < 5; i++) {
@@ -249,12 +249,12 @@ public class WorldGeneration {
 
 				floors.add(Material.STAINED_GLASS);
 
-				for (int i = 0; i < 36; i++) {
+				for (int i = 0; i < 72; i++) {
 					afterfloors.add(Material.AIR);
 				}
-				afterfloors.add(Material.WEB);
-                afterfloors.add(Material.WEB);
-                afterfloors.add(Material.WEB);
+                for (int i = 0; i < 7; i++) {
+                    afterfloors.add(Material.AIR);
+                }
                 afterfloors.add(Material.CHEST);
 			} else {
 				for (int i = 0; i < 4; i++) {
@@ -273,15 +273,15 @@ public class WorldGeneration {
 				}
 				floors.add(Material.WEB);
 
-				for (int i = 0; i < 16; i++) {
+				for (int i = 0; i < 32; i++) {
 					afterfloors.add(Material.LEAVES);
 				}
-				for (int i = 0; i < 8; i++) {
+				for (int i = 0; i < 16; i++) {
 					afterfloors.add(Material.LOG);
 				}
-				afterfloors.add(Material.WEB);
-                afterfloors.add(Material.WEB);
-                afterfloors.add(Material.WEB);
+                for (int i = 0; i < 7; i++) {
+                    afterfloors.add(Material.WEB);
+                }
                 afterfloors.add(Material.CHEST);
 			}
 
@@ -293,6 +293,8 @@ public class WorldGeneration {
 			}
 			h += 1 + r.nextInt(3);
 			WorldLib.createTower(b.getLocation(), r.nextInt(11) + 5, h, r, walls, floors, afterfloors, levels);
-		}
+		} else if(a == 2) {
+
+        }
 	}
 }

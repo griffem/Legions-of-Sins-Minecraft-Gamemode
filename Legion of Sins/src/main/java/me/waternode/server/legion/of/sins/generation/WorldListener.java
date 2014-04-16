@@ -14,6 +14,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityPortalEnterEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.world.WorldInitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -39,7 +40,10 @@ public class WorldListener implements Listener {
                 Location l = new Location(Bukkit.getWorld("main"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
 
                 while(true) {
-                    if(l.getWorld().getHighestBlockAt(l).getType() != Material.COAL_BLOCK) {
+                    if(l.getWorld().getHighestBlockAt(l).getType() != Material.COAL_BLOCK
+                            && l.getWorld().getHighestBlockAt(l).getLocation().getY() > 55
+                            && l.getWorld().getHighestBlockAt(l).getType() != Material.LAVA
+                            && l.getWorld().getHighestBlockAt(l).getType() != Material.STATIONARY_LAVA) {
                         break;
                     } else {
                         l = new Location(Bukkit.getWorld("main"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
@@ -64,6 +68,9 @@ public class WorldListener implements Listener {
 
                 p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
                 p.addPotionEffect(new InfinitePotionEffect(PotionEffectType.BLINDNESS, 0));
+                p.setCompassTarget(new Location(p.getWorld(), 0, 0, 0));
+                p.getInventory().addItem(new ItemStack(Material.COMPASS));
+                p.sendMessage("There is a surprise for you at the end of the compass, in the center...");
             }
         }
     }
