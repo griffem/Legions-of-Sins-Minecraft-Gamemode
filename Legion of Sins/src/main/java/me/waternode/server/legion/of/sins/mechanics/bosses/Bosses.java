@@ -46,8 +46,8 @@ public class Bosses extends BukkitRunnable implements Listener {
         boss.setMaxHealth(health);
         boss.setHealth(health);
         bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.INVISIBILITY, 0));
-        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, 5));
-        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 5));
+        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.SPEED, 3));
+        bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 6));
         bat.addPotionEffect(new InfinitePotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5));
         for(Ability ab : abilities) {
             ab.runTaskTimer(main, 0L, 20L);

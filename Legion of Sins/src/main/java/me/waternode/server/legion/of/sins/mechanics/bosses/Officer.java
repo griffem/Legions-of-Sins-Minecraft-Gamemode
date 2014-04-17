@@ -20,8 +20,8 @@ import java.util.ArrayList;
  * Time: 9:46 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Witch extends Bosses {
-    public Witch(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
+public class Officer extends Bosses {
+    public Officer(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
         super(b, // the bat
                 boss, // The boss mob
                 abs, // The list of abiltiies

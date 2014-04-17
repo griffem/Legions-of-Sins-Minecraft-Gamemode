@@ -12,15 +12,15 @@ import java.util.ArrayList;
  * Created by Ervin
  * on 4/13/2014
  */
-public class PigZombie extends Bosses {
-    public PigZombie(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
+public class FinalBoss extends Bosses {
+    public FinalBoss(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
         super(b, // the bat
                 boss, // The boss mob
                 abs, // The list of abiltiies
-                5, // The cooldown between abiliity casting
+                3, // The cooldown between abiliity casting
                 30, // the range
                 p, // The main class
-                false,
-                75); // Floating is true
+                true,
+                500); // Floating is true
     }
 }

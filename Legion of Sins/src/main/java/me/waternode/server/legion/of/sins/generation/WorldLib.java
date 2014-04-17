@@ -43,16 +43,51 @@ public class WorldLib {
 
 	public static void createTower(Location centerBot, double radius, double height, Random r, ArrayList<Material> walls, ArrayList<Material> floors, ArrayList<Material> afterfloors, ArrayList<Integer> levels) {
 		Location main = centerBot.clone();
-		for (int y = centerBot.getBlockY(); y < centerBot.getBlockY() + height; y++) {
-			main.setY(y);
-			for (Location l : getCylHorizontal(main, radius))
-				if (Math.pow(l.getX() - main.getX(), 2.0D) + Math.pow(l.getZ() - main.getZ(), 2.0D) >= Math.pow(radius, 2.0D) - radius) {
-                    l.getBlock().setType(walls.get(r.nextInt(walls.size())));
-				} else if (isFloor(l, centerBot, levels)) {
-                    l.getBlock().setType(floors.get(r.nextInt(floors.size())));
-				} else if (isAfterFloor(l, centerBot, levels))
-                    l.getBlock().setType(afterfloors.get(r.nextInt(afterfloors.size())));
-		}
+        if(walls.contains(Material.GLOWSTONE) && r.nextBoolean()) {
+            for (int y = centerBot.getBlockY(); y < centerBot.getBlockY() + height; y++) {
+                main.setY(y);
+                for (Location l : getCylHorizontal(main, radius)) {
+                    if (Math.pow(l.getX() - main.getX(), 2.0D) + Math.pow(l.getZ() - main.getZ(), 2.0D) >= Math.pow(radius, 2.0D)-radius) {
+                        l.getBlock().setType(walls.get(r.nextInt(walls.size())));
+                    } else if (isFloor(l, centerBot, levels)) {
+                        l.getBlock().setType(floors.get(r.nextInt(floors.size())));
+                    } else if (isAfterFloor(l, centerBot, levels)) {
+                        Material m = afterfloors.get(r.nextInt(afterfloors.size()));
+
+                        if(m.equals(Material.CHEST)) {
+                            l.getBlock().setType(Material.CHEST);
+                            Chest ch = (Chest) l.getBlock().getState();
+                            ch.getInventory().addItem(new ItemStack(Material.GOLD_NUGGET, r.nextInt(256) + 16));
+                            ch.update();
+                        } else {
+                            l.getBlock().setType(m);
+                        }
+                    }
+                }
+            }
+        } else {
+            for (int y = centerBot.getBlockY(); y < centerBot.getBlockY() + height; y++) {
+                main.setY(y);
+                for (Location l : getCylHorizontal(main, radius)) {
+                    if (Math.pow(l.getX() - main.getX(), 2.0D) + Math.pow(l.getZ() - main.getZ(), 2.0D) >= Math.pow(radius-1, 2.0D)) {
+                        l.getBlock().setType(walls.get(r.nextInt(walls.size())));
+                    } else if (isFloor(l, centerBot, levels)) {
+                        l.getBlock().setType(floors.get(r.nextInt(floors.size())));
+                    } else if (isAfterFloor(l, centerBot, levels)) {
+                        Material m = afterfloors.get(r.nextInt(afterfloors.size()));
+
+                        if(m.equals(Material.CHEST)) {
+                            l.getBlock().setType(Material.CHEST);
+                            Chest ch = (Chest) l.getBlock().getState();
+                            ch.getInventory().addItem(new ItemStack(Material.GOLD_NUGGET, r.nextInt(256) + 16));
+                            ch.update();
+                        } else {
+                            l.getBlock().setType(m);
+                        }
+                    }
+                }
+            }
+        }
 	}
 
 	private static boolean isFloor(Location a, Location b, ArrayList<Integer> s) {

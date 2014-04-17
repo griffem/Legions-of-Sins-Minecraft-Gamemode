@@ -39,7 +39,7 @@ public enum AbilityType {
             case CULTOFTHEFEATHER:
                 return new CultOfTheFeather(ps);
             case SEWERSWARM:
-                return new SewerSwarm(ps, 10);
+                return new SewerSwarm(ps, 10, LOSMain.getInstance());
             case SMITE:
                 return new Smite(ps);
             case WITHER:
