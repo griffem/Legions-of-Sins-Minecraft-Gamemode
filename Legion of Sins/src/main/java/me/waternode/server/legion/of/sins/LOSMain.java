@@ -48,6 +48,7 @@ public class LOSMain extends JavaPlugin implements Listener {
 
 		getServer().getPluginManager().registerEvents(worldListener, this);
 		getServer().getPluginManager().registerEvents(MH, this);
+        getServer().getPluginManager().registerEvents(bosses, this);
         getServer().getPluginManager().registerEvents(blind, this);
         getServer().getPluginManager().registerEvents(dwMH, this);
         getServer().getPluginManager().registerEvents(sMH, this);

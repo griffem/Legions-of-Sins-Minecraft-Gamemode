@@ -233,10 +233,10 @@ public class WorldGeneration {
 				floors.add(Material.AIR);
 
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 144; i++) {
 					afterfloors.add(Material.AIR);
 				}
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 15; i++) {
                     afterfloors.add(Material.WEB);
                 }
                 afterfloors.add(Material.CHEST);
@@ -249,11 +249,11 @@ public class WorldGeneration {
 
 				floors.add(Material.STAINED_GLASS);
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 144; i++) {
 					afterfloors.add(Material.AIR);
 				}
-                for (int i = 0; i < 7; i++) {
-                    afterfloors.add(Material.AIR);
+                for (int i = 0; i < 15; i++) {
+                    afterfloors.add(Material.WEB);
                 }
                 afterfloors.add(Material.CHEST);
 			} else {
@@ -273,13 +273,13 @@ public class WorldGeneration {
 				}
 				floors.add(Material.WEB);
 
-				for (int i = 0; i < 32; i++) {
+				for (int i = 0; i < 64; i++) {
 					afterfloors.add(Material.LEAVES);
 				}
-				for (int i = 0; i < 16; i++) {
+				for (int i = 0; i < 32; i++) {
 					afterfloors.add(Material.LOG);
 				}
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 15; i++) {
                     afterfloors.add(Material.WEB);
                 }
                 afterfloors.add(Material.CHEST);

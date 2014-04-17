@@ -43,7 +43,7 @@ public class WorldLib {
 
 	public static void createTower(Location centerBot, double radius, double height, Random r, ArrayList<Material> walls, ArrayList<Material> floors, ArrayList<Material> afterfloors, ArrayList<Integer> levels) {
 		Location main = centerBot.clone();
-        if(walls.contains(Material.GLOWSTONE) && r.nextBoolean()) {
+        if(walls.get(0).equals(Material.QUARTZ_BLOCK) && r.nextBoolean()) {
             for (int y = centerBot.getBlockY(); y < centerBot.getBlockY() + height; y++) {
                 main.setY(y);
                 for (Location l : getCylHorizontal(main, radius)) {
@@ -57,7 +57,7 @@ public class WorldLib {
                         if(m.equals(Material.CHEST)) {
                             l.getBlock().setType(Material.CHEST);
                             Chest ch = (Chest) l.getBlock().getState();
-                            ch.getInventory().addItem(new ItemStack(Material.GOLD_NUGGET, r.nextInt(256) + 16));
+                            ch.getInventory().addItem(new ItemStack(Material.GOLD_NUGGET, r.nextInt(128) + 16));
                             ch.update();
                         } else {
                             l.getBlock().setType(m);

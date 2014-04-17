@@ -23,7 +23,7 @@ public class DustStorm extends CatastrophicEvent {
 		Location pLoc = p.getLocation();
 		int pX = pLoc.getBlockX();
 		int pZ = pLoc.getBlockZ();
-		if (w.getHighestBlockYAt(pX, pZ) - 5 > pLoc.getY()) return;
+		if (w.getHighestBlockYAt(pX, pZ) - 4 > pLoc.getY()) return;
 		p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 120, 1));
 		p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 1));
 		p.getWorld().playEffect(p.getLocation(), Effect.SMOKE, 0);

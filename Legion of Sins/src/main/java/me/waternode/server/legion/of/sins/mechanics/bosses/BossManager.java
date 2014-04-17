@@ -3,6 +3,9 @@ package me.waternode.server.legion.of.sins.mechanics.bosses;
 import me.waternode.server.legion.of.sins.LOSMain;
 import me.waternode.server.legion.of.sins.mechanics.bosses.abilities.AbilityType;
 import org.bukkit.entity.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -14,7 +17,7 @@ import java.util.ArrayList;
  * Time: 10:34 AM
  * To change this template use File | Settings | File Templates.
  */
-public class BossManager extends BukkitRunnable {
+public class BossManager extends BukkitRunnable implements Listener {
     private final LOSMain main;
 
     private int mainCD = 0;
@@ -83,7 +86,6 @@ public class BossManager extends BukkitRunnable {
         abs.add(new Ability(AbilityType.SMITE, 10, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.WITHER, 15, main, b, b.getWorld(), 30));
         abs.add(new Ability(AbilityType.ZOMBIESIEGE, 30, main, b, b.getWorld(), 30));
-        abs.add(new AbilityClone(20, boss));
         new General(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
         skeleCD += 4;
     }
@@ -118,7 +120,6 @@ public class BossManager extends BukkitRunnable {
                 ArrayList<Ability> abs1 = new ArrayList<Ability>();
                 abs1.add(new Ability(AbilityType.SMITE, 10, main, b1, b1.getWorld(), 30));
                 abs1.add(new Ability(AbilityType.WITHER, 10, main, b1, b1.getWorld(), 30));
-                abs1.add(new AbilityClone(15, boss1));
                 new Lieutenant(b1, boss1, abs1, main).runTaskTimer(main, 0L, 1L);
                 break;
             case 2:
@@ -127,9 +128,17 @@ public class BossManager extends BukkitRunnable {
                 ArrayList<Ability> abs2 = new ArrayList<Ability>();
                 abs2.add(new Ability(AbilityType.SMITE, 5, main, b2, b2.getWorld(), 30));
                 abs2.add(new Ability(AbilityType.WITHER, 10, main, b2, b2.getWorld(), 30));
-                abs2.add(new AbilityClone(10, boss2));
                 new Officer(b2, boss2, abs2, main).runTaskTimer(main, 0L, 1L);
                 break;
+        }
+    }
+
+    @EventHandler
+    public void onCombust(EntityCombustEvent e) {
+        if(e.getEntity().getWorld().getName().equalsIgnoreCase("deathworld")) {
+            if(e.getEntityType() == EntityType.ZOMBIE) {
+                e.setCancelled(true);
+            }
         }
     }
 }
