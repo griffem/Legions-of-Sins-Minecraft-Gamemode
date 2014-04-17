@@ -59,6 +59,19 @@ public class DeathWorldPopulator extends BlockPopulator {
                         ||(l.getZ() > -10 && l.getZ() < 10)) {
                     b.setType(Material.SAND);
                 }
+                if((l.getX() == -10 || l.getX() == 10) && (l.getZ() == -10 || l.getZ() == 10)) {
+                    for(int i = 0; i < 10; i++) {
+                        l.add(0, 1, 0);
+                        b.setType(Material.GRAVEL);
+                    }
+                }
+                if(l.getX() == 0 && l.getZ() == 0) {
+                    l.setY(10);
+                    for(int i = 0; i < 199; i++) {
+                        l.add(0, 1, 0);
+                        b.setType(Material.GLOWSTONE);
+                    }
+                }
             }
         }
     }
