@@ -9,6 +9,7 @@ import me.waternode.server.legion.of.sins.mechanics.deathworld.DeathWorldMobHand
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
 import me.waternode.server.legion.of.sins.mechanics.spawn.SpawnMobHandler;
 import me.waternode.server.legion.of.sins.mechanics.story.StoryEvents;
+import me.waternode.server.legion.of.sins.mechanics.story.Tutorial.TutorialTask;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -38,6 +39,8 @@ public class LOSMain extends JavaPlugin implements Listener {
 		random = new Random();
 		EventManager events = new EventManager(this);
         BossManager bosses = new BossManager(this);
+        TutorialTask tutorial = new TutorialTask(this);
+        tutorial.runTaskTimer(this, 20L, 100L);
 		events.runTaskTimer(this, 20L, 1000L);
         bosses.runTaskTimer(this, 20L, 500L);
 

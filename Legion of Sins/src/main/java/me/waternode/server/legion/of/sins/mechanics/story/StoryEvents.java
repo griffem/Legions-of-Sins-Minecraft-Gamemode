@@ -14,7 +14,7 @@ public class StoryEvents implements Listener {
     @EventHandler
     public void onPJE(PlayerJoinEvent e) {
         if(!e.getPlayer().hasPlayedBefore()) {
-            e.getPlayer().sendMessage(ChatColor.GOLD + "[Tutorial]" + ChatColor.GOLD + "Would you like to play the Tutorial? Type [/tut yes] to accept.");
+            e.getPlayer().sendMessage(ChatColor.GOLD + "[Tutorial]" + ChatColor.RED + "Would you like to play the Tutorial? Type [/tut yes] to accept.");
         }
     }
 }
