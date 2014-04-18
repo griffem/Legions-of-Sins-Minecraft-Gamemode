@@ -20,13 +20,13 @@ public class ElectricalStorms extends CatastrophicEvent {
 		Location pLoc = p.getLocation();
 		int pX = pLoc.getBlockX();
 		int pZ = pLoc.getBlockZ();
-		if (w.getHighestBlockYAt(pX, pZ) - 5 <= pLoc.getY()) {
+		if (w.getHighestBlockYAt(pX, pZ) - 1 <= pLoc.getY()) {
 			if (random.nextInt(4) == 0) {
 				Location loc = new Location(world, range, range, range);
 
-				loc.setX(p.getLocation().getX() + (random.nextInt(11) - 5));
+				loc.setX(p.getLocation().getX() + (random.nextInt(15) - 7));
 				loc.setY(p.getLocation().getY());
-				loc.setZ(p.getLocation().getZ() + (random.nextInt(11) - 5));
+				loc.setZ(p.getLocation().getZ() + (random.nextInt(15) - 7));
 
 				p.getWorld().strikeLightning(loc);
 			}

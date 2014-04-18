@@ -39,9 +39,25 @@ public class CatastrophicEvent extends BukkitRunnable {
             warning--;
             return;
         }
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            if(warning == 25 && p.getWorld() == world) {
-                p.sendMessage(ChatColor.AQUA + name);
+        if(warning == 25) {
+            for(Player p : Bukkit.getOnlinePlayers()) {
+                Location playerLocation = p.getLocation();
+                if (playerLocation.getWorld() == world) {
+                    if (D3Dist) {
+                        if (center.distance(playerLocation) <= range+100) {
+                            if (p.getGameMode() != GameMode.CREATIVE) {
+                                p.sendMessage(ChatColor.AQUA + name);
+                            }
+
+                        }
+                    } else {
+                        if (Math.pow(playerLocation.getX() - center.getX(), 2) + Math.pow(playerLocation.getZ() - center.getZ(), 2) <= Math.pow(range+100, 2)) {
+                            if (p.getGameMode() != GameMode.CREATIVE) {
+                                p.sendMessage(ChatColor.AQUA + name);
+                            }
+                        }
+                    }
+               }
             }
         }
         if(warning == 25) {
