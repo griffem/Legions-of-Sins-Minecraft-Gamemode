@@ -23,6 +23,7 @@ public class EndGameListener implements Listener {
                     e.getPlayer().getInventory().remove(Material.LONG_GRASS);
                     e.getPlayer().getInventory().addItem(longgrass);
                     ChunkAnti(e.getPlayer().getLocation().getChunk());
+                    e.getPlayer().updateInventory();
                 }
             }
         }
