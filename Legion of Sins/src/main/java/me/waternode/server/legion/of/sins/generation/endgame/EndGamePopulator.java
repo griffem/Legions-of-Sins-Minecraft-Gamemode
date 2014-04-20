@@ -1,11 +1,14 @@
-package me.waternode.server.legion.of.sins.generation;
+package me.waternode.server.legion.of.sins.generation.endgame;
 
+import me.waternode.server.legion.of.sins.generation.WorldGeneration;
+import me.waternode.server.legion.of.sins.generation.WorldLib;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.generator.BlockPopulator;
+
 import java.util.Random;
 
 /**
@@ -15,7 +18,7 @@ import java.util.Random;
  * Time: 8:00 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MainPopulator extends BlockPopulator {
+public class EndGamePopulator extends BlockPopulator {
 
     @Override
     public void populate(World world, Random r, Chunk c) {
@@ -27,40 +30,24 @@ public class MainPopulator extends BlockPopulator {
 
                     switch (type) {
                         case DIRT:
-                            WorldGeneration.DirtReplace(b, r);
+                            EndGameWorldGen.DirtReplace(b, r);
                             break;
                         case GRASS:
-                            WorldGeneration.GrassReplace(b, r);
+                            EndGameWorldGen.GrassReplace(b, r);
                             break;
                         case SAND: case STAINED_CLAY: case HARD_CLAY: case CLAY:
-                            WorldGeneration.SandLikeReplace(b, r);
+                            EndGameWorldGen.SandLikeReplace(b, r);
                             break;
                         case LOG: case LOG_2:
-                            WorldGeneration.LogsReplace(b);
+                            EndGameWorldGen.LogsReplace(b);
                             break;
                         case LEAVES: case LEAVES_2:
-                            WorldGeneration.LeavesReplace(b, r);
+                            EndGameWorldGen.LeavesReplace(b, r);
                             break;
-                        case LONG_GRASS: case RED_ROSE: case YELLOW_FLOWER: case DOUBLE_PLANT: case COCOA: case SUGAR_CANE_BLOCK: case CACTUS:
-                            b.setType(Material.AIR);
-                            break;
-                        case COAL_ORE:
-                            WorldGeneration.CoalOreReplace(b, r);
                     }
-                }
-
-                Block b = c.getBlock(x, 100, z);
-
-                if ((b.getBiome() == Biome.OCEAN) || (b.getBiome() == Biome.DEEP_OCEAN)) {
-                    WorldLib.CreateAsh(b, r);
                 }
             }
         }
-
-        WorldGeneration.CylinderGeneration(r, c);
-
-        WorldGeneration.RuinsGeneration(r, c);
-
         WorldLib.CreateChests(c, r);
     }
 }

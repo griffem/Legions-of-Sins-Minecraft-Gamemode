@@ -27,4 +27,9 @@ public class AcidRain extends CatastrophicEvent {
         p.getWorld().playSound(p.getLocation(), Sound.AMBIENCE_RAIN, 0.5f, 1f);
         p.getWorld().setStorm(true);
 	}
+
+    @Override
+    public void OnEnd(Player p, Random random) {
+        p.getWorld().setStorm(false);
+    }
 }

@@ -1,14 +1,16 @@
-package me.waternode.server.legion.of.sins.generation;
+package me.waternode.server.legion.of.sins.generation.endgame;
 
+import me.waternode.server.legion.of.sins.generation.WorldLib;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
+
 import java.util.ArrayList;
 import java.util.Random;
 
-public class WorldGeneration {
+public class EndGameWorldGen {
 
 	public static void DirtReplace(Block b, Random r) {
         switch (b.getBiome()) {
@@ -156,154 +158,6 @@ public class WorldGeneration {
 	}
 
 	public static void LeavesReplace(Block b, Random r) {
-        switch (b.getBiome()) {
-            case BIRCH_FOREST:
-            case BIRCH_FOREST_HILLS:
-            case BIRCH_FOREST_HILLS_MOUNTAINS:
-            case BIRCH_FOREST_MOUNTAINS:
-                b.setType(Material.COAL_BLOCK);
-                break;
-
-            case SAVANNA:
-            case SAVANNA_MOUNTAINS:
-            case SAVANNA_PLATEAU:
-            case SAVANNA_PLATEAU_MOUNTAINS:
-                break;
-
-            default:
-                int i = r.nextInt(12);
-                if (i == 0) {
-                    b.setType(Material.EMERALD_ORE);
-                } else if (i <= 1) {
-                    b.setType(Material.AIR);
-                } else if (i <= 4) {
-                    b.setType(Material.WEB);
-                } else if (i <= 11) {
-                    b.setType(Material.COAL_BLOCK);
-                }
-                break;
-        }
-	}
-
-    public static void CoalOreReplace(Block b, Random r) {
-        int i = r.nextInt(3);
-        if (i == 0) {
-            b.setType(Material.WOOD);
-        } else {
-            b.setType(Material.LEAVES);
-        }
-    }
-
-	public static void CylinderGeneration(Random r, Chunk c) {
-		int a = r.nextInt(10);
-		if (a == 9) {
-			Block b = c.getBlock(r.nextInt(16), r.nextInt(55)+10, r.nextInt(16));
-			if ((b.getBiome() != Biome.RIVER) && (b.getBiome() != Biome.OCEAN) && (b.getBiome() != Biome.DEEP_OCEAN))
-				WorldLib.createCyl(b.getLocation(), r.nextInt(10) + 1, r);
-		} else if (a <= 4) {
-			Block b = c.getBlock(r.nextInt(16), r.nextInt(55), r.nextInt(16));
-			if ((b.getBiome() != Biome.RIVER) && (b.getBiome() != Biome.OCEAN) && (b.getBiome() != Biome.DEEP_OCEAN) && (
-					(b.getBiome() == Biome.PLAINS) ||
-							(b.getBiome() == Biome.SUNFLOWER_PLAINS)))
-				WorldLib.createCyl(b.getLocation(), r.nextInt(10) + 1, r);
-		}
-	}
-
-	public static void RuinsGeneration(Random r, Chunk c) {
-		int a = r.nextInt(400);
-		if (a < 2) {
-			Block b = c.getBlock(r.nextInt(16), 1, r.nextInt(16));
-			b = c.getWorld().getHighestBlockAt(b.getLocation());
-			Location l = b.getLocation();
-			l.add(0.0D, -1 * r.nextInt(6), 0.0D).getBlock();
-			b = l.getBlock();
-			a = r.nextInt(30);
-			ArrayList<Material> walls = new ArrayList<Material>();
-			ArrayList<Material> floors = new ArrayList<Material>();
-			ArrayList<Material> afterfloors = new ArrayList<Material>();
-
-			if (a < 10) {
-				for (int i = 0; i < 3; i++) {
-					walls.add(Material.COBBLESTONE);
-				}
-				for (int i = 0; i < 3; i++) {
-					walls.add(Material.STONE);
-				}
-				for (int i = 0; i < 3; i++) {
-					walls.add(Material.SMOOTH_BRICK);
-				}
-				walls.add(Material.AIR);
-				walls.add(Material.COAL_BLOCK);
-				walls.add(Material.QUARTZ_BLOCK);
-
-				for (int i = 0; i < 7; i++) {
-					floors.add(Material.NETHER_BRICK);
-				}
-				floors.add(Material.AIR);
-
-
-				for (int i = 0; i < 144; i++) {
-					afterfloors.add(Material.AIR);
-				}
-                for (int i = 0; i < 15; i++) {
-                    afterfloors.add(Material.WEB);
-                }
-                afterfloors.add(Material.CHEST);
-			} else if (a < 20) {
-				for (int i = 0; i < 5; i++) {
-					walls.add(Material.QUARTZ_BLOCK);
-				}
-				walls.add(Material.GLOWSTONE);
-				walls.add(Material.COBBLESTONE);
-
-				floors.add(Material.STAINED_GLASS);
-
-				for (int i = 0; i < 144; i++) {
-					afterfloors.add(Material.AIR);
-				}
-                for (int i = 0; i < 15; i++) {
-                    afterfloors.add(Material.WEB);
-                }
-                afterfloors.add(Material.CHEST);
-			} else {
-				for (int i = 0; i < 4; i++) {
-					walls.add(Material.LEAVES);
-				}
-				for (int i = 0; i < 2; i++) {
-					walls.add(Material.LOG);
-				}
-				walls.add(Material.WEB);
-
-				for (int i = 0; i < 4; i++) {
-					floors.add(Material.LEAVES);
-				}
-				for (int i = 0; i < 2; i++) {
-					floors.add(Material.LOG);
-				}
-				floors.add(Material.WEB);
-
-				for (int i = 0; i < 64; i++) {
-					afterfloors.add(Material.LEAVES);
-				}
-				for (int i = 0; i < 32; i++) {
-					afterfloors.add(Material.LOG);
-				}
-                for (int i = 0; i < 15; i++) {
-                    afterfloors.add(Material.WEB);
-                }
-                afterfloors.add(Material.CHEST);
-			}
-
-			int h = r.nextInt(4) * 10 + 10;
-			ArrayList<Integer> levels = new ArrayList<Integer>();
-			levels.add(0);
-			for (int i = 1; i <= h / 5; i++) {
-				levels.add(i * 5);
-			}
-			h += 1 + r.nextInt(3);
-			WorldLib.createTower(b.getLocation(), r.nextInt(11) + 5, h, r, walls, floors, afterfloors, levels);
-		} else if(a == 2) {
-
-        }
+        b.setType(Material.WEB);
 	}
 }

@@ -3,6 +3,7 @@ package me.waternode.server.legion.of.sins.generation;
 import me.waternode.server.legion.of.sins.InfinitePotionEffect;
 import me.waternode.server.legion.of.sins.LOSMain;
 import me.waternode.server.legion.of.sins.generation.deathworld.DeathWorldPopulator;
+import me.waternode.server.legion.of.sins.generation.endgame.EndGamePopulator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,8 +29,9 @@ public class WorldListener implements Listener {
             e.getWorld().getPopulators().add(new MainPopulator());
         } else if(e.getWorld().getName().equalsIgnoreCase("deathworld")) {
             e.getWorld().getPopulators().add(new DeathWorldPopulator());
+        } else if(e.getWorld().getName().equalsIgnoreCase("endgame")) {
+            e.getWorld().getPopulators().add(new EndGamePopulator());
         }
-
 	}
 
 	@EventHandler
@@ -37,20 +39,41 @@ public class WorldListener implements Listener {
         if(e.getEntityType() == EntityType.PLAYER) {
             Player p = (Player) e.getEntity();
             if (e.getLocation().getWorld().getName().equalsIgnoreCase("spawn")) {
-                Location l = new Location(Bukkit.getWorld("main"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
-
-                while(true) {
-                    if(l.getWorld().getHighestBlockAt(l).getType() != Material.COAL_BLOCK
-                            && l.getWorld().getHighestBlockAt(l).getLocation().getY() > 55
-                            && l.getWorld().getHighestBlockAt(l).getType() != Material.LAVA
-                            && l.getWorld().getHighestBlockAt(l).getType() != Material.STATIONARY_LAVA) {
-                        break;
-                    } else {
-                        l = new Location(Bukkit.getWorld("main"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
+                if(p.getItemInHand() != null) {
+                    if(p.getItemInHand().getType().equals(Material.NETHER_STAR)) {
+                        Location l = new Location(Bukkit.getWorld("endgame"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
+                        while(true) {
+                            if(l.getWorld().getHighestBlockAt(l).getType() != Material.WEB
+                                    && l.getWorld().getHighestBlockAt(l).getLocation().getY() > 55
+                                    && l.getWorld().getHighestBlockAt(l).getType() != Material.LAVA
+                                    && l.getWorld().getHighestBlockAt(l).getType() != Material.STATIONARY_LAVA) {
+                                break;
+                            } else {
+                                l = new Location(Bukkit.getWorld("endgame"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
+                            }
+                        }
+                        p.teleport(l);
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
+                        return;
                     }
                 }
-                p.teleport(l);
-                p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
+
+            if (e.getLocation().getWorld().getName().equalsIgnoreCase("spawn")) {
+                    Location l = new Location(Bukkit.getWorld("main"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
+
+                    while(true) {
+                        if(l.getWorld().getHighestBlockAt(l).getType() != Material.COAL_BLOCK
+                                && l.getWorld().getHighestBlockAt(l).getLocation().getY() > 55
+                                && l.getWorld().getHighestBlockAt(l).getType() != Material.LAVA
+                                && l.getWorld().getHighestBlockAt(l).getType() != Material.STATIONARY_LAVA) {
+                            break;
+                        } else {
+                            l = new Location(Bukkit.getWorld("main"), LOSMain.getRandom().nextInt(1000), 260.0D, LOSMain.getRandom().nextInt(1000));
+                        }
+                    }
+                    p.teleport(l);
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
+                }
             } else if (e.getLocation().getWorld().getName().equalsIgnoreCase("main")) {
                 if(LOSMain.getRandom().nextBoolean()) {
                     if(LOSMain.getRandom().nextBoolean()) {

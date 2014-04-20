@@ -26,7 +26,7 @@ public class EventManager extends BukkitRunnable {
 		if (ps.size() <= 0) return;
 
 		Player p = ps.get(r.nextInt(ps.size()));
-		int i = r.nextInt(5);
+		int i = r.nextInt(6);
 
         switch (i) {
             case 0:

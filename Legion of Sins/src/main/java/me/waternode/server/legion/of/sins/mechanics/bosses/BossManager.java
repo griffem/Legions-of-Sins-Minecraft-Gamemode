@@ -2,6 +2,10 @@ package me.waternode.server.legion.of.sins.mechanics.bosses;
 
 import me.waternode.server.legion.of.sins.LOSMain;
 import me.waternode.server.legion.of.sins.mechanics.bosses.abilities.AbilityType;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,6 +33,17 @@ public class BossManager extends BukkitRunnable implements Listener {
     }
 
     public void run() {
+        Location l = Bukkit.getWorld("deathworld").getBlockAt(-10, 200, -10).getLocation();
+        for(int x = -10; x <= 10; x++) {
+            l.setX(x);
+            for(int z = -10; z <= 10; z++) {
+                l.setZ(z);
+                if(((l.getX() > -10 && l.getX() < 10) && (l.getZ() == -10 || l.getZ() == 10))
+                        ||((l.getX() == -10 || l.getX() == 10) && (l.getZ() > -10 && l.getZ() < 10))) {
+                    l.getBlock().setType(Material.GRAVEL);
+                }
+            }
+        }
         // Use lowest interface possible
         ArrayList<Player> ps = new ArrayList<Player>();
         for (Player p : main.getServer().getOnlinePlayers())

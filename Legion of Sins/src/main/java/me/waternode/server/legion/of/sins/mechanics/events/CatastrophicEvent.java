@@ -45,14 +45,14 @@ public class CatastrophicEvent extends BukkitRunnable {
                 if (playerLocation.getWorld() == world) {
                     if (D3Dist) {
                         if (center.distance(playerLocation) <= range+100) {
-                            if (p.getGameMode() != GameMode.CREATIVE) {
+                            if (p.getGameMode() != GameMode.CREATIVE || p.hasPermission("los.events.bypass")) {
                                 p.sendMessage(ChatColor.AQUA + name);
                             }
 
                         }
                     } else {
                         if (Math.pow(playerLocation.getX() - center.getX(), 2) + Math.pow(playerLocation.getZ() - center.getZ(), 2) <= Math.pow(range+100, 2)) {
-                            if (p.getGameMode() != GameMode.CREATIVE) {
+                            if (p.getGameMode() != GameMode.CREATIVE || p.hasPermission("los.events.bypass")) {
                                 p.sendMessage(ChatColor.AQUA + name);
                             }
                         }
@@ -87,6 +87,26 @@ public class CatastrophicEvent extends BukkitRunnable {
 		}
 		lifetime--;
 		if (lifetime <= 0) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                Location playerLocation = p.getLocation();
+                if (playerLocation.getWorld() == world) {
+                    if (D3Dist) {
+                        if (center.distance(playerLocation) <= range) {
+                            if (p.getGameMode() != GameMode.CREATIVE) {
+                                OnEnd(p, LOSMain.getRandom());
+                            }
+
+                        }
+                    } else {
+                        if (Math.pow(playerLocation.getX() - center.getX(), 2) + Math.pow(playerLocation.getZ() - center.getZ(), 2) <= Math.pow(range, 2)) {
+                            if (p.getGameMode() != GameMode.CREATIVE) {
+                                OnEnd(p, LOSMain.getRandom());
+                            }
+                        }
+                    }
+
+                }
+            }
 			cancel();
 		}
 		center.add(direction.getX() * speed, direction.getY() * speed, direction.getZ() * speed);
@@ -94,4 +114,7 @@ public class CatastrophicEvent extends BukkitRunnable {
 
 	protected void OnPlayerNear(Player p, Random random) {
 	}
+
+    protected void OnEnd(Player p, Random random) {
+    }
 }

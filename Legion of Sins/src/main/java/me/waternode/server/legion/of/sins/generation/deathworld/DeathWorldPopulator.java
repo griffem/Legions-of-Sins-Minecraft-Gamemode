@@ -19,7 +19,7 @@ public class DeathWorldPopulator extends BlockPopulator {
 
     @Override
     public void populate(World world, Random r, Chunk c) {
-        for (int x = 0; x < 16 + 16; x++) {
+        for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 for (int y = 0; y < 128; y++) {
                     Block b = c.getBlock(x, y, z);
@@ -53,23 +53,29 @@ public class DeathWorldPopulator extends BlockPopulator {
                             break;
                     }
                 }
+
+
                 Block b = c.getBlock(x, 200, z);
                 Location l = b.getLocation();
                 if((l.getX() > -10 && l.getX() < 10)
                         ||(l.getZ() > -10 && l.getZ() < 10)) {
                     b.setType(Material.SAND);
                 }
-                if((l.getX() == -10 || l.getX() == 10) && (l.getZ() == -10 || l.getZ() == 10)) {
-                    for(int i = 0; i < 10; i++) {
-                        l.add(0, 1, 0);
-                        b.setType(Material.GRAVEL);
+                if(l.getX() == 0 && l.getZ() == 0) {
+                    for(int i = 1; i < 201; i++) {
+                        b = c.getBlock(x, i, z);
+                        if(i == 200) {
+                            b.setType(Material.CHEST);
+                        } else {
+                            b.setType(Material.GLOWSTONE);
+                        }
                     }
                 }
-                if(l.getX() == 0 && l.getZ() == 0) {
-                    l.setY(10);
-                    for(int i = 0; i < 199; i++) {
-                        l.add(0, 1, 0);
-                        b.setType(Material.GLOWSTONE);
+                if(((l.getX() > -10 && l.getX() < 10) && (l.getZ() == -10 || l.getZ() == 10))
+                        ||((l.getX() == -10 || l.getX() == 10) && (l.getZ() > -10 && l.getZ() < 10))) {
+                    for(int i = 1; i < 125; i++) {
+                        b = c.getBlock(x, i, z);
+                        b.setType(Material.GRAVEL);
                     }
                 }
             }

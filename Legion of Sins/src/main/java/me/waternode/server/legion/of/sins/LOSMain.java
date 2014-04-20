@@ -2,6 +2,8 @@ package me.waternode.server.legion.of.sins;
 
 import lombok.Getter;
 import me.waternode.server.legion.of.sins.generation.WorldListener;
+import me.waternode.server.legion.of.sins.mechanics.EndGame.EndGameListener;
+import me.waternode.server.legion.of.sins.mechanics.EndGame.EndGameMobHandler;
 import me.waternode.server.legion.of.sins.mechanics.MobHandler;
 import me.waternode.server.legion.of.sins.mechanics.bosses.BossManager;
 import me.waternode.server.legion.of.sins.mechanics.deathworld.Blindness;
@@ -9,7 +11,7 @@ import me.waternode.server.legion.of.sins.mechanics.deathworld.DeathWorldMobHand
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
 import me.waternode.server.legion.of.sins.mechanics.spawn.SpawnMobHandler;
 import me.waternode.server.legion.of.sins.mechanics.story.StoryEvents;
-import me.waternode.server.legion.of.sins.mechanics.story.Tutorial.TutorialTask;
+import me.waternode.server.legion.of.sins.mechanics.story.tutorial.TutorialTask;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -39,25 +41,25 @@ public class LOSMain extends JavaPlugin implements Listener {
 		random = new Random();
 		EventManager events = new EventManager(this);
         BossManager bosses = new BossManager(this);
-        TutorialTask tutorial = new TutorialTask(this);
-        tutorial.runTaskTimer(this, 20L, 100L);
 		events.runTaskTimer(this, 20L, 1000L);
         bosses.runTaskTimer(this, 20L, 500L);
 
 		worldListener = new WorldListener();
 		MobHandler MH = new MobHandler();
         Blindness blind = new Blindness();
+        EndGameListener egl = new EndGameListener();
         DeathWorldMobHandler dwMH = new DeathWorldMobHandler();
         SpawnMobHandler sMH = new SpawnMobHandler();
-        StoryEvents sE = new StoryEvents();
+        EndGameMobHandler egmh = new EndGameMobHandler();
 
 		getServer().getPluginManager().registerEvents(worldListener, this);
 		getServer().getPluginManager().registerEvents(MH, this);
+        getServer().getPluginManager().registerEvents(egl, this);
         getServer().getPluginManager().registerEvents(bosses, this);
         getServer().getPluginManager().registerEvents(blind, this);
         getServer().getPluginManager().registerEvents(dwMH, this);
         getServer().getPluginManager().registerEvents(sMH, this);
-        getServer().getPluginManager().registerEvents(sE, this);
+        getServer().getPluginManager().registerEvents(egmh, this);
 		getLogger().info("Listeners hooked!");
 
 		PluginDescriptionFile pluginFile = this.getDescription();

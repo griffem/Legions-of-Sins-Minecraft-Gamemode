@@ -1,4 +1,4 @@
-package me.waternode.server.legion.of.sins.mechanics.story.Tutorial;
+package me.waternode.server.legion.of.sins.mechanics.story.tutorial;
 
 import me.waternode.server.legion.of.sins.LOSMain;
 import org.bukkit.scheduler.BukkitRunnable;
