@@ -5,6 +5,7 @@ import me.waternode.server.legion.of.sins.LOSMain;
 import me.waternode.server.legion.of.sins.generation.deathworld.DeathWorldPopulator;
 import me.waternode.server.legion.of.sins.generation.endgame.EndGamePopulator;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -73,6 +74,8 @@ public class WorldListener implements Listener {
                     }
                     p.teleport(l);
                     p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
+                    p.sendMessage(ChatColor.DARK_GREEN + "Don't worry, you will land safely.");
+                    LOSMain.getInstance().getEvents().exceptions.add(p);
                 }
             } else if (e.getLocation().getWorld().getName().equalsIgnoreCase("main")) {
                 if(LOSMain.getRandom().nextBoolean()) {

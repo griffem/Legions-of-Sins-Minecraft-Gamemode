@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class EventManager extends BukkitRunnable {
 	private final LOSMain main;
+    public ArrayList<Player> exceptions = new ArrayList<Player>();
 
 	public EventManager(LOSMain p) {
 		this.main = p;
@@ -19,14 +20,16 @@ public class EventManager extends BukkitRunnable {
 	public void run() {
 		Random r = new Random();
 		// Use lowest interface possible
-		List<Player> ps = new ArrayList<Player>();
-		for (Player p : main.getServer().getOnlinePlayers())
-			if (p.getWorld().getName().toLowerCase().contains("main")) ps.add(p);
+        ArrayList<Player> ps = new ArrayList<Player>();
+		for (Player p : main.getServer().getOnlinePlayers()) {
+            if (p.getWorld().getName().toLowerCase().contains("main") && !exceptions.contains(p)) ps.add(p);
+            if (exceptions.contains(p)) exceptions.remove(p);
+        }
 
 		if (ps.size() <= 0) return;
 
 		Player p = ps.get(r.nextInt(ps.size()));
-		int i = r.nextInt(6);
+		int i = r.nextInt(8);
 
         switch (i) {
             case 0:

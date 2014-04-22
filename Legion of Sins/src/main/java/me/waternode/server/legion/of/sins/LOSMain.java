@@ -10,8 +10,6 @@ import me.waternode.server.legion.of.sins.mechanics.deathworld.Blindness;
 import me.waternode.server.legion.of.sins.mechanics.deathworld.DeathWorldMobHandler;
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
 import me.waternode.server.legion.of.sins.mechanics.spawn.SpawnMobHandler;
-import me.waternode.server.legion.of.sins.mechanics.story.StoryEvents;
-import me.waternode.server.legion.of.sins.mechanics.story.tutorial.TutorialTask;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -23,7 +21,12 @@ public class LOSMain extends JavaPlugin implements Listener {
 
 	@Getter
 	private static LOSMain instance;
+
+    @Getter
+    private EventManager events;
+
 	private WorldListener worldListener;
+
 	@Getter
 	private static final Boolean debug = false;
 
@@ -39,7 +42,7 @@ public class LOSMain extends JavaPlugin implements Listener {
 	public void onEnable() {
 		instance = this;
 		random = new Random();
-		EventManager events = new EventManager(this);
+		events = new EventManager(this);
         BossManager bosses = new BossManager(this);
 		events.runTaskTimer(this, 20L, 1000L);
         bosses.runTaskTimer(this, 20L, 500L);
