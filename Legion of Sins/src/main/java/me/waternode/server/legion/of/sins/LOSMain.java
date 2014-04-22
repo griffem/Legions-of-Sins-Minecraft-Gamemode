@@ -10,8 +10,6 @@ import me.waternode.server.legion.of.sins.mechanics.deathworld.Blindness;
 import me.waternode.server.legion.of.sins.mechanics.deathworld.DeathWorldMobHandler;
 import me.waternode.server.legion.of.sins.mechanics.events.EventManager;
 import me.waternode.server.legion.of.sins.mechanics.spawn.SpawnMobHandler;
-import me.waternode.server.legion.of.sins.mechanics.story.StoryEvents;
-import me.waternode.server.legion.of.sins.mechanics.story.tutorial.TutorialTask;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
