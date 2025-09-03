@@ -1,0 +1,177 @@
+package com.griffem.legionofsins.mechanics.bosses;
+
+import com.griffem.legionofsins.LOSMain;
+import com.griffem.legionofsins.mechanics.bosses.abilities.AbilityType;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityCombustEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: Emery
+ * Date: 4/13/14
+ * Time: 10:34 AM
+ * To change this template use File | Settings | File Templates.
+ */
+public class BossManager extends BukkitRunnable implements Listener {
+    private final LOSMain main;
+
+    private int mainCD = 0;
+    private int skeleCD = 0;
+    private int cowCD = 0;
+
+    public BossManager(LOSMain p) {
+        this.main = p;
+    }
+
+    @Override
+    public void run() {
+        Location l = Bukkit.getWorld("deathworld").getBlockAt(-10, 200, -10).getLocation();
+        for(int x = -10; x <= 10; x++) {
+            l.setX(x);
+            for(int z = -10; z <= 10; z++) {
+                l.setZ(z);
+                if(((l.getX() > -10 && l.getX() < 10) && (l.getZ() == -10 || l.getZ() == 10))
+                        ||((l.getX() == -10 || l.getX() == 10) && (l.getZ() > -10 && l.getZ() < 10))) {
+                    l.getBlock().setType(Material.GRAVEL);
+                }
+            }
+        }
+        // Use lowest interface possible
+        List<Player> ps = main.getServer().getOnlinePlayers().stream()
+                .filter(p -> p.getWorld().getName().toLowerCase().contains("deathworld"))
+                .toList();
+
+        if(mainCD > 0) mainCD--;
+        if(skeleCD > 0) skeleCD--;
+        if(cowCD > 0) cowCD--;
+        if (ps.size() <= 0) return;
+
+        PlayerBuckets buckets = categorizePlayers(ps);
+        if (!buckets.center().isEmpty() && mainCD == 0) finalBoss(buckets.center().get(LOSMain.getRandom().nextInt(buckets.center().size())));
+        if (!buckets.first().isEmpty() && skeleCD == 0) generalBoss(buckets.first().get(LOSMain.getRandom().nextInt(buckets.first().size())));
+        if (!buckets.second().isEmpty() && cowCD == 0) commanderBoss(buckets.second().get(LOSMain.getRandom().nextInt(buckets.second().size())));
+        if (!buckets.third().isEmpty()) regularBoss(buckets.third().get(LOSMain.getRandom().nextInt(buckets.third().size())));
+    }
+    public void finalBoss(Player p) {
+        LivingEntity b = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
+        MagmaCube boss = (MagmaCube) b.getWorld().spawnEntity(b.getLocation(), EntityType.MAGMA_CUBE);
+        boss.setSize(2);
+        List<Ability> abs = createAbilities(b,
+                AbilityType.CULTOFTHEFEATHER, 20,
+                AbilityType.SEWERSWARM, 20,
+                AbilityType.SMITE, 10,
+                AbilityType.WITHER, 10,
+                AbilityType.ZOMBIESIEGE, 20);
+        new FinalBoss(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        mainCD += 8;
+    }
+
+    public void generalBoss(Player p) {
+        LivingEntity b = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
+        LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.SKELETON);
+        List<Ability> abs = createAbilities(b,
+                AbilityType.SEWERSWARM, 30,
+                AbilityType.SMITE, 10,
+                AbilityType.WITHER, 15,
+                AbilityType.ZOMBIESIEGE, 30);
+        new General(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        skeleCD += 4;
+    }
+
+    public void commanderBoss(Player p) {
+        LivingEntity b = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
+        LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.MOOSHROOM);
+        List<Ability> abs = createAbilities(b,
+                AbilityType.CULTOFTHEFEATHER, 20,
+                AbilityType.SEWERSWARM, 30,
+                AbilityType.SMITE, 10,
+                AbilityType.WITHER, 15);
+        new Commander(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+        cowCD += 2;
+    }
+
+    public void regularBoss(Player p) {
+        int i = LOSMain.getRandom().nextInt(3);
+        switch (i) {
+            case 0 -> {
+                LivingEntity b = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
+                LivingEntity boss = (LivingEntity) b.getWorld().spawnEntity(b.getLocation(), EntityType.PIG);
+                List<Ability> abs = createAbilities(b,
+                        AbilityType.CULTOFTHEFEATHER, 20,
+                        AbilityType.SMITE, 5,
+                        AbilityType.WITHER, 10);
+                new Captain(b, boss, abs, main).runTaskTimer(main, 0L, 1L);
+            }
+            case 1 -> {
+                LivingEntity b1 = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
+                LivingEntity boss1 = (LivingEntity) b1.getWorld().spawnEntity(b1.getLocation(), EntityType.ZOMBIFIED_PIGLIN);
+                List<Ability> abs1 = createAbilities(b1,
+                        AbilityType.SMITE, 10,
+                        AbilityType.WITHER, 10);
+                new Lieutenant(b1, boss1, abs1, main).runTaskTimer(main, 0L, 1L);
+            }
+            case 2 -> {
+                LivingEntity b2 = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
+                LivingEntity boss2 = (LivingEntity) b2.getWorld().spawnEntity(b2.getLocation(), EntityType.WITCH);
+                List<Ability> abs2 = createAbilities(b2,
+                        AbilityType.SMITE, 5,
+                        AbilityType.WITHER, 10);
+                new Officer(b2, boss2, abs2, main).runTaskTimer(main, 0L, 1L);
+            }
+        }
+    }
+
+    private List<Ability> createAbilities(LivingEntity boss, Object... data) {
+        List<Ability> abilities = new ArrayList<>();
+        for (int i = 0; i < data.length; i += 2) {
+            AbilityType type = (AbilityType) data[i];
+            int cooldown = (Integer) data[i + 1];
+            abilities.add(new Ability(type, cooldown, main, boss, boss.getWorld(), 30));
+        }
+        return abilities;
+    }
+
+    private PlayerBuckets categorizePlayers(List<Player> players) {
+        List<Player> center = new ArrayList<>();
+        List<Player> first = new ArrayList<>();
+        List<Player> second = new ArrayList<>();
+        List<Player> third = new ArrayList<>();
+
+        for (Player p : players) {
+            double x = p.getLocation().getX();
+            double z = p.getLocation().getZ();
+            if (x < 10 && x > -10 && z < 10 && z > -10) {
+                center.add(p);
+            } else if (x < 200 && x > -200 && z < 200 && z > -200) {
+                first.add(p);
+            } else if (x < 500 && x > -500 && z < 500 && z > -500) {
+                second.add(p);
+            } else if (x < 750 && x > -750 && z < 750 && z > -750) {
+                third.add(p);
+            }
+        }
+
+        return new PlayerBuckets(center, first, second, third);
+    }
+
+    private record PlayerBuckets(List<Player> center, List<Player> first, List<Player> second, List<Player> third) {
+    }
+
+    @EventHandler
+    public void onCombust(EntityCombustEvent e) {
+        if(e.getEntity().getWorld().getName().equalsIgnoreCase("deathworld")) {
+            if(e.getEntityType() == EntityType.ZOMBIE) {
+                e.setCancelled(true);
+            }
+        }
+    }
+}
