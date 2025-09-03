@@ -1,11 +1,10 @@
 package com.griffem.legionofsins.mechanics.bosses.abilities;
 
-import com.griffem.legionofsins.mechanics.bosses.abilities.Abilities;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ervin
@@ -13,17 +12,17 @@ import java.util.ArrayList;
  */
 public class Wither extends Abilities {
 
-    public Wither(ArrayList<Player> ps) {super(ps, false);}
+    public Wither(List<Player> ps) {super(ps, false);}
 
     @Override
-    public void PlayerCast(Player p) {
+    public void playerCast(Player p) {
         p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 120, 1));
         p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, 0));
         p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 120, 0));
     }
 
     @Override
-    public boolean Cancelled() {
+    public boolean cancelled() {
         return false;
     }
 }

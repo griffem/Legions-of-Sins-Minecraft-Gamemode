@@ -2,30 +2,22 @@ package com.griffem.legionofsins.mechanics.bosses.abilities;
 
 import com.griffem.legionofsins.InfinitePotionEffect;
 import com.griffem.legionofsins.LOSMain;
-import com.griffem.legionofsins.mechanics.bosses.abilities.Abilities;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Emery
- * Date: 4/12/14
- * Time: 8:30 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ZombieSiege extends Abilities {
 
-    public ZombieSiege(ArrayList<Player> ps) {
+    public ZombieSiege(List<Player> ps) {
         super(ps, false);
     }
 
     @Override
-    public void PlayerCast(Player p) {
+    public void playerCast(Player p) {
         if(!p.isSneaking()) {
             if (LOSMain.getRandom().nextInt(20) == 0) {
                 Location l = p.getLocation();
@@ -54,7 +46,7 @@ public class ZombieSiege extends Abilities {
     }
 
     @Override
-    public boolean Cancelled() {
+    public boolean cancelled() {
         return false;
     }
 }

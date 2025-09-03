@@ -11,17 +11,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Emery
- * Date: 4/12/14
- * Time: 9:46 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Officer extends Bosses {
-    public Officer(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
+    public Officer(LivingEntity b, LivingEntity boss, List<Ability> abs, LOSMain p) {
         super(b, // the bat
                 boss, // The boss mob
                 abs, // The list of abiltiies

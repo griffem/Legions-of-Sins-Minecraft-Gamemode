@@ -3,7 +3,7 @@ package com.griffem.legionofsins.mechanics.bosses.abilities;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ervin
@@ -11,32 +11,33 @@ import java.util.ArrayList;
  */
 public class Abilities extends BukkitRunnable {
 
-    private ArrayList<Player> players;
-    private boolean constant;
+    private final List<Player> players;
+    private final boolean constant;
 
-    protected Abilities(ArrayList<Player> ps, boolean c) {
-        players = ps;
-        constant = c;
+    protected Abilities(List<Player> ps, boolean c) {
+        this.players = List.copyOf(ps);
+        this.constant = c;
     }
 
     @Override
     public void run() {
-        if(Cancelled()) {
-            this.cancel();
+        if (cancelled()) {
+            cancel();
+            return;
         }
-        for(Player p : players) {
-            PlayerCast(p);
+        for (Player p : players) {
+            playerCast(p);
         }
-        if(!constant) {
-            this.cancel();
+        if (!constant) {
+            cancel();
         }
     }
 
-    protected void PlayerCast(Player p) {
+    protected void playerCast(Player p) {
 
     }
 
-    protected boolean Cancelled() {
-        return true;
+    protected boolean cancelled() {
+        return false;
     }
 }

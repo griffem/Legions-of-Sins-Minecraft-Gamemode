@@ -8,19 +8,22 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Event that poisons players exposed to the sky while rain falls.
  */
 public class AcidRain extends CatastrophicEvent {
 
+    private static final int LIFETIME = 100;
+    private static final int WARNING_TICKS = 35;
+
     public AcidRain(Location c, double r, double s, World w, Vector d) {
-        super(c, r, s, w, d, "The rain will burn your skin, better find a leaf or two to cover it...");
+        super(c, r, s, w, d, "The rain will burn your skin, better find a leaf or two to cover it...", LIFETIME, WARNING_TICKS, false);
     }
 
     @Override
-    public void onPlayerNear(Player p, Random random) {
+    public void onPlayerNear(Player p, ThreadLocalRandom random) {
         if (isExposedToSky(p)) {
             p.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 120, 1));
         }

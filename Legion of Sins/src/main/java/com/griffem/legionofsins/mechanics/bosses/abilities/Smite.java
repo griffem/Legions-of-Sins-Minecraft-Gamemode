@@ -1,12 +1,11 @@
 package com.griffem.legionofsins.mechanics.bosses.abilities;
 
 import com.griffem.legionofsins.LOSMain;
-import com.griffem.legionofsins.mechanics.bosses.abilities.Abilities;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ervin
@@ -14,10 +13,12 @@ import java.util.ArrayList;
  */
 public class Smite extends Abilities {
 
-    public Smite(ArrayList<Player> ps) {super(ps, false);}
+    public Smite(List<Player> ps) {
+        super(ps, false);
+    }
 
     @Override
-    public void PlayerCast(Player p) {
+    public void playerCast(Player p) {
         World w = p.getWorld();
         Location pLoc = p.getLocation();
         int pX = pLoc.getBlockX();
@@ -34,5 +35,5 @@ public class Smite extends Abilities {
     }
 
     @Override
-    public boolean Cancelled() {return false;}
+    public boolean cancelled() {return false;}
 }

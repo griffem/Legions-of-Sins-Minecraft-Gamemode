@@ -6,62 +6,54 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.BiFunction;
 
 public class EventManager extends BukkitRunnable {
-	private final LOSMain main;
-    public ArrayList<Player> exceptions = new ArrayList<Player>();
 
-	public EventManager(LOSMain p) {
-		this.main = p;
-	}
+    private final LOSMain main;
+    private final Set<Player> exceptions = new HashSet<>();
+    private final List<BiFunction<Player, ThreadLocalRandom, CatastrophicEvent>> events;
 
-	public void run() {
-		Random r = new Random();
-		// Use lowest interface possible
-        ArrayList<Player> ps = new ArrayList<Player>();
-		for (Player p : main.getServer().getOnlinePlayers()) {
-            if (p.getWorld().getName().toLowerCase().contains("main") && !exceptions.contains(p)) ps.add(p);
-            if (exceptions.contains(p)) exceptions.remove(p);
+    public EventManager(LOSMain p) {
+        this.main = p;
+        this.events = List.of(
+            (player, rand) -> new AcidRain(player.getLocation(), rand.nextInt(101) + 50, rand.nextInt(3) + 1,
+                player.getWorld(), new Vector(rand.nextInt(5) - 2, 0, rand.nextInt(5) - 2)),
+            (player, rand) -> new DustStorm(player.getLocation(), rand.nextInt(101) + 50, rand.nextInt(3) + 1,
+                player.getWorld(), new Vector(rand.nextInt(5) - 2, 0, rand.nextInt(5) - 2)),
+            (player, rand) -> new ElectricalStorms(player.getLocation(), rand.nextInt(101) + 50, rand.nextInt(3) + 1,
+                player.getWorld(), new Vector(rand.nextInt(5) - 2, 0, rand.nextInt(5) - 2)),
+            (player, rand) -> new MeteorShowers(player.getLocation(), rand.nextInt(101) + 50, rand.nextInt(3) + 1,
+                player.getWorld(), new Vector(rand.nextInt(5) - 2, 0, rand.nextInt(5) - 2)),
+            (player, rand) -> new MonsterRaid(player.getLocation(), rand.nextInt(101) + 50, rand.nextInt(3) + 1,
+                player.getWorld(), new Vector(rand.nextInt(5) - 2, 0, rand.nextInt(5) - 2))
+        );
+    }
+
+    public void run() {
+        ThreadLocalRandom r = LOSMain.getRandom();
+
+        List<Player> ps = new ArrayList<>();
+        for (Player player : main.getServer().getOnlinePlayers()) {
+            if (player.getWorld().getName().toLowerCase().contains("main") && !exceptions.contains(player)) {
+                ps.add(player);
+            }
+            exceptions.remove(player);
         }
+        exceptions.removeIf(p -> !p.isOnline());
 
-		if (ps.size() <= 0) return;
+        if (ps.isEmpty()) return;
 
-		Player p = ps.get(r.nextInt(ps.size()));
-		int i = r.nextInt(8);
+        Player p = ps.get(r.nextInt(ps.size()));
 
-        switch (i) {
-            case 0:
-                new AcidRain(p.getLocation(),
-                                r.nextInt(101) + 50, r.nextInt(3) + 1,
-                                p.getWorld(),
-                                new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
-                break;
-            case 1:
-                new DustStorm(p.getLocation(),
-                        r.nextInt(101) + 50, r.nextInt(3) + 1,
-                        p.getWorld(),
-                        new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
-                        break;
-            case 2:
-                new ElectricalStorms(p.getLocation(),
-                       r.nextInt(101) + 50, r.nextInt(3) + 1,
-                       p.getWorld(),
-                       new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
-                   break;
-            case 3:
-                new MeteorShowers(p.getLocation(),
-                       r.nextInt(101) + 50, r.nextInt(3) + 1,
-                       p.getWorld(),
-                       new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
-                   break;
-            case 4:
-                new MonsterRaid(p.getLocation(),
-                        r.nextInt(101) + 50, r.nextInt(3) + 1,
-                        p.getWorld(),
-                        new Vector(r.nextInt(5) - 2, 0, r.nextInt(5) - 2)).runTaskTimer(this.main, 20L, 5L);
-                break;
-        }
-	}
+        events.get(r.nextInt(events.size())).apply(p, r).runTaskTimer(this.main, 20L, 5L);
+    }
+
+    public void addException(Player p) {
+        exceptions.add(p);
+    }
 }

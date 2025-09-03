@@ -8,15 +8,18 @@ import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MonsterRaid extends CatastrophicEvent {
-	public MonsterRaid(Location c, double r, double s, World w, Vector d) {
-		super(c, r, s, w, d, "Brace the sneak, the zombie army sieges.");
-	}
+        private static final int LIFETIME = 100;
+        private static final int WARNING_TICKS = 35;
 
-	@Override
-        public void onPlayerNear(Player p, Random random) {
+        public MonsterRaid(Location c, double r, double s, World w, Vector d) {
+                super(c, r, s, w, d, "Brace the sneak, the zombie army sieges.", LIFETIME, WARNING_TICKS, false);
+        }
+
+        @Override
+        public void onPlayerNear(Player p, ThreadLocalRandom random) {
         if(!p.isSneaking()) {
             if (LOSMain.getRandom().nextInt(10) == 0) {
                 Location l = new Location(this.world, this.range, this.range, this.range);
@@ -30,5 +33,5 @@ public class MonsterRaid extends CatastrophicEvent {
                 a.addPotionEffect(new InfinitePotionEffect(PotionEffectType.WEAKNESS, 2));
             }
         }
-	}
+        }
 }

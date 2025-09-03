@@ -3,21 +3,14 @@ package com.griffem.legionofsins.mechanics.bosses.abilities;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Emery
- * Date: 4/12/14
- * Time: 4:35 PM
- * To change this template use File | Settings | File Templates.
- */
 public class CultOfTheFeather extends Abilities {
 
-    public CultOfTheFeather(ArrayList<Player> ps) {super(ps, false);}
+    public CultOfTheFeather(List<Player> ps) {super(ps, false);}
 
     @Override
-    public void PlayerCast(Player p) {
+    public void playerCast(Player p) {
         p.getLocation().getBlock().setType(Material.FIRE);
         p.getLocation().add(1, 0, 0).getBlock().setType(Material.FIRE);
         p.getLocation().add(-1, 0, 0).getBlock().setType(Material.FIRE);
@@ -26,7 +19,7 @@ public class CultOfTheFeather extends Abilities {
     }
 
     @Override
-    public boolean Cancelled() {
+    public boolean cancelled() {
         return false;
     }
 }

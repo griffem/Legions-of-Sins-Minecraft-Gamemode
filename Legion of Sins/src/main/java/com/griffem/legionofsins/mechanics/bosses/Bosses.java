@@ -15,16 +15,9 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Emery
- * Date: 4/12/14
- * Time: 9:46 PM
- * To change this template use File | Settings | File Templates.
- */
-public class Bosses extends BukkitRunnable implements Listener {
-    private ArrayList<Ability> abilities;
+    private final List<Ability> abilities;
     private LivingEntity bat;
     private LivingEntity boss;
     private int AbilityUse;
@@ -34,7 +27,7 @@ public class Bosses extends BukkitRunnable implements Listener {
     private boolean floating;
 
 
-    protected Bosses(LivingEntity b, LivingEntity bo, ArrayList<Ability> abs, int au, int r, LOSMain p, boolean fl, int health) {
+    protected Bosses(LivingEntity b, LivingEntity bo, List<Ability> abs, int au, int r, LOSMain p, boolean fl, int health) {
         bat = b;
         boss = bo;
         abilities = abs;
@@ -70,9 +63,9 @@ public class Bosses extends BukkitRunnable implements Listener {
 
     private void UseAbility() {
          if(AbilityUseCD == 0) {
-             ArrayList<Ability> abs = Abilities();
-             if(abs.size() > 0) {
-                 abs.get(LOSMain.getRandom().nextInt(abs.size())).Cast();
+             List<Ability> abs = availableAbilities();
+             if(!abs.isEmpty()) {
+                 abs.get(LOSMain.getRandom().nextInt(abs.size())).cast();
                  AbilityUseCD += AbilityUse;
              }
          } else {
@@ -80,11 +73,11 @@ public class Bosses extends BukkitRunnable implements Listener {
          }
     }
 
-    private ArrayList<Ability> Abilities() {
-        ArrayList<Ability> abs = new ArrayList<Ability>();
-        for(int i = 0; i < abilities.size(); i++) {
-            if(abilities.get(i).GetState()) {
-                abs.add(abilities.get(i));
+    private List<Ability> availableAbilities() {
+        List<Ability> abs = new ArrayList<>();
+        for (Ability ability : abilities) {
+            if (ability.isActive()) {
+                abs.add(ability);
             }
         }
         return abs;

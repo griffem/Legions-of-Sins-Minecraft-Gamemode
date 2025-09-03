@@ -6,14 +6,14 @@ import org.bukkit.entity.Chicken;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ervin
  * on 4/13/2014
  */
 public class Commander extends Bosses {
-    public Commander(LivingEntity b, LivingEntity boss, ArrayList<Ability> abs, LOSMain p) {
+    public Commander(LivingEntity b, LivingEntity boss, List<Ability> abs, LOSMain p) {
         super(b, // the bat
                 boss, // The boss mob
                 abs, // The list of abiltiies

@@ -9,19 +9,22 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Event that blinds and withers players caught out in the open during a dust storm.
  */
 public class DustStorm extends CatastrophicEvent {
 
+    private static final int LIFETIME = 100;
+    private static final int WARNING_TICKS = 35;
+
     public DustStorm(Location c, double r, double s, World w, Vector d) {
-        super(c, r, s, w, d, "A dust storm is coming, better take cover...");
+        super(c, r, s, w, d, "A dust storm is coming, better take cover...", LIFETIME, WARNING_TICKS, false);
     }
 
     @Override
-    public void onPlayerNear(Player p, Random random) {
+    public void onPlayerNear(Player p, ThreadLocalRandom random) {
         if (isSheltered(p)) return;
 
         p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 120, 1));
