@@ -1,6 +1,6 @@
 name: LegionOfSins
-main: me.waternode.server.legion.of.sins.LOSMain
+main: com.griffem.legionofsins.LOSMain
 version: 2.0
 authors: [iTornado1234, WaterNode, Geroge]
 description: The Legion of Sins plugin!
-load: STARTUP
+api-version: '1.21'
