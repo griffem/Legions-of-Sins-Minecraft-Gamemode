@@ -7,65 +7,60 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-
-/**
- * Created with IntelliJ IDEA.
- * User: Emery
- * Date: 4/12/14
- * Time: 9:56 PM
- * To change this template use File | Settings | File Templates.
- */
+import java.util.List;
 public class Ability extends BukkitRunnable {
-    AbilityType ability;
-    LOSMain main;
-    LivingEntity boss;
-    int cooldownAmt;
-    int cooldown = 0;
-    World world;
-    int range;
-    boolean active = true;
+
+    private final AbilityType ability;
+    private final LOSMain main;
+    private final LivingEntity boss;
+    private final int cooldownAmt;
+    private int cooldown = 0;
+    private final World world;
+    private final int range;
+    private boolean active = true;
 
     public Ability(int cd, LivingEntity b) {
-        cooldownAmt = cd;
-        boss = b;
+        this(null, cd, null, b, null, 0);
     }
 
     public Ability(AbilityType a, int cd, LOSMain p, LivingEntity b, World w, int r) {
-        ability = a;
-        cooldownAmt = cd;
-        main = p;
-        boss = b;
-        world = w;
-        range = r;
+        this.ability = a;
+        this.cooldownAmt = cd;
+        this.main = p;
+        this.boss = b;
+        this.world = w;
+        this.range = r;
     }
 
     @Override
     public void run() {
-        if(cooldown > 0) {
+        if (cooldown > 0) {
             cooldown--;
         } else {
             active = true;
         }
     }
 
-    public boolean Cast() {
-        if(active) {
-            ArrayList<Player> ps = new ArrayList<Player>();
-            for (Player p : main.getServer().getOnlinePlayers())
-                if (p.getWorld().getName().equalsIgnoreCase(world.getName())) ps.add(p);
-            ps = ability.getPlayers(boss.getLocation(), range, ps);
-            if(ps.size() > 0) {
-                ability.getValue(ps).runTaskTimer(this.main, 0L, 20L);
-                active = false;
-                cooldown += cooldownAmt;
-                return true;
-            }
+    public boolean cast() {
+        if (!active) {
+            return false;
         }
+
+        var nearby = world.getPlayers().stream()
+            .filter(p -> boss.getLocation().distanceSquared(p.getLocation()) <= range * range)
+            .toList();
+
+        if (!nearby.isEmpty()) {
+            ability.getValue(nearby, main).runTaskTimer(main, 0L, 20L);
+            active = false;
+            cooldown += cooldownAmt;
+            return true;
+        }
+
         return false;
     }
 
-    public boolean GetState() {
+    public boolean isActive() {
         return active;
     }
 }

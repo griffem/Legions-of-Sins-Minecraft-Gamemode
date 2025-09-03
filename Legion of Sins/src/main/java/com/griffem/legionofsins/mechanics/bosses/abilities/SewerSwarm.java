@@ -14,21 +14,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Emery
- * Date: 4/12/14
- * Time: 4:35 PM
- * To change this template use File | Settings | File Templates.
- */
 public class SewerSwarm extends Abilities implements Listener {
     // In Seconds
     private int duration;
-    private World world;
+    private final World world;
 
-    public SewerSwarm(ArrayList<Player> ps, int d, LOSMain p) {
+    public SewerSwarm(List<Player> ps, int d, LOSMain p) {
         super(ps, true);
         duration = d;
         world = ps.get(0).getWorld();
@@ -36,7 +29,7 @@ public class SewerSwarm extends Abilities implements Listener {
     }
 
     @Override
-    public void PlayerCast(Player p) {
+    public void playerCast(Player p) {
         if(!p.isSneaking()) {
             if (LOSMain.getRandom().nextBoolean()) {
                 Location l = p.getLocation();
@@ -51,7 +44,7 @@ public class SewerSwarm extends Abilities implements Listener {
     }
 
     @Override
-    public boolean Cancelled() {
+    public boolean cancelled() {
         duration--;
         if(duration == 0) {
             HandlerList.unregisterAll(this);

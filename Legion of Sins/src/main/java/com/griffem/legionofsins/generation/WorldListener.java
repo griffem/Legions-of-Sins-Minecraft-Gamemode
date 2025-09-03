@@ -75,7 +75,7 @@ public class WorldListener implements Listener {
                     p.teleport(l);
                     p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 450, 5));
                     p.sendMessage(ChatColor.DARK_GREEN + "Don't worry, you will land safely.");
-                    LOSMain.getInstance().getEvents().exceptions.add(p);
+                    LOSMain.getInstance().getEvents().addException(p);
                 }
             } else if (e.getLocation().getWorld().getName().equalsIgnoreCase("main")) {
                 if(LOSMain.getRandom().nextBoolean()) {

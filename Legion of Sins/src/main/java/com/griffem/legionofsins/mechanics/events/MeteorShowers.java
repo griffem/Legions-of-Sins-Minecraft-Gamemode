@@ -6,17 +6,20 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import org.bukkit.entity.Entity;
 
 public class MeteorShowers extends CatastrophicEvent {
 
-	public MeteorShowers(Location c, double r, double s, World w, Vector d) {
-		super(c, r, s, w, d, "Run, the meteors arrive.");
-	}
+        private static final int LIFETIME = 100;
+        private static final int WARNING_TICKS = 35;
 
-	@Override
-        public void onPlayerNear(Player p, Random random) {
+        public MeteorShowers(Location c, double r, double s, World w, Vector d) {
+                super(c, r, s, w, d, "Run, the meteors arrive.", LIFETIME, WARNING_TICKS, false);
+        }
+
+        @Override
+        public void onPlayerNear(Player p, ThreadLocalRandom random) {
 		// 4 times a second / 4 = ~1 time per second
 		if (random.nextInt(6) != 0) return;
         if (p.getWorld().getHighestBlockYAt(p.getLocation()) - 5 >= p.getLocation().getY()) return;

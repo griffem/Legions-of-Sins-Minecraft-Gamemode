@@ -1,30 +1,21 @@
 package com.griffem.legionofsins.chance;
 
-import lombok.Data;
 import com.griffem.legionofsins.LOSMain;
 
 /**
- * <p/>
- * Latest Change:
- * <p/>
- *
- * @author George
- * @since 11/04/14
+ * Represents a simple probability fraction.
  */
-@Data
-public class Fraction {
-	private final Integer numerator;
-	private final Integer denominator;
-	/**
-	 * Returns true if the probability is achieved
-	 * <p>
-	 *     Example: getChance(new Fraction(1,5);
-	 *              Has 1 in 5 chance of returning true
-	 * </p>
-	 * @param fraction ~ The probability fraction
-	 * @return true if the probability is achieved
-	 */
-	public static Boolean getChance(Fraction fraction) {
-		return LOSMain.getRandom().nextInt(fraction.getDenominator()) <= fraction.getNumerator()-1;
-	}
+public record Fraction(int numerator, int denominator) {
+
+    public static final Fraction HALF = new Fraction(1, 2);
+    public static final Fraction QUARTER = new Fraction(1, 4);
+
+    /**
+     * Rolls this fraction using the plugin's shared random instance.
+     *
+     * @return {@code true} when the roll succeeds
+     */
+    public boolean roll() {
+        return LOSMain.getRandom().nextInt(denominator) < numerator;
+    }
 }

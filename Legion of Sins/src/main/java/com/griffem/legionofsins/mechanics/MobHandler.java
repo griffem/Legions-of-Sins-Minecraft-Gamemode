@@ -56,14 +56,14 @@ public class MobHandler implements Listener {
         }
 
         if (hitEntity instanceof Pig pig) {
-            if (Fraction.getChance(new Fraction(1, 2))) {
+            if (Fraction.HALF.roll()) {
                 pig2Zombie(pig);
             }
             return;
         }
 
         if (hitEntity instanceof Sheep sheep) {
-            if (Fraction.getChance(new Fraction(1, 2))) {
+            if (Fraction.HALF.roll()) {
                 spawnBuffedCaveSpider(sheep);
                 playSoundAt(sheep, Sound.ENTITY_SPIDER_DEATH);
                 sheep.setHealth(0);
@@ -72,7 +72,7 @@ public class MobHandler implements Listener {
         }
 
         if (hitEntity instanceof Chicken chicken) {
-            if (Fraction.getChance(new Fraction(1, 4))) {
+            if (Fraction.QUARTER.roll()) {
                 spawnPrimedTnt(chicken.getLocation(), 6);
                 playSoundAt(chicken, Sound.ENTITY_PLAYER_BURP);
                 chicken.setHealth(0);
@@ -81,7 +81,7 @@ public class MobHandler implements Listener {
         }
 
         if (hitEntity instanceof Cow cow) {
-            if (Fraction.getChance(new Fraction(1, 2))) {
+            if (Fraction.HALF.roll()) {
                 transformCow(cow);
                 cow.setHealth(0);
             }
@@ -185,7 +185,7 @@ public class MobHandler implements Listener {
 
     private void transformCow(Cow cow) {
         ThreadLocalRandom r = LOSMain.getRandom();
-        if (Fraction.getChance(new Fraction(1, 2))) {
+        if (Fraction.HALF.roll()) {
             CaveSpider spider = (CaveSpider) cow.getWorld().spawnEntity(cow.getLocation(), EntityType.CAVE_SPIDER);
             List<PotionEffect> ps = List.of(
                 new InfinitePotionEffect(PotionEffectType.SPEED, r.nextInt(3)),

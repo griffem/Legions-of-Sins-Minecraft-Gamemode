@@ -5,16 +5,19 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ElectricalStorms extends CatastrophicEvent {
 
-	public ElectricalStorms(Location c, double r, double s, World w, Vector d) {
-		super(c, r, s, w, d, "The lightning goes boom, I would take cover.");
-	}
+        private static final int LIFETIME = 100;
+        private static final int WARNING_TICKS = 35;
 
-	@Override
-        public void onPlayerNear(Player p, Random random) {
+        public ElectricalStorms(Location c, double r, double s, World w, Vector d) {
+                super(c, r, s, w, d, "The lightning goes boom, I would take cover.", LIFETIME, WARNING_TICKS, false);
+        }
+
+        @Override
+        public void onPlayerNear(Player p, ThreadLocalRandom random) {
 		// 4 times a second / 2 = ~2 times per second
 		World w = p.getWorld();
 		Location pLoc = p.getLocation();

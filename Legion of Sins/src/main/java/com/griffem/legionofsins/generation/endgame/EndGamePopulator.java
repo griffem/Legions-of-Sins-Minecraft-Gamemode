@@ -11,13 +11,6 @@ import org.bukkit.generator.BlockPopulator;
 
 import java.util.Random;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Emery
- * Date: 4/10/14
- * Time: 8:00 AM
- * To change this template use File | Settings | File Templates.
- */
 public class EndGamePopulator extends BlockPopulator {
 
     @Override
